@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_mapa"
+        android:icon="@drawable/dashboard"
+        android:title="Mapa" />
+
+    <item
+        android:id="@+id/navigation_estadisticas"
+        android:icon="@drawable/ic_001_arrow"
+        android:title="@string/title_dashboard" />
+
+    <item
+        android:id="@+id/navigation_veeduria"
+        android:icon="@drawable/ic_003_eye"
+        android:title="Veeduría" />
+
+    <item
+        android:id="@+id/navigation_configuracion"
+        android:icon="@drawable/settings"
+        android:title="Ajustes" />
+
+</menu>

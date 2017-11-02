@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "141062154051",
+    "firebase_url": "https://login-cbc3c.firebaseio.com",
+    "project_id": "login-cbc3c",
+    "storage_bucket": "login-cbc3c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:141062154051:android:95005d9adba02b27",
+        "android_client_info": {
+          "package_name": "com.example.mac.lacus"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "141062154051-97jvqv0jl8cso8gvsmvrqpfrug1u38q9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mac.lacus",
+            "certificate_hash": "d158d694b5a0c78a9aaf0f9a95284677c0f5f49f"
+          }
+        },
+        {
+          "client_id": "141062154051-sbaig902a85octphbip4949o3j4amnct.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mac.lacus",
+            "certificate_hash": "5cf9799ab7052138b8903e5bedc353b72a7f31a8"
+          }
+        },
+        {
+          "client_id": "141062154051-a6hcbcjfmnr9dcv1ucdd3f75mtdo2omc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCROzcP8tfXt5ATB2cJ2vvqjf7HwZXN8-4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "141062154051-a6hcbcjfmnr9dcv1ucdd3f75mtdo2omc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
