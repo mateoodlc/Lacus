@@ -195,7 +195,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.forgotpassword) {
-            startActivity(new Intent(this, ForgotPassword.class));
+            startActivity(new Intent(this, Marcador.class));
             finish();
         } else if (v.getId() == R.id.needaccount) {
             startActivity(new Intent(this, Sign_up.class));

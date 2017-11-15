@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="0dp"
+    tools:context="com.example.mac.lacus.Marcador">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="10dp"
+        app:navigationIcon="@drawable/ic_back_arrow2"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:title="Marcador" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:paddingRight="70dp"
+        android:paddingLeft="70dp"
+        android:layout_marginTop="70dp"
+        android:orientation="vertical"
+        android:id="@+id/relativeLayout">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true">
+            <TextView
+                android:id="@+id/caso"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="¿Qué problema evidenciaste en este punto?"
+                android:textAlignment="center"
+                android:layout_below="@+id/categoriaImg"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="18dp" />
+
+
+            <!--  -->
+
+            <ImageView
+                android:id="@+id/categoriaImg"
+                android:layout_width="95dp"
+                android:layout_height="95dp"
+                android:padding="10dp"
+                app:srcCompat="@drawable/ic_culture"
+                android:layout_below="@+id/titulo"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp" />
+
+            <TextView
+                android:id="@+id/problema"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Problema"
+                android:textAlignment="center"
+                android:layout_marginTop="22dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true" />
+
+
+            <TextView
+                android:id="@+id/titulo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:text="Cultura"
+                android:textSize="20dp"
+                android:layout_marginTop="15dp"
+                android:layout_below="@+id/problema"
+                android:layout_centerHorizontal="true" />
+
+            <Button
+                android:id="@+id/boton1"
+                style="@style/Base.Widget.AppCompat.Button.Borderless"
+                android:layout_width="match_parent"
+                android:layout_height="120px"
+                android:layout_marginTop="23dp"
+                android:background="@drawable/roundedbuttonseleccionar"
+                android:onClick="onClick"
+                android:text="Falta de Señalización"
+                android:textAllCaps="false"
+                android:textColor="#fff"
+                android:layout_below="@+id/caso"
+                android:layout_alignParentStart="true" />
+
+            <Button
+                android:id="@+id/boton2"
+                style="@style/Base.Widget.AppCompat.Button.Borderless"
+                android:layout_width="match_parent"
+                android:layout_height="120px"
+                android:layout_marginTop="23dp"
+                android:background="@drawable/roundedbuttonseleccionar"
+                android:onClick="onClick"
+                android:text="Mala Señalización"
+                android:textAllCaps="false"
+                android:textColor="#fff"
+                android:layout_below="@+id/boton1"
+                android:layout_alignParentStart="true" />
+
+            <Button
+                android:id="@+id/boton3"
+                style="@style/Base.Widget.AppCompat.Button.Borderless"
+                android:layout_width="match_parent"
+                android:layout_height="120px"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/boton2"
+                android:layout_marginTop="23dp"
+                android:background="@drawable/roundedbuttonseleccionar"
+                android:onClick="onClick"
+                android:text="Sin separación de vías"
+                android:textAllCaps="false"
+                android:textColor="#fff" />
+
+        </RelativeLayout>
+    </ScrollView>
+
+
+</RelativeLayout>

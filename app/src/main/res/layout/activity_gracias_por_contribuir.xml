@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="0dp"
+    tools:context="com.example.mac.lacus.Marcador">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="10dp"
+        app:navigationIcon="@drawable/ic_dialog_close_light"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+       />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:paddingRight="70dp"
+        android:paddingLeft="70dp"
+        android:layout_marginTop="70dp"
+        android:orientation="vertical"
+        android:id="@+id/relativeLayout">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true">
+
+            <TextView
+                android:id="@+id/titulo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/problema"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="15dp"
+                android:fontFamily="sans-serif"
+                android:text="¡GRACIAS POR CONTRIBUIR!"
+                android:textAlignment="center"
+                android:textStyle="normal"
+                android:textSize="20dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:id="@+id/layout"
+                android:layout_margin="10dp"
+                android:background="#ffffff"
+                android:layout_below="@+id/titulo"
+                android:elevation="4dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    android:text="Name"
+                    android:textAlignment="gravity"
+                    android:ems="10"
+                    android:textSize="15dp"
+                    android:id="@+id/ubicacion"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginTop="12dp" />
+
+
+            </RelativeLayout>
+
+            <!--  -->
+
+            <ImageView
+                android:id="@+id/categoriaImg"
+                android:layout_width="95dp"
+                android:layout_height="95dp"
+                android:padding="10dp"
+                app:srcCompat="@drawable/ic_culture"
+                android:layout_marginTop="67dp"
+                android:layout_below="@+id/titulo"
+                android:layout_centerHorizontal="true" />
+
+
+            <TextView
+                android:id="@+id/caso"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/categoriaImg"
+                android:layout_marginTop="18dp"
+                android:text="CASO"
+                android:textStyle="bold"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/tipoCaso"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/caso"
+                android:layout_marginTop="8dp"
+                android:text="Mala señalización"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/contribucion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/tipoCaso"
+                android:layout_marginTop="18dp"
+                android:text="Los datos recolectados irán a nuestra base de datos, ¡continúa aportando!"
+                android:textStyle="bold"
+                android:textAlignment="center" />
+
+            <Button
+                android:id="@+id/continuar"
+                style="@style/Base.Widget.AppCompat.Button.Borderless"
+                android:layout_width="match_parent"
+                android:layout_height="120px"
+                android:layout_marginTop="23dp"
+                android:onClick="onClick"
+                android:text="Continuar"
+                android:textAllCaps="false"
+                android:textSize="20dp"
+                android:textColor="#8BC34A"
+                android:layout_below="@+id/contribucion"
+                android:layout_alignParentStart="true" />
+
+        </RelativeLayout>
+    </ScrollView>
+
+
+</RelativeLayout>
