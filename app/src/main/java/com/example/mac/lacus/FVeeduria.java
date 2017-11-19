@@ -82,7 +82,6 @@ public class FVeeduria extends Fragment {
             mListener = (OnFragmentInteractionListener) context;
         } else {
             Toast.makeText(context, "Veeduría", Toast.LENGTH_SHORT).show();
-
         }
     }
 

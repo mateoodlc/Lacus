@@ -16,7 +16,7 @@
         android:layout_marginBottom="10dp"
         app:navigationIcon="@drawable/ic_back_arrow2"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:title="Settings" />
+        app:title="Marcador" />
 
     <RelativeLayout
         android:layout_width="match_parent"
