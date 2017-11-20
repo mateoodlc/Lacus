@@ -27,7 +27,7 @@ public class MyAdapter extends FragmentPagerAdapter {
     Context context;
     private int itemCount = 6;
 
-    public MyAdapter(FragmentManager fm, Context context) {
+    public MyAdapter(Context context, FragmentManager fm) {
         super(fm);
         this.context = context;
     }

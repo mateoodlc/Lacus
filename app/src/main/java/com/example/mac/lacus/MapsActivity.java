@@ -221,10 +221,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     //BottomNavigationViewHelper.disableShiftMode(navigation);
                     return true;
                 case R.id.navigation_veeduria:
-                   // transaction.replace(R.id.content, new FVeeduria()).commit();
-                    Intent intent = new Intent(MapsActivity.this, Veeduria.class);
-                    startActivity(intent);
-                    finish();
+                    transaction.replace(R.id.content, new FVeeduria()).commit();
+                   // Intent intent = new Intent(MapsActivity.this, Veeduria.class);
+                    //startActivity(intent);
+                    //  finish();
                     buttonComenzarRuta.setVisibility(View.INVISIBLE); //To set invisible
                     buttonMarcarDenuncia.setVisibility(View.INVISIBLE); //To set invisible
                     //BottomNavigationViewHelper.disableShiftMode(navigation);

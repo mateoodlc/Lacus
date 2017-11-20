@@ -36,7 +36,7 @@ public class Veeduria extends AppCompatActivity {
 
 
         mPager = (ViewPager) findViewById(R.id.view_pager);
-        mPager.setAdapter(new MyAdapter(getSupportFragmentManager(), this));
+        mPager.setAdapter(new MyAdapter(this, getSupportFragmentManager()));
 
         mTabLayout = (TabLayout) findViewById(R.id.tab_layout);
         mTabLayout.setupWithViewPager(mPager);
