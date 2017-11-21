@@ -11,12 +11,25 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
+        android:background="#fff"
         android:layout_alignParentTop="true"
-        android:layout_marginBottom="10dp"
         app:navigationIcon="@drawable/ic_back_arrow2"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:title="Marcador" />
+        />
+
+    <TextView
+        android:id="@+id/titulo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="MARCADOR"
+        android:textAlignment="center"
+        android:paddingBottom="20dp"
+        android:textStyle="bold"
+        android:textColor="#000"
+        android:textSize="22sp"
+        android:background="#fff"
+        android:layout_below="@id/toolbar"
+        />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -25,7 +38,7 @@
         android:layout_alignParentStart="true"
         android:paddingRight="70dp"
         android:paddingLeft="70dp"
-        android:background="@android:drawable/dialog_holo_light_frame"
+        android:background="@drawable/veeduria_card"
         android:orientation="vertical">
     <RelativeLayout
         android:layout_width="match_parent"

@@ -28,7 +28,7 @@ public class SeleccionarProblema extends AppCompatActivity implements View.OnCli
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seleccionar_problema);
-        categoriaTxt = (TextView) findViewById(R.id.titulo);
+        categoriaTxt = (TextView) findViewById(R.id.categoriaTxt);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
