@@ -5,17 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingTop="0dp"
+    android:background="#00ffffff"
     tools:context="com.example.mac.lacus.Marcador">
 
-    <android.support.v7.widget.Toolbar
+    <include
+        layout="@layout/toolbar_marcador"
         android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#fff"
-        android:layout_alignParentTop="true"
-        app:navigationIcon="@drawable/ic_back_arrow2"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        />
+        ></include>
 
     <TextView
         android:id="@+id/titulo"
@@ -45,7 +41,7 @@
         android:layout_height="match_parent"
 >
         <TextView
-            android:id="@+id/caso"
+            android:id="@+id/nombre"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -57,7 +53,7 @@
             android:id="@+id/infraestructura"
             android:layout_width="95dp"
             android:layout_height="95dp"
-            android:layout_below="@+id/caso"
+            android:layout_below="@+id/nombre"
             android:layout_marginTop="15dp"
             android:padding="10dp"
             android:textAlignment="center"
@@ -81,7 +77,7 @@
             android:id="@+id/senales"
             android:layout_width="95dp"
             android:layout_height="95dp"
-            android:layout_alignEnd="@+id/caso"
+            android:layout_alignEnd="@+id/nombre"
             android:layout_alignParentRight="true"
             android:layout_alignTop="@+id/infraestructura"
             android:padding="15dp"

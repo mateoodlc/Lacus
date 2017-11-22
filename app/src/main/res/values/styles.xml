@@ -5,7 +5,7 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">#0288D1</item>
-        <item name="android:statusBarColor">#0288D1</item>
+        <item name="android:statusBarColor">@color/topBar</item>
 
         <item name="colorAccent">@color/colorAccent</item>
     </style>

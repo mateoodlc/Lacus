@@ -40,6 +40,7 @@ public class Marcador extends AppCompatActivity implements View.OnClickListener{
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {

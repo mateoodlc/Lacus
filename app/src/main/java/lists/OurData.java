@@ -1,7 +1,9 @@
 package lists;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.mac.lacus.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -28,7 +30,10 @@ public class OurData {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     CollectionReference username = db.collection("usuarios");
 
-    public OurData(){
+    Context context;
+
+    public OurData(Context context){
+        this.context = context;
         addData();
     }
 
@@ -43,6 +48,7 @@ public class OurData {
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     public void onSuccess(DocumentReference documentReference) {
                         Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+                        Toast.makeText(context, "Hey, funciono :D", Toast.LENGTH_SHORT).show();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {

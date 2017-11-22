@@ -85,7 +85,7 @@
 
 
             <TextView
-                android:id="@+id/caso"
+                android:id="@+id/nombre"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
@@ -100,7 +100,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
-                android:layout_below="@+id/caso"
+                android:layout_below="@+id/nombre"
                 android:layout_marginTop="8dp"
                 android:text="Mala señalización"
                 android:textAlignment="center" />

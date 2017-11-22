@@ -35,7 +35,7 @@ public class NorteFragment extends Fragment {
         View view = inflater.inflate(R.layout.norte_fragment, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.my_recycler_view);
 
-        ListAdapter listAdapter = new ListAdapter();
+        ListAdapter listAdapter = new ListAdapter(getContext());
         recyclerView.setAdapter(listAdapter);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);

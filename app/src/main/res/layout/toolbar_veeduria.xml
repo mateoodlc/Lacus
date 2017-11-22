@@ -4,8 +4,21 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#fff"
-    app:navigationIcon="@drawable/ic_dialog_close_light"
     app:popupTheme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-    app:title="Veeduría">
+    >
+
+    <TextView
+        android:id="@+id/titulo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="VEEDURÍA"
+        android:textAlignment="center"
+        android:textColor="#000"
+        android:textSize="22sp"
+        android:layout_marginTop="10dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:layout_toRightOf="@id/app_toolbar"
+        />
 
 </android.support.v7.widget.Toolbar>

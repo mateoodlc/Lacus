@@ -6,4 +6,7 @@
 
     <color name="unselectedTab">#fff</color>
     <color name="selectedTab">#8BC34A</color>
+
+    <color name="topBar">#8BC34A</color>
+
 </resources>
