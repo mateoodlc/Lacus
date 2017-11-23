@@ -136,11 +136,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     /**
-     * BASE DE DATOS
+     * BASE DE DATOS.
      */
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myRef = database.getReference("message");
-
 
     /**
      * CONSTANTES.
@@ -260,9 +258,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         BottomNavigationViewHelper.disableShiftMode(navigation);
 
-
-        myRef.setValue("Hello, World!");
-
+        /**
+         * MATEO. Inicialización de los fragments.
+         */
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -334,7 +332,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         /**
          * Botones.
          */
-
 
         buttonComenzarRuta.setOnClickListener(new View.OnClickListener() {
             @Override
