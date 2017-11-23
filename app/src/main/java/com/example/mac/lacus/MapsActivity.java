@@ -138,6 +138,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     /**
      * BASE DE DATOS.
      */
+
     FirebaseDatabase database = FirebaseDatabase.getInstance();
 
     /**
@@ -253,7 +254,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.content);
         mapFragment.getMapAsync(this);
 
-        buttonComenzarRuta = (Button) findViewById(R.id.button_comenzar_ruta);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         BottomNavigationViewHelper.disableShiftMode(navigation);
@@ -333,6 +333,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
          * Botones.
          */
 
+        buttonComenzarRuta = (Button) findViewById(R.id.button_comenzar_ruta);
         buttonComenzarRuta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -450,6 +451,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     }
 
+    // Método inicializador para actualizar la ubicación del usuario.
     private void createLocationCallback() {
 
         // "Receiving Location Updates".
@@ -469,92 +471,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     }
 
-    private void buildLocationSettingsRequest() {
+    // Método para actualizar la ubicación.
+    private void actualizarMarcadorUsuario() {
 
-        LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder();
-        builder.addLocationRequest(mLocationRequest);
-        mLocationSettingsRequest = builder.build();
-
-    }
-
-    // "Receiving Location Updates".
-    private void startLocationUpdates() {
-
-        // Begin by checking if the device has the necessary location settings.
-        mSettingsClient.checkLocationSettings(mLocationSettingsRequest)
-                .addOnSuccessListener(this, new OnSuccessListener<LocationSettingsResponse>() {
-                    @Override
-                    public void onSuccess(LocationSettingsResponse locationSettingsResponse) {
-                        Log.i(TAG, "All location settings are satisfied.");
-
-                        //noinspection MissingPermission
-                        mFusedLocationClient.requestLocationUpdates(mLocationRequest,
-                                mLocationCallback, Looper.myLooper());
-
-                        actualizarMarcadorUsuario();
-                    }
-                })
-                .addOnFailureListener(this, new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        int statusCode = ((ApiException) e).getStatusCode();
-                        switch (statusCode) {
-                            case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
-                                Log.i(TAG, "Location settings are not satisfied. Attempting to upgrade " +
-                                        "location settings ");
-                                try {
-                                    // Show the dialog by calling startResolutionForResult(), and check the
-                                    // result in onActivityResult().
-                                    ResolvableApiException rae = (ResolvableApiException) e;
-                                    rae.startResolutionForResult(MapsActivity.this, REQUEST_CHECK_SETTINGS);
-                                } catch (IntentSender.SendIntentException sie) {
-                                    Log.i(TAG, "PendingIntent unable to execute request.");
-                                }
-                                break;
-                            case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
-                                String errorMessage = "Location settings are inadequate, and cannot be " +
-                                        "fixed here. Fix in Settings.";
-                                Log.e(TAG, errorMessage);
-                                Toast.makeText(MapsActivity.this, errorMessage, Toast.LENGTH_LONG).show();
-                                mRequestingLocationUpdates = false;
-                        }
-
-                        actualizarMarcadorUsuario();
-                    }
-                });
+        //onMapReady(mMap);
+        obtenerUltimaUbicacion();
 
     }
 
-    // "Receiving Location Updates".
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        outState.putBoolean(REQUESTING_LOCATION_UPDATES_KEY,
-                mRequestingLocationUpdates);
-        // ...
-        super.onSaveInstanceState(outState);
-    }
-
-    // "Receiving Location Updates".
-    private void updateValuesFromBundle(Bundle savedInstanceState) {
-        if (savedInstanceState != null) {
-            // Update the value of mRequestingLocationUpdates from the Bundle.
-            if (savedInstanceState.keySet().contains(REQUESTING_LOCATION_UPDATES_KEY)) {
-                mRequestingLocationUpdates = savedInstanceState.getBoolean(
-                        REQUESTING_LOCATION_UPDATES_KEY);
-            }
-
-            // ...
-
-            // Update UI to match restored state
-            actualizarMarcadorUsuario();
-        }
-    }
-
-    // "Receiving Location Updates".
-    private void stopLocationUpdates() {
-        mFusedLocationClient.removeLocationUpdates(mLocationCallback);
-    }
-
+    // Método para obtener la posición geográfica del usuario.
     private void obtenerUltimaUbicacion() {
 
         ubicacionAnterior = ubicacionActual;
@@ -608,12 +533,118 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     }
 
-    // Método para actualizar la ubicación.
-    private void actualizarMarcadorUsuario() {
+    // Método para mover la cámara al punto donde está el usuario.
+    private void actualizarCamaraUsuario() {
 
-        //onMapReady(mMap);
-        obtenerUltimaUbicacion();
+        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(posicionCamara));
 
+    }
+
+    // Método para guardar la denuncia marcada localmente antes de definirla.
+    private void guardarDenuncia() {
+
+        denunciasMarcadas.add(ubicacionActual);
+
+        LatLng ultimaUbicacion = new LatLng(ubicacionActual.getLatitude(), ubicacionActual.getLongitude());
+
+        mMap.addMarker(new MarkerOptions()
+                .position(ultimaUbicacion)
+                .title("Marcador" + denunciasMarcadas.size())
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_denuncia_marcada)));
+
+    }
+
+    // Uno de los métodos inicializadores.
+    private void buildLocationSettingsRequest() {
+
+        LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder();
+        builder.addLocationRequest(mLocationRequest);
+        mLocationSettingsRequest = builder.build();
+
+    }
+
+    // "Receiving Location Updates" Método para reanudar la actualización de la ubicación.
+    private void startLocationUpdates() {
+
+        // Begin by checking if the device has the necessary location settings.
+        mSettingsClient.checkLocationSettings(mLocationSettingsRequest)
+                .addOnSuccessListener(this, new OnSuccessListener<LocationSettingsResponse>() {
+                    @Override
+                    public void onSuccess(LocationSettingsResponse locationSettingsResponse) {
+                        Log.i(TAG, "All location settings are satisfied.");
+
+                        //noinspection MissingPermission
+                        mFusedLocationClient.requestLocationUpdates(mLocationRequest,
+                                mLocationCallback, Looper.myLooper());
+
+                        actualizarMarcadorUsuario();
+                    }
+                })
+                .addOnFailureListener(this, new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        int statusCode = ((ApiException) e).getStatusCode();
+                        switch (statusCode) {
+                            case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
+                                Log.i(TAG, "Location settings are not satisfied. Attempting to upgrade " +
+                                        "location settings ");
+                                try {
+                                    // Show the dialog by calling startResolutionForResult(), and check the
+                                    // result in onActivityResult().
+                                    ResolvableApiException rae = (ResolvableApiException) e;
+                                    rae.startResolutionForResult(MapsActivity.this, REQUEST_CHECK_SETTINGS);
+                                } catch (IntentSender.SendIntentException sie) {
+                                    Log.i(TAG, "PendingIntent unable to execute request.");
+                                }
+                                break;
+                            case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
+                                String errorMessage = "Location settings are inadequate, and cannot be " +
+                                        "fixed here. Fix in Settings.";
+                                Log.e(TAG, errorMessage);
+                                Toast.makeText(MapsActivity.this, errorMessage, Toast.LENGTH_LONG).show();
+                                mRequestingLocationUpdates = false;
+                        }
+
+                        actualizarMarcadorUsuario();
+                    }
+                });
+
+    }
+
+    // "Receiving Location Updates" Método para pausar la actualización de la ubicación.
+    private void stopLocationUpdates() {
+        mFusedLocationClient.removeLocationUpdates(mLocationCallback);
+    }
+
+    // "Receiving Location Updates".
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putBoolean(REQUESTING_LOCATION_UPDATES_KEY,
+                mRequestingLocationUpdates);
+        // ...
+        super.onSaveInstanceState(outState);
+    }
+
+    // "Receiving Location Updates".
+    private void updateValuesFromBundle(Bundle savedInstanceState) {
+        if (savedInstanceState != null) {
+            // Update the value of mRequestingLocationUpdates from the Bundle.
+            if (savedInstanceState.keySet().contains(REQUESTING_LOCATION_UPDATES_KEY)) {
+                mRequestingLocationUpdates = savedInstanceState.getBoolean(
+                        REQUESTING_LOCATION_UPDATES_KEY);
+            }
+
+            // ...
+
+            // Update UI to match restored state
+            actualizarMarcadorUsuario();
+        }
+    }
+
+    private boolean checkPermissions() {
+        int permissionState = ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION);
+        return permissionState == PackageManager.PERMISSION_GRANTED;
     }
 
     //Fragments setting
@@ -630,36 +661,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         fTransaction.commit();
     }
 
+    /*public void onClick(View v) {
 
-    private void actualizarCamaraUsuario() {
-
-        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(posicionCamara));
-
-    }
-
-    private void guardarDenuncia() {
-
-        denunciasMarcadas.add(ubicacionActual);
-
-        LatLng ultimaUbicacion = new LatLng(ubicacionActual.getLatitude(), ubicacionActual.getLongitude());
-
-        mMap.addMarker(new MarkerOptions()
-                .position(ultimaUbicacion)
-                .title("Marcador" + denunciasMarcadas.size())
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_denuncia_marcada)));
-
-    }
-
-    private boolean checkPermissions() {
-        int permissionState = ActivityCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION);
-        return permissionState == PackageManager.PERMISSION_GRANTED;
-    }
-
-
-    public void onClick(View v) {
-
-    }
+    }*/
 
     private void logOut() {
         auth.signOut();
@@ -668,6 +672,5 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             finish();
         }
     }
-
 
 }
