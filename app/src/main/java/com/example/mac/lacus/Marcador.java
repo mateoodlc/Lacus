@@ -1,23 +1,34 @@
 package com.example.mac.lacus;
 
+import android.*;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.Marker;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 import static com.example.mac.lacus.R.id.senales;
 
-public class Marcador extends AppCompatActivity implements View.OnClickListener{
+public class Marcador extends AppCompatActivity implements View.OnClickListener, OnMapReadyCallback {
 
     private String categoria = "categoria";
     private Button senalizacion;
@@ -29,7 +40,7 @@ public class Marcador extends AppCompatActivity implements View.OnClickListener{
      * BASE DE DATOS.
      */
 
-    private DatabaseReference mDatabase;
+    private FirebaseDatabase database;
 
     /**
      * API MAPAS.
@@ -71,7 +82,84 @@ public class Marcador extends AppCompatActivity implements View.OnClickListener{
                 finish();            }
         });
 
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+        database = FirebaseDatabase.getInstance();
+
+        marcador = null;
+
+        // Cámara del marcador del usuario.
+        posicionCamara = null;
+
+        final DatabaseReference temporalRef = database.getReference("temporal");
+
+        temporalRef.child("usuario1").limitToFirst(2).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                ArrayList<String> lista = new ArrayList<String>();
+                Log.d("holi", "Se creó el ArrayList");
+
+                /*for(DataSnapshot ubiSnapshot: dataSnapshot.getChildren()) {
+
+                    String ubicacion = ubiSnapshot.getValue().toString();
+                    Log.d("holi", ubicacion);
+
+                }*/
+
+                //String ubicacion = dataSnapshot.getValue().toString();
+                //Log.d("holi", ubicacion);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+    /**
+     * Manipulates the map once available.
+     * This callback is triggered when the map is ready to be used.
+     * This is where we can add markers or lines, add listeners or move the camera. In this case,
+     * we just add a marker near Sydney, Australia.
+     * If Google Play services is not installed on the device, the user will be prompted to install
+     * it inside the SupportMapFragment. This method will only be triggered once the user has
+     * installed Google Play services and returned to the app.
+     */
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+
+        mMap = googleMap;
+
+        Log.d("holi", "Se creó el mapa.");
+
+        final DatabaseReference temporalRef = database.getReference("temporal");
+
+        temporalRef.child("usuario1").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                ArrayList<String> lista = new ArrayList<String>();
+                Log.d("holi", "Se creó el ArrayList");
+
+                for(DataSnapshot ubiSnapshot: dataSnapshot.getChildren()) {
+
+                    String ubicacion = ubiSnapshot.getValue().toString();
+                    Log.d("holi", ubicacion);
+
+                }
+
+                //String ubicacion = dataSnapshot.getValue().toString();
+                //Log.d("holi", ubicacion);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
     }
 
@@ -110,4 +198,5 @@ public class Marcador extends AppCompatActivity implements View.OnClickListener{
         intent.putExtra("seguridad",categoria);
         startActivity(intent);
     }
+
 }

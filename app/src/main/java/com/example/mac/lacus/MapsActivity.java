@@ -681,7 +681,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }*/
 
         //denunciasMarcadas.add(ubicacionActual);
-        String denuncia = String.valueOf(ubicacionActual.getLatitude() + ", " + ubicacionActual.getLongitude());
+        String denuncia = String.valueOf(ubicacionActual.getLatitude() + "," + ubicacionActual.getLongitude());
 
         denunciasMarcadas.add(denuncia);
 
