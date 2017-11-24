@@ -134,7 +134,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * BASE DE DATOS.
      */
 
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
 
     /**
      * API MAPAS.
@@ -379,6 +379,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     buttonComenzarRuta.setTextColor(Color.parseColor("#000000"));
                     buttonComenzarRuta.setBackgroundResource(R.drawable.button_bg_comenzar_ruta);
                     buttonComenzarRuta.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_prender_gps, 0, 0, 0);
+
+                    // Si hay al menos una denuncia marcada, se inicia el proceso de clasificación de denuncias.
+                    if(denunciasMarcadas.size() != 0) {
+                        startActivity(new Intent(MapsActivity.this, Marcador.class));
+                        rutaUsuario.clear();
+                        denunciasMarcadas.clear();
+                        finish();
+                    } else {
+                        rutaUsuario.clear();
+                    }
 
                 } else {
 
