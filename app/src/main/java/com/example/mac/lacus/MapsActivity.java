@@ -134,7 +134,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * BASE DE DATOS.
      */
 
-    private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    //private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private DatabaseReference mDatabase;
 
     /**
      * API MAPAS.
@@ -201,7 +202,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private Location ubicacionAnterior;
 
     // ArrayList donde se guardan las ubicaciones de las denuncias.
-    private ArrayList<Location> denunciasMarcadas;
+    //private ArrayList<Location> denunciasMarcadas;
+    private ArrayList<String> denunciasMarcadas;
 
     // ArrayList que almacena las posiciones de la ruta del usuario.
     private ArrayList<LatLng> rutaUsuario;
@@ -300,6 +302,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
          * Inicialización de variables.
          */
 
+        // Base de datos.
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
         // "Receiving Location Updates".
         mRequestingLocationUpdates = true;
 
@@ -342,7 +347,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         ubicacionAnterior = null;
 
         // Inicialización del ArrayList de ubicaciones marcadas.
-        denunciasMarcadas = new ArrayList<Location>();
+        //denunciasMarcadas = new ArrayList<Location>();
+        denunciasMarcadas = new ArrayList<String>();
 
         // Inicialización del ArrayList de la ruta del usuario.
         rutaUsuario = new ArrayList<LatLng>();
@@ -393,7 +399,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 } else {
 
                     rutaActivada = true;
-                    denunciasMarcadas = new ArrayList<Location>();
+                    //denunciasMarcadas = new ArrayList<Location>();
+                    denunciasMarcadas = new ArrayList<String>();
                     rutaUsuario = new ArrayList<LatLng>();
                     rutaPolyline = null;
                     actualizarCamaraUsuario();
@@ -673,7 +680,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         }*/
 
-        denunciasMarcadas.add(ubicacionActual);
+        //denunciasMarcadas.add(ubicacionActual);
+        String denuncia = String.valueOf(ubicacionActual.getLatitude() + ", " + ubicacionActual.getLongitude());
+
+        denunciasMarcadas.add(denuncia);
+
+        // Guardar en la base de datos.
+        mDatabase.child("temporal").child("usuario 1").child("denuncia " + denunciasMarcadas.size()).setValue(denuncia);
 
         LatLng ultimaUbicacion = new LatLng(ubicacionActual.getLatitude(), ubicacionActual.getLongitude());
 

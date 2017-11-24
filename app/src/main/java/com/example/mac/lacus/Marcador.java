@@ -9,6 +9,12 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.Marker;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import static com.example.mac.lacus.R.id.senales;
 
 public class Marcador extends AppCompatActivity implements View.OnClickListener{
@@ -19,6 +25,21 @@ public class Marcador extends AppCompatActivity implements View.OnClickListener{
     private Button seguridad;
     private Button infraestructura;
 
+    /**
+     * BASE DE DATOS.
+     */
+
+    private DatabaseReference mDatabase;
+
+    /**
+     * API MAPAS.
+     */
+
+    private GoogleMap mMap;
+
+    private Marker marcador;
+
+    private CameraPosition posicionCamara;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +63,6 @@ public class Marcador extends AppCompatActivity implements View.OnClickListener{
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -50,6 +70,9 @@ public class Marcador extends AppCompatActivity implements View.OnClickListener{
                 startActivity(intent);
                 finish();            }
         });
+
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
     }
 
     @Override
