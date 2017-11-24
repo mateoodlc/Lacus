@@ -433,7 +433,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     protected void onPause() {
         super.onPause();
-        stopLocationUpdates();
+
+        if(!rutaActivada){
+            stopLocationUpdates();
+        }
+
     }
 
 
@@ -479,7 +483,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     }
 
-    // Método inicializador para actualizar la ubicación del usuario.
+    // Método inicializador para actualizar la ubicación ACTUAL del usuario.
     private void createLocationCallback() {
 
         // "Receiving Location Updates".
@@ -510,8 +514,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     // Método para obtener la posición geográfica del usuario.
     private void obtenerUltimaUbicacion() {
 
-        ubicacionAnterior = ubicacionActual;
-
         // "Getting the Last Known Location" Obtener última localización.
         mFusedLocationClient.getLastLocation()
                 .addOnSuccessListener(this, new OnSuccessListener<Location>() {
@@ -522,17 +524,33 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         // Obtener la posición.
                         ubicacionActual = location;
 
-                        LatLng ultimaUbicacion = new LatLng(ubicacionActual.getLatitude(), ubicacionActual.getLongitude());
+                        LatLng actualUbicacion = new LatLng(ubicacionActual.getLatitude(), ubicacionActual.getLongitude());
 
                         // Guardar la posición en la ruta.
                         if (rutaActivada) {
-                            rutaUsuario.add(ultimaUbicacion);
+
+                            // Si está dentro del rango.
+                            if((ubicacionActual.getLatitude() > ubicacionAnterior.getLatitude() - 0.0001
+                                    && ubicacionActual.getLatitude() < ubicacionAnterior.getLatitude() + 0.0001)
+                                    && (ubicacionActual.getLongitude() > ubicacionAnterior.getLongitude() - 0.0001
+                                    && ubicacionActual.getLongitude() < ubicacionAnterior.getLongitude() + 0.0001)) {
+
+                                Log.d("holi", "No se añadió la posición a la ruta.");
+
+                            } else {
+
+                                rutaUsuario.add(actualUbicacion);
+                                ubicacionAnterior = ubicacionActual;
+                                Log.d("holi", "Agregó a la ruta del usuario y se cambió la ruta anterior por la actual.");
+
+                            }
+
                         }
 
                         // Dibujar la ubicación.
                         if (marcadorUsuario != null) {
 
-                            marcadorUsuario.setPosition(ultimaUbicacion);
+                            marcadorUsuario.setPosition(actualUbicacion);
 
                             /*marcadorNorte.setPosition(new LatLng(ubicacionActual.getLatitude() + 0.0002, ubicacionActual.getLongitude()));
                             marcadorSur.setPosition(new LatLng(ubicacionActual.getLatitude() - 0.0002, ubicacionActual.getLongitude()));
@@ -553,14 +571,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         } else {
 
                             marcadorUsuario = mMap.addMarker(new MarkerOptions()
-                                    .position(ultimaUbicacion)
+                                    .position(actualUbicacion)
                                     .title("Tú")
                                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_marcador_usuario)));
                             posicionCamara = new CameraPosition.Builder()
-                                    .target(ultimaUbicacion)
+                                    .target(actualUbicacion)
                                     .zoom(17)
                                     .build();
-                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ultimaUbicacion, 17));
+                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(actualUbicacion, 17));
 
                             //circuloMarcador = mMap.addCircle(circuloOptions);
 
@@ -584,6 +602,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         }
                     }
                 });
+
+        // Guardar la ubicación actual como la nueva anterior.
+        if(ubicacionAnterior == null || !rutaActivada) {
+            ubicacionAnterior = ubicacionActual;
+        }
 
     }
 
