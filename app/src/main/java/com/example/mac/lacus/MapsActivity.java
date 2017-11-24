@@ -38,6 +38,8 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.Circle;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -80,6 +82,8 @@ import static android.provider.Contacts.SettingsColumns.KEY;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
+    private static final String TAG = MapsActivity.class.getSimpleName();
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -115,15 +119,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         return fragment;
     }
 */
-    private static final String TAG = MapsActivity.class.getSimpleName();
-
-    private GoogleMap mMap;
-
-    private Marker marcadorUsuario;
-
-    private CameraPosition posicionCamara;
-
-    private boolean rutaActivada;
 
     public static MapsActivity newInstance(String s) {
         MapsActivity fragment = new MapsActivity();
@@ -140,6 +135,24 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      */
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
+
+    /**
+     * API MAPAS.
+     */
+
+    private GoogleMap mMap;
+
+    private Marker marcadorUsuario;
+
+    private Marker marcadorNorte, marcadorSur, marcadorOriente, marcadorOccidente;
+
+    private Circle circuloMarcador;
+
+    private CircleOptions circuloOptions;
+
+    private CameraPosition posicionCamara;
+
+    private boolean rutaActivada;
 
     /**
      * CONSTANTES.
@@ -287,15 +300,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
          * Inicialización de variables.
          */
 
-        // Iniciar el marcador del usuario.
-        marcadorUsuario = null;
-
-        // Cámara del marcador del usuario.
-        posicionCamara = null;
-
-        // Seguimiento de la cámara, lineamiento de ruta.
-        rutaActivada = false;
-
         // "Receiving Location Updates".
         mRequestingLocationUpdates = true;
 
@@ -306,6 +310,30 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
         mSettingsClient = LocationServices.getSettingsClient(this);
+
+        // Iniciar el marcador del usuario.
+        marcadorUsuario = null;
+
+        marcadorNorte = null;
+        marcadorSur = null;
+        marcadorOriente = null;
+        marcadorOccidente = null;
+
+        // Iniciar el círculo que rodea la posición.
+        circuloMarcador = null;
+
+        // Opciones del círculo inicialmente.
+        circuloOptions = new CircleOptions()
+                .center(new LatLng(0, 0))
+                .radius(20)
+                .fillColor(Color.RED)
+                .strokeColor(Color.TRANSPARENT);
+
+        // Cámara del marcador del usuario.
+        posicionCamara = null;
+
+        // Seguimiento de la cámara, lineamiento de ruta.
+        rutaActivada = false;
 
         // Ubicación actual vacía.
         ubicacionActual = null;
@@ -496,14 +524,24 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                         LatLng ultimaUbicacion = new LatLng(ubicacionActual.getLatitude(), ubicacionActual.getLongitude());
 
+                        // Guardar la posición en la ruta.
                         if (rutaActivada) {
                             rutaUsuario.add(ultimaUbicacion);
                         }
 
-                        // PRUEBA: Dibujar la ubicación.
+                        // Dibujar la ubicación.
                         if (marcadorUsuario != null) {
 
                             marcadorUsuario.setPosition(ultimaUbicacion);
+
+                            /*marcadorNorte.setPosition(new LatLng(ubicacionActual.getLatitude() + 0.0002, ubicacionActual.getLongitude()));
+                            marcadorSur.setPosition(new LatLng(ubicacionActual.getLatitude() - 0.0002, ubicacionActual.getLongitude()));
+                            marcadorOriente.setPosition(new LatLng(ubicacionActual.getLatitude(), ubicacionActual.getLongitude() + 0.0002));
+                            marcadorOccidente.setPosition(new LatLng(ubicacionActual.getLatitude(), ubicacionActual.getLongitude() - 0.0002));*/
+
+                            // Dibujar el círculo para demarcar un límite.
+                            //circuloMarcador.setCenter(ultimaUbicacion);
+
                             //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ultimaUbicacion, 17));
 
                             if (rutaActivada) {
@@ -523,6 +561,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                     .zoom(17)
                                     .build();
                             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ultimaUbicacion, 17));
+
+                            //circuloMarcador = mMap.addCircle(circuloOptions);
+
+                            /*marcadorNorte = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(ubicacionActual.getLatitude() + 0.0002, ubicacionActual.getLongitude()))
+                                    .title("Norte"));
+                            marcadorSur = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(ubicacionActual.getLatitude() - 0.0002, ubicacionActual.getLongitude()))
+                                    .title("Sur"));
+                            marcadorOriente = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(ubicacionActual.getLatitude(), ubicacionActual.getLongitude() + 0.0002))
+                                    .title("Oriente"));
+                            marcadorOccidente = mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(ubicacionActual.getLatitude(), ubicacionActual.getLongitude() - 0.0002))
+                                    .title("Occidente"));*/
+
                         }
 
                         if (location != null) {
@@ -543,6 +597,49 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     // Método para guardar la denuncia marcada localmente antes de definirla.
     private void guardarDenuncia() {
 
+        // En el caso de no haber denuncias.
+        /*if(denunciasMarcadas.size() == 0) {
+
+            denunciasMarcadas.add(ubicacionActual);
+
+            LatLng ultimaUbicacion = new LatLng(ubicacionActual.getLatitude(), ubicacionActual.getLongitude());
+
+            mMap.addMarker(new MarkerOptions()
+                    .position(ultimaUbicacion)
+                    .title("Marcador" + denunciasMarcadas.size())
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_denuncia_marcada)));
+
+        } else { //Cuando existen denuncias.
+
+            for(int i = 0; i < denunciasMarcadas.size(); i++) {
+
+                if((ubicacionActual.getLatitude() > denunciasMarcadas.get(i).getLatitude() - 0.0002
+                        && ubicacionActual.getLatitude() < denunciasMarcadas.get(i).getLatitude() + 0.0002)
+                        && (ubicacionActual.getLongitude() > denunciasMarcadas.get(i).getLongitude() - 0.0002
+                        && ubicacionActual.getLongitude() < denunciasMarcadas.get(i).getLongitude() + 0.0002)) {
+
+                    //No marcar.
+                    Log.d("holi", "No marcar. Está dentro del mismo rango.");
+
+                } else {
+
+                    denunciasMarcadas.add(ubicacionActual);
+
+                    LatLng ultimaUbicacion = new LatLng(ubicacionActual.getLatitude(), ubicacionActual.getLongitude());
+
+                    mMap.addMarker(new MarkerOptions()
+                            .position(ultimaUbicacion)
+                            .title("Marcador" + denunciasMarcadas.size())
+                            .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_denuncia_marcada)));
+
+                    Log.d("holi", "Se marca, está fuera o en un nuevo rango.");
+
+                }
+
+            }
+
+        }*/
+
         denunciasMarcadas.add(ubicacionActual);
 
         LatLng ultimaUbicacion = new LatLng(ubicacionActual.getLatitude(), ubicacionActual.getLongitude());
@@ -551,6 +648,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .position(ultimaUbicacion)
                 .title("Marcador" + denunciasMarcadas.size())
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_denuncia_marcada)));
+
+        Log.d("holi", "Se marca, está fuera o en un nuevo rango.");
 
     }
 
