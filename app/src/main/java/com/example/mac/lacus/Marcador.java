@@ -14,10 +14,15 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -42,6 +47,8 @@ public class Marcador extends AppCompatActivity implements View.OnClickListener,
 
     private FirebaseDatabase database;
 
+    private ArrayList<String> denuncias;
+
     /**
      * API MAPAS.
      */
@@ -50,12 +57,18 @@ public class Marcador extends AppCompatActivity implements View.OnClickListener,
 
     private Marker marcador;
 
-    private CameraPosition posicionCamara;
+    //private CameraPosition posicionCamara;
+
+    private String marcadorActual;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_marcador);
+        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.mapamarcador);
+        mapFragment.getMapAsync(this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -84,47 +97,14 @@ public class Marcador extends AppCompatActivity implements View.OnClickListener,
 
         database = FirebaseDatabase.getInstance();
 
+        denuncias = new ArrayList<String>();
+
         marcador = null;
 
         // Cámara del marcador del usuario.
-        posicionCamara = null;
+        //posicionCamara = null;
 
-        final DatabaseReference temporalRef = database.getReference("temporal").child("usuario 1");
-
-        temporalRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                //ArrayList<String> lista = new ArrayList<String>();
-                //Log.d("holi", "Se creó el ArrayList");
-
-                /*for(DataSnapshot ubiSnapshot: dataSnapshot.getChildren()) {
-
-                    String ubicacion = ubiSnapshot.getValue().toString();
-                    Log.d("holi", ubicacion);
-
-                }*/
-
-                // Obtener la información de un child en específico.
-                /*String ubicacion = dataSnapshot.getValue().toString();
-                Log.d("holi", ubicacion);*/
-
-                Log.d("holi", "Número de denuncias: " + dataSnapshot.getChildrenCount());
-
-                for(DataSnapshot denunciasSnapshot: dataSnapshot.getChildren()) {
-
-                    String ubicacion = denunciasSnapshot.getValue().toString();
-                    Log.d("holi", ubicacion);
-
-                }
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+        marcadorActual = "";
 
     }
 
@@ -144,24 +124,49 @@ public class Marcador extends AppCompatActivity implements View.OnClickListener,
 
         Log.d("holi", "Se creó el mapa.");
 
+        /**
+         * SE PIDE LA INFORMACIÓN DE LA BASE DE DATOS.
+         */
+
         final DatabaseReference temporalRef = database.getReference("temporal").child("usuario 1");
 
         temporalRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                ArrayList<String> lista = new ArrayList<String>();
-                Log.d("holi", "Se creó el ArrayList");
+                // Obtener la información de un child en específico.
+                /*String ubicacion = dataSnapshot.getValue().toString();
+                Log.d("holi", ubicacion);*/
 
-                for(DataSnapshot ubiSnapshot: dataSnapshot.getChildren()) {
+                Log.d("holi", "Número de denuncias: " + dataSnapshot.getChildrenCount());
 
-                    String ubicacion = ubiSnapshot.getValue().toString();
+                for(DataSnapshot denunciasSnapshot: dataSnapshot.getChildren()) {
+
+                    String ubicacion = denunciasSnapshot.getValue().toString();
+                    denuncias.add(ubicacion);
                     Log.d("holi", ubicacion);
 
                 }
 
-                //String ubicacion = dataSnapshot.getValue().toString();
-                //Log.d("holi", ubicacion);
+                Log.d("holi", "Salío del for");
+
+                marcadorActual = denuncias.get(0);
+
+                Log.d("holi", denuncias.get(0));
+
+                String[] partes = marcadorActual.split(",");
+
+                String parte1 = partes[0];
+                String parte2 = partes[1];
+
+                LatLng marcador = new LatLng(Double.parseDouble(parte1), Double.parseDouble(parte2));
+
+                mMap.addMarker(new MarkerOptions()
+                        .position(marcador)
+                        .title("Marcador")
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_denuncia_marcada)));
+
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(marcador, 17));
 
             }
 
@@ -170,6 +175,24 @@ public class Marcador extends AppCompatActivity implements View.OnClickListener,
 
             }
         });
+
+        /*marcadorActual = denuncias.get(0);
+
+        String[] partes = marcadorActual.split(",");
+
+        String parte1 = partes[0];
+        String parte2 = partes[1];
+
+        LatLng marcador = new LatLng(Double.parseDouble(parte1), Double.parseDouble(parte2));
+
+        mMap.addMarker(new MarkerOptions()
+                .position(marcador)
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_denuncia_marcada)));
+
+        posicionCamara = new CameraPosition.Builder()
+                .target(marcador)
+                .zoom(17)
+                .build();*/
 
     }
 
