@@ -89,14 +89,14 @@ public class Marcador extends AppCompatActivity implements View.OnClickListener,
         // Cámara del marcador del usuario.
         posicionCamara = null;
 
-        final DatabaseReference temporalRef = database.getReference("temporal");
+        final DatabaseReference temporalRef = database.getReference("temporal").child("usuario 1");
 
-        temporalRef.child("usuario1").limitToFirst(2).addValueEventListener(new ValueEventListener() {
+        temporalRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                ArrayList<String> lista = new ArrayList<String>();
-                Log.d("holi", "Se creó el ArrayList");
+                //ArrayList<String> lista = new ArrayList<String>();
+                //Log.d("holi", "Se creó el ArrayList");
 
                 /*for(DataSnapshot ubiSnapshot: dataSnapshot.getChildren()) {
 
@@ -105,8 +105,18 @@ public class Marcador extends AppCompatActivity implements View.OnClickListener,
 
                 }*/
 
-                //String ubicacion = dataSnapshot.getValue().toString();
-                //Log.d("holi", ubicacion);
+                // Obtener la información de un child en específico.
+                /*String ubicacion = dataSnapshot.getValue().toString();
+                Log.d("holi", ubicacion);*/
+
+                Log.d("holi", "Número de denuncias: " + dataSnapshot.getChildrenCount());
+
+                for(DataSnapshot denunciasSnapshot: dataSnapshot.getChildren()) {
+
+                    String ubicacion = denunciasSnapshot.getValue().toString();
+                    Log.d("holi", ubicacion);
+
+                }
 
             }
 
@@ -134,9 +144,9 @@ public class Marcador extends AppCompatActivity implements View.OnClickListener,
 
         Log.d("holi", "Se creó el mapa.");
 
-        final DatabaseReference temporalRef = database.getReference("temporal");
+        final DatabaseReference temporalRef = database.getReference("temporal").child("usuario 1");
 
-        temporalRef.child("usuario1").addValueEventListener(new ValueEventListener() {
+        temporalRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
