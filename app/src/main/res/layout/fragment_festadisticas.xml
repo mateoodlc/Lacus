@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,8 +8,10 @@
     tools:context="com.example.mac.lacus.FEstadisticas">
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
         <TextView
             android:id="@+id/titulo"
             android:layout_width="match_parent"
@@ -23,38 +25,197 @@
             android:background="#fff"
             android:layout_below="@id/toolbar"
             />/>
-    </RelativeLayout>
-
-    <!-- TODO: Update blank fragment layout -->
-    <android.support.design.widget.TabLayout
-        android:id="@+id/tab_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:tabGravity="fill"
-        app:tabMode="fixed"
-        app:tabIndicatorColor="#8BC34A"
-        app:tabPadding="4dp"
-        app:tabMaxWidth="450dp"
-        app:tabTextColor="#9E9E9E"
-        app:tabSelectedTextColor="#8BC34A"
-        android:layout_below="@+id/app_toolbar"
-        android:background="#fff"
-        />
-
-    <android.support.v4.view.ViewPager
-        android:id="@+id/view_pager"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-
-        <TextView
-            android:id="@+id/mText"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_below="@id/titulo"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="6dp"
+            android:layout_marginRight="8dp"
+            android:id="@+id/categorias"
+            android:padding="7dp"
             android:background="#fff"
-            android:text="Holi"/>
+            android:elevation="5dp">
+        <TextView
+            android:id="@+id/tituloestadistica1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Categoría más presentada"
+            android:paddingLeft="16dp"
+            android:textStyle="normal"
+            android:fontFamily="sans-serif"
+            android:paddingTop="16dp"
+            android:textSize="17dp"
+            android:background="#fff"
+            />
 
-    </android.support.v4.view.ViewPager>
+            <TextView
+                android:id="@+id/total"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Total:"
+                android:paddingLeft="16dp"
+                android:textStyle="normal"
+                android:fontFamily="sans-serif"
+                android:paddingTop="5dp"
+                android:textSize="14dp"
+                android:layout_below="@+id/tituloestadistica1"
+                />
+
+        <com.github.mikephil.charting.charts.PieChart
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:id="@+id/categoria_grafica"
+            android:layout_below="@id/tituloestadistica1"></com.github.mikephil.charting.charts.PieChart>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="6dp"
+            android:layout_marginRight="8dp"
+            android:padding="5dp"
+            android:background="#fff"
+            android:id="@+id/problematicas"
+            android:layout_below="@id/categorias"
+            android:elevation="3dp">
+        <TextView
+            android:id="@+id/tituloestadistica2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Problemática más presentada de cada categoría"
+            android:paddingLeft="16dp"
+            android:textStyle="normal"
+            android:fontFamily="sans-serif"
+            android:paddingTop="16dp"
+            android:textSize="17dp"
+            android:background="#fff"
+            />
+
+        <com.github.mikephil.charting.charts.BarChart
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:layout_below="@id/tituloestadistica2"
+            android:layout_marginTop="30dp"
+            android:id="@+id/problematica_grafica"></com.github.mikephil.charting.charts.BarChart>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="6dp"
+            android:layout_marginRight="8dp"
+            android:padding="5dp"
+            android:id="@+id/edades"
+            android:background="#fff"
+            android:layout_below="@id/problematicas"
+            android:elevation="3dp">
+        <TextView
+            android:id="@+id/tituloestadistica3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Edades de los ciclistas en la plataforma"
+            android:paddingLeft="16dp"
+            android:textStyle="normal"
+            android:fontFamily="sans-serif"
+            android:paddingTop="16dp"
+            android:textSize="17dp"
+            android:background="#fff"
+            />
+
+        <com.github.mikephil.charting.charts.PieChart
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:layout_below="@id/tituloestadistica3"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="70dp"
+            android:id="@+id/edades_grafica"></com.github.mikephil.charting.charts.PieChart>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="6dp"
+            android:layout_marginRight="8dp"
+            android:padding="5dp"
+            android:id="@+id/profesiones"
+            android:background="#fff"
+            android:layout_below="@id/edades"
+            android:elevation="3dp">
+            <TextView
+                android:id="@+id/tituloestadistica4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Profesiones de los ciclistas en la plataforma"
+                android:paddingLeft="16dp"
+                android:textStyle="normal"
+                android:fontFamily="sans-serif"
+                android:paddingTop="16dp"
+                android:textSize="17dp"
+                android:background="#fff"
+                />
+
+            <com.github.mikephil.charting.charts.PieChart
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:layout_below="@id/tituloestadistica4"
+                android:layout_marginTop="20dp"
+                android:id="@+id/profesiones_grafica"></com.github.mikephil.charting.charts.PieChart>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="70dp"
+            android:layout_marginRight="8dp"
+            android:padding="5dp"
+            android:background="#fff"
+            android:layout_below="@id/profesiones"
+            android:elevation="3dp">
+            <TextView
+                android:id="@+id/tituloestadistica5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Profesiones de los ciclistas en la plataforma"
+                android:paddingLeft="16dp"
+                android:textStyle="normal"
+                android:fontFamily="sans-serif"
+                android:paddingTop="16dp"
+                android:textSize="17dp"
+                android:background="#fff"
+                />
+
+            <com.github.mikephil.charting.charts.PieChart
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:layout_below="@id/tituloestadistica5"
+                android:layout_marginTop="20dp"
+                android:id="@+id/genero_grafica"></com.github.mikephil.charting.charts.PieChart>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
 
 
-</LinearLayout>
+
+
+
+
+
+</ScrollView>
