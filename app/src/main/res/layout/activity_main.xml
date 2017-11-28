@@ -84,7 +84,6 @@
 
     <Button
         android:id="@+id/ingresar"
-        style="@style/Base.Widget.AppCompat.Button.Borderless"
         android:layout_width="match_parent"
         android:layout_height="120px"
         android:layout_below="@+id/passwordField"
@@ -95,17 +94,16 @@
         android:textAllCaps="false"
         android:textColor="#8BC34A" />
 
-    <com.google.android.gms.common.SignInButton
-        android:id="@+id/conectarConGoogle"
-        android:layout_width="match_parent"
-        android:layout_height="120px"
-        android:layout_marginTop="10dp"
-        style="@style/Base.Widget.AppCompat.Button.Borderless"
-        android:layout_below="@+id/ingresar"
-        android:background="@drawable/roundedbotton"
-        android:textColor="#8BC34A"
-        android:textAllCaps="false"
-        android:text="Conectar con Google" />
+        <Button
+            android:id="@+id/conectarConGoogle"
+            android:layout_width="match_parent"
+            android:layout_height="120px"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/ingresar"
+            android:background="@drawable/roundedbotton"
+            android:textColor="#8BC34A"
+            android:textAllCaps="false"
+            android:text="Conectar con Google" />
 
     <Button
         android:id="@+id/needaccount"

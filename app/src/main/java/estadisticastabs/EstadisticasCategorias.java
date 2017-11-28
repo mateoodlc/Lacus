@@ -10,7 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.mac.lacus.EstadisticasPrueba2;
+//import com.example.mac.lacus.EstadisticasPrueba2;
 import com.example.mac.lacus.MainActivity;
 import com.example.mac.lacus.MapsActivity;
 import com.example.mac.lacus.R;
@@ -85,8 +85,9 @@ public class EstadisticasCategorias extends Fragment{
         pieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
             public void onValueSelected(Entry e, Highlight h) {
-                        Intent intent = new Intent(getActivity(), EstadisticasPrueba2.class);
-                        startActivity(intent);                    }
+                    //    Intent intent = new Intent(getActivity(), EstadisticasPrueba2.class);
+                      //  startActivity(intent);
+                }
 
             @Override
             public void onNothingSelected() {

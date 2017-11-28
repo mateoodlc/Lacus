@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     ScrollView activity_main;
 
-    SignInButton googleLogin;
+    Button googleLogin;
 
     private static final int RC_SIGN_IN = 1;
     private String TAG;
@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }
         };
-        googleLogin = (SignInButton) findViewById(R.id.conectarConGoogle);
+        googleLogin = (Button) findViewById(R.id.conectarConGoogle);
         login = (Button) findViewById(R.id.ingresar);
         email = (EditText) findViewById(R.id.input_signin_email);
         password = (EditText) findViewById(R.id.input_signin_password);

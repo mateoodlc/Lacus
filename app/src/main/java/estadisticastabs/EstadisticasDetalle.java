@@ -30,7 +30,7 @@ import java.util.List;
  * Created by mac on 27/11/17.
  */
 
-public class EstadisticasDetalle extends Fragment {
+/*public class EstadisticasDetalle extends Fragment {
 
     private Context globalContext = null;
 
@@ -123,4 +123,4 @@ public class EstadisticasDetalle extends Fragment {
         return data;
     }
 }
-
+*/

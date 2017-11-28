@@ -14,9 +14,10 @@
         android:layout_marginTop="3dp"
         android:layout_marginBottom="3dp"
         android:layout_marginRight="5dp"
-        android:padding="5dp"
+        android:padding="7dp"
         android:paddingBottom="50dp"
-        android:background="@drawable/veeduria_card"
+        android:elevation="3dp"
+        android:background="#fff"
         >
         <ImageView
             android:layout_width="70dp"
