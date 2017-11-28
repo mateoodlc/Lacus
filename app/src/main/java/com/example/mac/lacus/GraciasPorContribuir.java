@@ -22,6 +22,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
+
 public class GraciasPorContribuir extends AppCompatActivity implements View.OnClickListener {
 
     Button continuar;
@@ -33,6 +35,14 @@ public class GraciasPorContribuir extends AppCompatActivity implements View.OnCl
      */
 
     private FirebaseDatabase database;
+
+    /**
+     * VARIABLES.
+     */
+
+    ArrayList<String> denunciasKey;
+
+    private boolean otroMarcador;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,13 +136,17 @@ public class GraciasPorContribuir extends AppCompatActivity implements View.OnCl
 
         database = FirebaseDatabase.getInstance();
 
+        otroMarcador = false;
+
+        denunciasKey = new ArrayList<String>();
+
         /**
          * SE PIDE LA INFORMACIÓN DE LA BASE DE DATOS.
          */
 
         final DatabaseReference temporalRef = database.getReference("temporalDenun").child("usuario 1");
 
-        temporalRef.addValueEventListener(new ValueEventListener() {
+        temporalRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -161,6 +175,57 @@ public class GraciasPorContribuir extends AppCompatActivity implements View.OnCl
             }
         });
 
+        /**
+         * VERIFICAR SI HAY MÁS MARCADORES.
+         */
+
+        final DatabaseReference temporalRef2 = database.getReference("temporal").child("usuario 1");
+
+        temporalRef2.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                Log.d("gracias", "Número de denuncias: " + dataSnapshot.getChildrenCount());
+
+                for(DataSnapshot keySnapshot: dataSnapshot.getChildren()) {
+
+                    String keyHijo = keySnapshot.getKey();
+                    denunciasKey.add(keyHijo);
+                    Log.d("holi", keyHijo);
+
+                }
+
+                Log.d("gracias", "Salío del for");
+
+                // Si hay más denuncias temporales, hay otro marcador y elimina el primer
+                // marcador temporal.
+                if(denunciasKey.size() > 1){
+
+                    temporalRef2.child(denunciasKey.get(0)).setValue(null);
+                    otroMarcador = true;
+                    Log.d("gracias", "TRUE");
+
+                } else if(denunciasKey.size() == 1){ // Si queda una denuncia.
+
+                    temporalRef2.child(denunciasKey.get(0)).setValue(null);
+                    otroMarcador = false;
+                    Log.d("gracias", "FALSE");
+
+                } else { // Si no hay más denuncias, no hay otro marcador.
+
+                    otroMarcador = false;
+                    Log.d("gracias", "FALSE");
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
     @Override
@@ -168,9 +233,37 @@ public class GraciasPorContribuir extends AppCompatActivity implements View.OnCl
 
         switch (view.getId()) {
             case R.id.continuar: /** Start a new Activity MyCards.java */
-                Intent intent = new Intent(this, MapsActivity.class);
-                intent.putExtra("señalizacionID", "señalizacion");
-                this.startActivity(intent);
+
+                if(otroMarcador) {
+
+                    startActivity(new Intent(GraciasPorContribuir.this, Marcador.class));
+                    finish();
+
+                } else {
+
+                    final DatabaseReference temporalRef3 = database.getReference("temporalDenun").child("usuario 1");
+
+                    temporalRef3.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+
+                            temporalRef3.setValue(null);
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
+                    Intent intent = new Intent(this, MapsActivity.class);
+                    intent.putExtra("señalizacionID", "señalizacion");
+                    this.startActivity(intent);
+                    finish();
+
+                }
+
                 break;
         }
 

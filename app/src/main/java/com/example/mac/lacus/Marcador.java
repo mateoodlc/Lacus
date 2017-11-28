@@ -130,7 +130,7 @@ public class Marcador extends AppCompatActivity implements View.OnClickListener,
 
         final DatabaseReference temporalRef = database.getReference("temporal").child("usuario 1");
 
-        temporalRef.addValueEventListener(new ValueEventListener() {
+        temporalRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -238,6 +238,7 @@ public class Marcador extends AppCompatActivity implements View.OnClickListener,
                 Intent intent3 = new Intent(Marcador.this, SeleccionarProblema.class);
                 intent3.putExtra("infraestructuraID","infraestructura");
                 startActivity(intent3);
+
                 break;
 
             case R.id.seguridad: /** Start a new Activity MyCards.java */
@@ -251,6 +252,7 @@ public class Marcador extends AppCompatActivity implements View.OnClickListener,
                 Intent intent4 = new Intent(Marcador.this, SeleccionarProblema.class);
                 intent4.putExtra("seguridadID","seguridad");
                 startActivity(intent4);
+
                 break;
 
         }
