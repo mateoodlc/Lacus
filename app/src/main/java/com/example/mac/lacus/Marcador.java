@@ -200,24 +200,54 @@ public class Marcador extends AppCompatActivity implements View.OnClickListener,
     public void onClick(View view) {
         switch(view.getId()){
             case R.id.senales: /** Start a new Activity MyCards.java */
+
+                DatabaseReference temporalRef1 = database.getReference();
+
+                // Guardar en la base de datos.
+                temporalRef1.child("temporalDenun").child("usuario 1").child("geopos").setValue(marcadorActual);
+                temporalRef1.child("temporalDenun").child("usuario 1").child("categoria").setValue("Señalización");
+
                 Intent intent = new Intent(this, SeleccionarProblema.class);
                 intent.putExtra("señalizacionID", "señalizacion");
                 this.startActivity(intent);
+
                 break;
 
             case R.id.cultura: /** Start a new Activity MyCards.java */
+
+                DatabaseReference temporalRef2 = database.getReference();
+
+                // Guardar en la base de datos.
+                temporalRef2.child("temporalDenun").child("usuario 1").child("geopos").setValue(marcadorActual);
+                temporalRef2.child("temporalDenun").child("usuario 1").child("categoria").setValue("Cultura");
+
                 Intent intent2 = new Intent(Marcador.this, SeleccionarProblema.class);
                 intent2.putExtra("culturaID","cultura");
                 startActivity(intent2);
+
                 break;
 
             case R.id.infraestructura: /** Start a new Activity MyCards.java */
+
+                DatabaseReference temporalRef3 = database.getReference();
+
+                // Guardar en la base de datos.
+                temporalRef3.child("temporalDenun").child("usuario 1").child("geopos").setValue(marcadorActual);
+                temporalRef3.child("temporalDenun").child("usuario 1").child("categoria").setValue("Infraestructura");
+
                 Intent intent3 = new Intent(Marcador.this, SeleccionarProblema.class);
                 intent3.putExtra("infraestructuraID","infraestructura");
                 startActivity(intent3);
                 break;
 
             case R.id.seguridad: /** Start a new Activity MyCards.java */
+
+                DatabaseReference temporalRef4 = database.getReference();
+
+                // Guardar en la base de datos.
+                temporalRef4.child("temporalDenun").child("usuario 1").child("geopos").setValue(marcadorActual);
+                temporalRef4.child("temporalDenun").child("usuario 1").child("categoria").setValue("Seguridad");
+
                 Intent intent4 = new Intent(Marcador.this, SeleccionarProblema.class);
                 intent4.putExtra("seguridadID","seguridad");
                 startActivity(intent4);
