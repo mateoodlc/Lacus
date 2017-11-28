@@ -153,6 +153,7 @@ public class SeleccionarProblema extends AppCompatActivity implements View.OnCli
                 }
 
                 this.startActivity(intent);
+                finish();
 
                 break;
 
@@ -184,6 +185,8 @@ public class SeleccionarProblema extends AppCompatActivity implements View.OnCli
                     intent2.putExtra("infraestructuraB2", "Falta de iluminación");
                 }
                 startActivity(intent2);
+                finish();
+
                 break;
 
             case R.id.boton3: /** Start a new Activity MyCards.java */
@@ -215,6 +218,8 @@ public class SeleccionarProblema extends AppCompatActivity implements View.OnCli
                     intent3.putExtra("infraestructuraB3", "Vías de alto riesgo");
                 }
                 startActivity(intent3);
+                finish();
+
                 break;
 
            /* case R.id.boton4: /** Start a new Activity MyCards.java */
