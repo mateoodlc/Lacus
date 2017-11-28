@@ -9,6 +9,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
+
 public class SeleccionarProblema extends AppCompatActivity implements View.OnClickListener {
     private String categoria1;
 
@@ -23,6 +28,11 @@ public class SeleccionarProblema extends AppCompatActivity implements View.OnCli
     private boolean culturaB;
     private boolean seguridadB;
 
+    /**
+     * BASE DE DATOS.
+     */
+
+    private FirebaseDatabase database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,71 +111,107 @@ public class SeleccionarProblema extends AppCompatActivity implements View.OnCli
                 startActivity(intent);
                 finish();            }
         });
+
+        database = FirebaseDatabase.getInstance();
+
     }
 
-    // String getName = (String) bd.get("señalizacion");
-
-
-
-
-    public void interpretarCategoria(){
+    /*public void interpretarCategoria(){
         if(categoria1.contains("cultura")){
         }
-    }
+    }*/
 
     @Override
     public void onClick(View view) {
         switch(view.getId()) {
             case R.id.boton1: /** Start a new Activity MyCards.java */
+
                 Intent intent = new Intent(this, GraciasPorContribuir.class);
+
+                // Referencias base de datos.
+                DatabaseReference temporalRef1 = database.getReference();
+
                 if(señalizacionB == true){
+                    temporalRef1.child("temporalDenun").child("usuario 1").child("problema")
+                            .setValue("Falta de señalización");
                     intent.putExtra("señalizacionB1", "Falta de señalización");
                 }
                 if(culturaB == true) {
+                    temporalRef1.child("temporalDenun").child("usuario 1").child("problema")
+                            .setValue("Peatones poco cívicos");
                     intent.putExtra("culturaB1", "Peatones poco cívicos");
                 }
                 if(seguridadB == true){
+                    temporalRef1.child("temporalDenun").child("usuario 1").child("problema")
+                            .setValue("Alto índice de robo");
                     intent.putExtra("seguridadB1", "Alto índice de robo");
                 }
                 if(infraestructuraB == true){
+                    temporalRef1.child("temporalDenun").child("usuario 1").child("problema")
+                            .setValue("Calle en mal estado");
                     intent.putExtra("infraestructuraB1", "Calle en mal estado");
                 }
 
                 this.startActivity(intent);
+
                 break;
 
             case R.id.boton2: /** Start a new Activity MyCards.java */
+
                 Intent intent2 = new Intent(SeleccionarProblema.this, GraciasPorContribuir.class);
 
+                // Referencias base de datos.
+                DatabaseReference temporalRef2 = database.getReference();
+
                 if(señalizacionB == true){
+                    temporalRef2.child("temporalDenun").child("usuario 1").child("problema")
+                            .setValue("Señalización errónea");
                     intent2.putExtra("señalizacionB2", "Señalización errónea");
                 }
                 if(culturaB == true) {
+                    temporalRef2.child("temporalDenun").child("usuario 1").child("problema")
+                            .setValue("Irrespeto por el ciclista");
                     intent2.putExtra("culturaB2", "Irrespeto por el ciclista");
                 }
                 if(seguridadB == true){
+                    temporalRef2.child("temporalDenun").child("usuario 1").child("problema")
+                            .setValue("Locación hostil");
                     intent2.putExtra("seguridadB2", "Locación hostil");
                 }
                 if(infraestructuraB == true){
+                    temporalRef2.child("temporalDenun").child("usuario 1").child("problema")
+                            .setValue("Falta de iluminación");
                     intent2.putExtra("infraestructuraB2", "Falta de iluminación");
                 }
                 startActivity(intent2);
                 break;
 
             case R.id.boton3: /** Start a new Activity MyCards.java */
+
                 Intent intent3 = new Intent(SeleccionarProblema.this, GraciasPorContribuir.class);
+
+                // Referencias base de datos.
+                DatabaseReference temporalRef3 = database.getReference();
 
                 System.out.println("entró");
                 if(señalizacionB == true){
+                    temporalRef3.child("temporalDenun").child("usuario 1").child("problema")
+                            .setValue("No hay separadores viales");
                     intent3.putExtra("señalizacionB3", "No hay separadores viales");
                 }
                 if(culturaB == true) {
+                    temporalRef3.child("temporalDenun").child("usuario 1").child("problema")
+                            .setValue("Invasión constante de carril");
                     intent3.putExtra("culturaB3", "Invasión constante de carril");
                 }
                 if(seguridadB == true){
+                    temporalRef3.child("temporalDenun").child("usuario 1").child("problema")
+                            .setValue("Probabilidad de accidentes");
                     intent3.putExtra("seguridadB3", "Probabilidad de accidentes");
                 }
                 if(infraestructuraB == true){
+                    temporalRef3.child("temporalDenun").child("usuario 1").child("problema")
+                            .setValue("Vías de alto riesgo");
                     intent3.putExtra("infraestructuraB3", "Vías de alto riesgo");
                 }
                 startActivity(intent3);

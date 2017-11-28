@@ -4,17 +4,35 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import org.w3c.dom.Text;
 
 public class GraciasPorContribuir extends AppCompatActivity implements View.OnClickListener {
+
     Button continuar;
     ImageView categoriaImg;
     TextView tipoCategoria;
+
+    /**
+     * BASE DE DATOS.
+     */
+
+    private FirebaseDatabase database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,12 +112,9 @@ public class GraciasPorContribuir extends AppCompatActivity implements View.OnCl
             tipoCategoria.setText("Probabilidad de accidentes");
         }
 
-
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,10 +124,48 @@ public class GraciasPorContribuir extends AppCompatActivity implements View.OnCl
                 finish();            }
         });
 
+        database = FirebaseDatabase.getInstance();
+
+        /**
+         * SE PIDE LA INFORMACIÓN DE LA BASE DE DATOS.
+         */
+
+        final DatabaseReference temporalRef = database.getReference("temporalDenun").child("usuario 1");
+
+        temporalRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                // Lectura de la denuncia temporal.
+                String geopos = dataSnapshot.child("geopos").getValue().toString();
+                String categoria = dataSnapshot.child("categoria").getValue().toString();
+                String problema = dataSnapshot.child("problema").getValue().toString();
+
+                // Crear una denuncia nueva.
+                DatabaseReference denunciaReference = database.getReference();
+
+                Denuncia denuncia = new Denuncia(geopos, categoria, problema, 1);
+
+                denunciaReference.child("denuncias").push().setValue(denuncia);
+
+                //denunciaReference.child("denuncias").push().child("geopos").setValue(geopos);
+                //denunciaReference.child("denuncias").push().child("categoria").setValue(categoria);
+                //denunciaReference.child("denuncias").push().child("problema").setValue(problema);
+                //denunciaReference.child("denuncias").push().child("cantidad").setValue(1);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
     @Override
     public void onClick(View view) {
+
         switch (view.getId()) {
             case R.id.continuar: /** Start a new Activity MyCards.java */
                 Intent intent = new Intent(this, MapsActivity.class);
@@ -120,5 +173,6 @@ public class GraciasPorContribuir extends AppCompatActivity implements View.OnCl
                 this.startActivity(intent);
                 break;
         }
+
     }
 }
