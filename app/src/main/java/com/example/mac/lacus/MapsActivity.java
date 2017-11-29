@@ -1,6 +1,7 @@
 package com.example.mac.lacus;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
@@ -19,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.ApiException;
@@ -84,7 +86,7 @@ import static android.provider.Contacts.SettingsColumns.KEY;
    https://github.com/googlesamples/android-play-location/tree/master/LocationUpdates
 */
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
     private static final String TAG = MapsActivity.class.getSimpleName();
 
@@ -216,6 +218,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     // ArrayList que almacena todas las denuncias hechas en el mapa.
     private ArrayList<Denuncia> denunciasMapa;
+
+    // ArrayList que almacena los marcadores para volverlos clickeables.
+    private ArrayList<Marker> arregloMarcadores;
+
+    // Pop up para la información de cada marcador.
+    private Dialog dialogoMarcadores;
 
     // "Receiving Location Updates" Tracks the status of the location updates request. Value changes
     // when the user presses the Start Updates and Stop Updates buttons.
@@ -367,6 +375,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Inicialización del ArrayList de las rutas totales del mapa.
         denunciasMapa = new ArrayList<Denuncia>();
 
+        // Inicialización del ArrayList de los marcadores.
+        arregloMarcadores = new ArrayList<Marker>();
+
+        // Inicialización del diálogo de los marcadores.
+        dialogoMarcadores = new Dialog(this);
+
         createLocationCallback();
 
         // "Changing Location Settings".
@@ -487,6 +501,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
 
         mMap = googleMap;
+
+        otorgarClicMapa();
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             // Si el permiso fue otorgado.
@@ -735,8 +751,26 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                     Denuncia denuncia = denunciasSnapshot.getValue(Denuncia.class);
                     denuncia.setId(denunciasSnapshot.getKey());
+                    // Se agrega al arreglo de DENUNCIAS.
                     denunciasMapa.add(denuncia);
+
                     Log.d("holi", denuncia.getId());
+
+                    // Agregar al arreglo de marcadores (para hacerlos clickeables).
+                    String[] partes = denuncia.getGeopos().split(",");
+
+                    String parte1 = partes[0];
+                    String parte2 = partes[1];
+
+                    LatLng posicionDenunciaActualMapa = new LatLng(Double.parseDouble(parte1), Double.parseDouble(parte2));
+
+                    Marker marcadorFinal = mMap.addMarker(new MarkerOptions()
+                            .position(posicionDenunciaActualMapa));
+                                /*.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_denuncia_marcada)));*/
+
+                    marcadorFinal.setTag(denuncia.getId());
+
+                    arregloMarcadores.add(marcadorFinal);
 
                 }
 
@@ -789,6 +823,48 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             }
         });
+
+    }
+
+    public void otorgarClicMapa() {
+
+        mMap.setOnMarkerClickListener(this);
+
+    }
+
+    @Override
+    public boolean onMarkerClick(final Marker marker) {
+
+        for(int i = 0; i < arregloMarcadores.size(); i++) {
+
+            if(marker.equals(arregloMarcadores.get(i))) {
+
+                mostrarPopup();
+                return true;
+
+            }
+
+        }
+
+        return false;
+
+    }
+
+    public void mostrarPopup() {
+
+        TextView cerrarTxt;
+
+        dialogoMarcadores.setContentView(R.layout.marcador_popup);
+        cerrarTxt = (TextView) dialogoMarcadores.findViewById(R.id.cerrarTxt);
+        cerrarTxt.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick (View v){
+                dialogoMarcadores.dismiss();
+            }
+
+        });
+        dialogoMarcadores.show();
 
     }
 
