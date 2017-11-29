@@ -48,14 +48,18 @@ import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import static android.provider.Contacts.SettingsColumns.KEY;
@@ -134,8 +138,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * BASE DE DATOS.
      */
 
-    //private FirebaseDatabase database = FirebaseDatabase.getInstance();
-    private DatabaseReference mDatabase;
+    private FirebaseDatabase mDatabase;
+    //private DatabaseReference mDatabase;
 
     /**
      * API MAPAS.
@@ -145,11 +149,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private Marker marcadorUsuario;
 
-    private Marker marcadorNorte, marcadorSur, marcadorOriente, marcadorOccidente;
+    //private Marker marcadorNorte, marcadorSur, marcadorOriente, marcadorOccidente;
 
-    private Circle circuloMarcador;
+    //private Circle circuloMarcador;
 
-    private CircleOptions circuloOptions;
+    //private CircleOptions circuloOptions;
 
     private CameraPosition posicionCamara;
 
@@ -209,6 +213,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private ArrayList<LatLng> rutaUsuario;
 
     private Polyline rutaPolyline;
+
+    // ArrayList que almacena todas las denuncias hechas en el mapa.
+    private ArrayList<Denuncia> denunciasMapa;
 
     // "Receiving Location Updates" Tracks the status of the location updates request. Value changes
     // when the user presses the Start Updates and Stop Updates buttons.
@@ -303,7 +310,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
          */
 
         // Base de datos.
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase = FirebaseDatabase.getInstance();
+        //mDatabase = FirebaseDatabase.getInstance().getReference();
 
         // "Receiving Location Updates".
         mRequestingLocationUpdates = true;
@@ -319,20 +327,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Iniciar el marcador del usuario.
         marcadorUsuario = null;
 
-        marcadorNorte = null;
-        marcadorSur = null;
-        marcadorOriente = null;
-        marcadorOccidente = null;
+        //marcadorNorte = null;
+        //marcadorSur = null;
+        //marcadorOriente = null;
+        //marcadorOccidente = null;
 
         // Iniciar el círculo que rodea la posición.
-        circuloMarcador = null;
+        //circuloMarcador = null;
 
         // Opciones del círculo inicialmente.
-        circuloOptions = new CircleOptions()
+        /*circuloOptions = new CircleOptions()
                 .center(new LatLng(0, 0))
                 .radius(20)
                 .fillColor(Color.RED)
-                .strokeColor(Color.TRANSPARENT);
+                .strokeColor(Color.TRANSPARENT);*/
 
         // Cámara del marcador del usuario.
         posicionCamara = null;
@@ -355,6 +363,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         // Polilínea de la ruta del usuario.
         rutaPolyline = null;
+
+        // Inicialización del ArrayList de las rutas totales del mapa.
+        denunciasMapa = new ArrayList<Denuncia>();
 
         createLocationCallback();
 
@@ -432,6 +443,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
+        /**
+         * Obtener las denuncias.
+         */
+
+        obtenerDenuncias();
+
     }
 
     // "Receiving Location Updates".
@@ -456,7 +473,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
 
     }
-
 
     /**
      * Manipulates the map once available.
@@ -685,8 +701,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         denunciasMarcadas.add(denuncia);
 
+        // OJOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
         // Guardar en la base de datos.
-        mDatabase.child("temporal").child("usuario 1").child("denuncia " + denunciasMarcadas.size()).setValue(denuncia);
+        mDatabase.getReference().child("temporal").child("usuario 1")
+                .child("denuncia " + denunciasMarcadas.size()).setValue(denuncia);
 
         LatLng ultimaUbicacion = new LatLng(ubicacionActual.getLatitude(), ubicacionActual.getLongitude());
 
@@ -696,6 +714,81 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_denuncia_marcada)));
 
         Log.d("holi", "Se marca, está fuera o en un nuevo rango.");
+
+    }
+
+    public void obtenerDenuncias() {
+
+        /**
+         * SE PIDE LA INFORMACIÓN DE LA BASE DE DATOS.
+         */
+
+        final DatabaseReference temporalRef = mDatabase.getReference("denuncias");
+
+        temporalRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                Log.d("holi", "Número de denuncias totales: " + dataSnapshot.getChildrenCount());
+
+                for(DataSnapshot denunciasSnapshot: dataSnapshot.getChildren()) {
+
+                    Denuncia denuncia = denunciasSnapshot.getValue(Denuncia.class);
+                    denuncia.setId(denunciasSnapshot.getKey());
+                    denunciasMapa.add(denuncia);
+                    Log.d("holi", denuncia.getId());
+
+                }
+
+                Log.d("holi", "Salío del for");
+
+                if(denunciasMapa.size() > 0) {
+
+                    for(int i = 0; i < denunciasMapa.size(); i++) {
+
+                        Denuncia denunciaActualMapa = denunciasMapa.get(i);
+
+                        String[] partes = denunciaActualMapa.getGeopos().split(",");
+
+                        String parte1 = partes[0];
+                        String parte2 = partes[1];
+
+                        LatLng marcadorDenunciaActualMapa = new LatLng(Double.parseDouble(parte1), Double.parseDouble(parte2));
+
+                        mMap.addMarker(new MarkerOptions()
+                                .position(marcadorDenunciaActualMapa)
+                                .title(denunciaActualMapa.getId()));
+                                /*.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_denuncia_marcada)));*/
+
+                    }
+
+                }
+
+                /*marcadorActual = denuncias.get(0);
+
+                Log.d("holi", denuncias.get(0));
+
+                String[] partes = marcadorActual.split(",");
+
+                String parte1 = partes[0];
+                String parte2 = partes[1];
+
+                LatLng marcador = new LatLng(Double.parseDouble(parte1), Double.parseDouble(parte2));
+
+                mMap.addMarker(new MarkerOptions()
+                        .position(marcador)
+                        .title("Marcador")
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_denuncia_marcada)));
+
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(marcador, 17));*/
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
     }
 
