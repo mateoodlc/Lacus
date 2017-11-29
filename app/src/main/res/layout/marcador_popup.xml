@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="350dp"
-    android:padding="5dp"
-    android:background="#fff"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="340dp"
+    android:background="#00ff0000"
     android:layout_gravity="center"
     android:elevation="3dp"
     android:layout_height="wrap_content">
@@ -11,18 +9,37 @@
     <TextView
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:textColor="@color/topBar"
+        android:textColor="#fff"
         android:text="X"
+        android:elevation="2dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="0dp"
         android:textStyle="bold"
         android:id="@+id/cerrarTxt"
+        android:layout_alignParentEnd="true"
         android:layout_gravity="end"
         android:gravity="center"
-        android:background="@drawable/popup_background"/>
+        android:background="@drawable/gradient_background"/>
+
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:background="#fff">
+
+
+
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:layout_gravity="center"
         >
 
         <ImageView
@@ -30,6 +47,7 @@
             android:layout_height="100dp"
             android:src="@drawable/ic_infraestructura"
             android:layout_gravity="center"
+            android:id="@+id/imagen"
             android:layout_marginTop="45dp"/>
 
         <TextView
@@ -38,7 +56,9 @@
             android:textStyle="bold"
             android:textColor="#c555"
             android:layout_marginTop="25dp"
+            android:layout_below="@id/imagen"
             android:text="Infraestructura"
+            android:id="@+id/categoria"
             android:layout_gravity="center_horizontal"
             android:textAlignment="center"
             />
@@ -46,13 +66,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
+            android:textStyle="normal"
             android:textColor="#c555"
+            android:layout_below="@id/categoria"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="5dp"
             android:text="Calle en mal estado"/>
     </LinearLayout>
-    
+
     <LinearLayout
         android:layout_marginTop="5dp"
         android:layout_width="match_parent"
@@ -62,7 +83,7 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="0dp"
-            android:background="@color/topBar"
+            android:background="@drawable/gradient_background"
             android:layout_weight="1"
             android:layout_marginTop="30dp"
             android:gravity="center"
@@ -88,4 +109,6 @@
         
     </LinearLayout>
 
-</LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

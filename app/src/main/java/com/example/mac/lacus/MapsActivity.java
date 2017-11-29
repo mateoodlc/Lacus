@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Looper;
@@ -247,6 +248,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     transaction.replace(R.id.content, new FEstadisticas()).commit();
                     buttonComenzarRuta.setVisibility(View.INVISIBLE); //To set invisible
                     buttonMarcarDenuncia.setVisibility(View.INVISIBLE); //To set invisible
+
                     //BottomNavigationViewHelper.disableShiftMode(navigation);
                     return true;
                 case R.id.navigation_veeduria:
@@ -864,6 +866,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
 
         });
+        dialogoMarcadores.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialogoMarcadores.show();
 
     }
