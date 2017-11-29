@@ -1,5 +1,6 @@
 package com.example.mac.lacus;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -7,6 +8,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -18,7 +21,7 @@ import android.widget.Toast;
  * Use the {@link FConfiguraciones#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FConfiguraciones extends Fragment {
+public class FConfiguraciones extends Fragment implements View.OnClickListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -28,6 +31,9 @@ public class FConfiguraciones extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    Button perfil;
+   // Dialog dialog;
+    
     private OnFragmentInteractionListener mListener;
 
     public FConfiguraciones() {
@@ -59,8 +65,26 @@ public class FConfiguraciones extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-    }
 
+        //dialog = new Dialog(this);
+
+    }
+/*
+    public void MostrarPopup(View view) {
+        TextView cerrarTxt;
+
+        dialog.setContentView(R.layout.marcador_popup);
+        cerrarTxt = (TextView) dialog.findViewById(R.id.cerrarTxt);
+        cerrarTxt.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick (View v){
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
+*/
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -90,6 +114,11 @@ public class FConfiguraciones extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onClick(View view) {
+
     }
 
     /**
