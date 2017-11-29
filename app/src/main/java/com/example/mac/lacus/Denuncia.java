@@ -8,6 +8,7 @@ import java.util.List;
 
 public class Denuncia {
 
+    public String id;
     public String geopos;
     public String categoria;
     public String problema;
@@ -23,6 +24,34 @@ public class Denuncia {
         this.categoria = categoria;
         this.problema = problema;
         this.cantidad = cantidad;
+
+    }
+
+    public Denuncia(String id, String geopos, String categoria, String problema, int cantidad) {
+
+        this.id = id;
+        this.geopos = geopos;
+        this.categoria = categoria;
+        this.problema = problema;
+        this.cantidad = cantidad;
+
+    }
+
+    public String getId() {
+
+        return id;
+
+    }
+
+    public void setId(String id) {
+
+        this.id = id;
+
+    }
+
+    public String getGeopos() {
+
+        return geopos;
 
     }
 
