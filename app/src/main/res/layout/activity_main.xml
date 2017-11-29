@@ -7,10 +7,22 @@
     android:id="@+id/activity_main"
     android:fillViewport="true"
     tools:context="com.example.mac.lacus.MainActivity">
-<LinearLayout
+
+
+
+<RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_background">
+    >
+
+    <ImageView
+        android:id="@+id/background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        app:srcCompat="@mipmap/background"
+        android:layout_centerHorizontal="true"
+        />
 
     <RelativeLayout
     android:layout_width="wrap_content"
@@ -88,11 +100,11 @@
         android:layout_height="120px"
         android:layout_below="@+id/passwordField"
         android:layout_marginTop="20dp"
-        android:background="@drawable/roundedbotton"
+        android:background="@drawable/popup_shape"
         android:onClick="onClick"
         android:text="Ingresar"
         android:textAllCaps="false"
-        android:textColor="#8BC34A" />
+        android:textColor="#fff" />
 
         <Button
             android:id="@+id/conectarConGoogle"
@@ -100,8 +112,8 @@
             android:layout_height="120px"
             android:layout_marginTop="10dp"
             android:layout_below="@+id/ingresar"
-            android:background="@drawable/roundedbotton"
-            android:textColor="#8BC34A"
+            android:background="@drawable/popup_shape"
+            android:textColor="#fff"
             android:textAllCaps="false"
             android:text="Conectar con Google" />
 
@@ -115,7 +127,7 @@
         android:textAllCaps="false"
         android:textColor="#fff"
         android:background="?android:attr/selectableItemBackground"
-        android:text="¿Necesitas una cuenta?" />
+        android:text="¿Necesitas una cuenta? Regístrate" />
     />
 
     <Button
@@ -131,5 +143,5 @@
         android:text="Olvidé mi contraseña" />
     />
 </RelativeLayout>
-</LinearLayout>
+</RelativeLayout>
 </ScrollView>

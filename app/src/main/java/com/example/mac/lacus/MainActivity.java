@@ -203,7 +203,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         if (v.getId() == R.id.forgotpassword) {
             /*startActivity(new Intent(this, Marcador.class));*/
-            startActivity(new Intent(this, MapsActivity.class));
+            startActivity(new Intent(this, ForgotPassword.class));
             finish();
         } else if (v.getId() == R.id.needaccount) {
             startActivity(new Intent(this, Sign_up.class));

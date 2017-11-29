@@ -7,11 +7,21 @@
     android:layout_height="match_parent"
     android:fillViewport="true"
     tools:context="com.example.mac.lacus.Sign_up">
-    <LinearLayout
+
+
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/gradient_background">
-
+        >
+        <ImageView
+            android:id="@+id/background"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            app:srcCompat="@mipmap/background"
+            android:layout_centerHorizontal="true"
+            />
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -20,12 +30,12 @@
 
             <ImageView
                 android:id="@+id/logo"
-                android:layout_width="500px"
-                android:layout_height="300px"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                app:srcCompat="@drawable/ic_login"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="50dp"
-                app:srcCompat="@drawable/ic_logo" />
+                android:layout_marginTop="150dp"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -145,11 +155,11 @@
                 android:layout_height="120px"
                 android:layout_below="@+id/passwordField_signup_confirmation"
                 android:layout_marginTop="20dp"
-                android:background="@drawable/roundedbotton"
+                android:background="@drawable/popup_shape"
                 android:onClick="onClick"
                 android:text="Registrar"
                 android:textAllCaps="false"
-                android:textColor="#8BC34A" />
+                android:textColor="#fff" />
 
 
             <Button
@@ -168,5 +178,5 @@
 
 
         </RelativeLayout>
-    </LinearLayout>
+    </RelativeLayout>
 </ScrollView>
