@@ -11,7 +11,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/mviewpager"></android.support.v4.view.ViewPager>
-    
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:srcCompat="@drawable/ic_login"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="150dp"/>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -27,8 +36,39 @@
         android:id="@+id/puntosLayout"
         android:orientation="horizontal"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
         android:layout_alignParentBottom="true"
         android:gravity="center"
         android:layout_marginBottom="55sp"></LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Saltar"
+        android:textSize="16sp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:background="@null"
+        android:textColor="#fff"
+        android:id="@+id/saltarbtn"
+        android:textAllCaps="false"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="10dp"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Siguiente"
+        android:textSize="16sp"
+        android:textAllCaps="false"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:background="@null"
+        android:textColor="#fff"
+        android:layout_marginRight="10dp"
+        android:id="@+id/siguientebtn"
+        android:layout_marginBottom="8dp"
+        />
 
 </RelativeLayout>

@@ -61,6 +61,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         super.onCreate(savedInstanceState);
         //SET FULLSCREEN
+
+        if(Build.VERSION.SDK_INT >= 19){
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        } else {
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        }
+
         setContentView(R.layout.activity_main);
 
         activity_main = (ScrollView) findViewById(R.id.activity_main);
