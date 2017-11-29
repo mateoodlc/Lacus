@@ -40,6 +40,14 @@
             android:layout_centerHorizontal="true" />
 
 
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="100dp"
+            android:id="@+id/marcadoranimado"
+            app:srcCompat="@drawable/titilada"
+            />
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
