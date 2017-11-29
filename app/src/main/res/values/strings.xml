@@ -15,4 +15,21 @@
     <string name="title_activity_maps">Map</string>
     <string name="title_activity_maps2">Map2</string>
     <string name="title_activity_veeduria">Veeduria</string>
+
+    <!--   Slide 1 título y descripción -->
+    <string name="slide_1_titulo">Bienvenidos</string>
+    <string name="slide_1_descripción">Somos una plataforma que le permite a la comunidad ciclista participar en la mejoría de la movilidad en bicicleta en Cali</string>
+
+    <!--   Slide 2 título y descripción -->
+    <string name="slide_2_titulo">Inicia tu recorrido</string>
+    <string name="slide_2_descripción">Una vez estés en tu recorrido, puedes marcar el lugar en el que observes un problema, y cuando lo termines, podrás completar tu denuncia</string>
+
+    <!--   Slide 3 título y descripción -->
+    <string name="slide_3_titulo">Recordatorio</string>
+    <string name="slide_3_descripción">Por tu seguridad, en medio del recorrido puedes realizar tu marca con el botón + de tu auricular</string>
+
+    <!--   Preferencias -->
+    <string name="mi_preferencia">"com.abc.com.MyPrefer"</string>
+    <string name="mi_preferencia_key">"com.abc.com.MyPrefKey"</string>
+
 </resources>

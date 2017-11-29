@@ -9,4 +9,7 @@
 
     <color name="topBar">#8BC34A</color>
 
+    <color name="puntosactivos">#fffafa</color>
+    <color name="puntosinactivos">#83878b</color>
+
 </resources>

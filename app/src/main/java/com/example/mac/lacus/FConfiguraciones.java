@@ -33,7 +33,7 @@ public class FConfiguraciones extends Fragment implements View.OnClickListener{
 
     Button perfil;
    // Dialog dialog;
-    
+
     private OnFragmentInteractionListener mListener;
 
     public FConfiguraciones() {
