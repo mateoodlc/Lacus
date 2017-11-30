@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
+import android.media.MediaPlayer;
 import android.media.session.MediaSession;
 import android.media.session.PlaybackState;
 import android.os.Bundle;
@@ -232,8 +233,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     // Pop up para la información de cada marcador.
     private Dialog dialogoMarcadores;
 
-    //
+    // Para el botón del audífono.
     private MediaSessionCompat mSession;
+
+    // Sonido del marcador.
+    MediaPlayer sonidoMarcador;
 
     // "Receiving Location Updates" Tracks the status of the location updates request. Value changes
     // when the user presses the Start Updates and Stop Updates buttons.
@@ -520,6 +524,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .build();
         mSession.setPlaybackState(state);
 
+        /**
+         * SONIDO.
+         */
+
+        sonidoMarcador = MediaPlayer.create(this, R.raw.tono3);
+
     }
 
     // "Receiving Location Updates".
@@ -786,6 +796,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .title("Marcador" + denunciasMarcadas.size())
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_denuncia_marcada)));
 
+        sonidoMarcador.start();
         Log.d("holi", "Se marca, está fuera o en un nuevo rango.");
 
     }
