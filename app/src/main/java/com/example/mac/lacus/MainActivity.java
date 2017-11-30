@@ -1,9 +1,12 @@
 package com.example.mac.lacus;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.AnimatedVectorDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.NonNull;
@@ -55,6 +58,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static final int RC_SIGN_IN = 1;
     private String TAG;
 
+    private Dialog dialogoMarcadores;
+
+
     private FirebaseAuth auth;
     private FirebaseAuth.AuthStateListener authL;
     private GoogleApiClient mGoogleApiClient;
@@ -81,6 +87,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             login.setTypeface(typeface);
         }
 
+        dialogoMarcadores = new Dialog(this);
+
+        dialogoMarcadores.setContentView(R.layout.encuesta_popup);
 
         ///////////////////////////////////////////////////////////////
         //set del vector animado
@@ -96,7 +105,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         //se cierra la animación
         ////////////////////////////////////////////////////////////////
-
+        //dialogoMarcadores.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        //dialogoMarcadores.show();
         //View
         authL = new FirebaseAuth.AuthStateListener(){
 

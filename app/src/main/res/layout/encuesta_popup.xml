@@ -9,8 +9,8 @@ android:layout_height="460dp">
 
 
 <RelativeLayout
-    android:layout_width="120dp"
-    android:layout_height="120dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:id="@+id/imagebackground"
     android:layout_centerHorizontal="true"
@@ -18,27 +18,49 @@ android:layout_height="460dp">
     android:elevation="2dp">
 
 
+    <TextView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:textColor="#fff"
+        android:text="X"
+        android:elevation="3dp"
+        android:layout_marginRight="35dp"
+        android:layout_marginTop="65dp"
+        android:textStyle="bold"
+        android:id="@+id/cerrarDialogo"
+        android:layout_alignParentEnd="true"
+        android:layout_gravity="end"
+        android:visibility="invisible"
+        android:gravity="center"
+        android:background="@drawable/popup_shape"/>
+
 </RelativeLayout>
 
 <LinearLayout
     android:orientation="vertical"
     android:layout_width="250dp"
     android:layout_weight="1"
-    android:layout_marginTop="350dp"
+    android:layout_marginTop="340dp"
     android:gravity="center"
     android:elevation="3dp"
     android:layout_centerHorizontal="true"
-    android:layout_height="70dp">
+    android:layout_height="90dp">
 
-    <Button
-        android:id="@+id/textView2"
+    <com.spark.submitbutton.SubmitButton
+        android:id="@+id/enviar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="Enviar"
-        android:background="@drawable/popup_shape"
         android:textColor="#fff"
         android:textAllCaps="false"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+
+        app:sub_btn_background="@color/topBar"
+        app:sub_btn_duration="600"
+        app:sub_btn_ripple_color="@color/topBar"
+        app:sub_btn_line_color="@color/topBar"
+        app:sub_btn_tick_color="#fff" />
+
 
 </LinearLayout>
 
@@ -107,11 +129,14 @@ android:layout_height="460dp">
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="#fff"
+                android:backgroundTint="#8BC34A"
                 android:hint="Género"
                 android:inputType="textAutoComplete"
                 android:gravity="left"
                 android:textSize="15dp"
+                android:textColorLink="@color/topBar"
+                android:autofillHints="@color/topBar"
+                android:foregroundTint="@color/topBar"
                 android:textColor="#8BC34A"
                 android:id="@+id/genero_input"
                 android:textColorHighlight="#8BC34A"
@@ -137,11 +162,12 @@ android:layout_height="460dp">
                 android:id="@+id/edad_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="#fff"
+                android:backgroundTint="#8BC34A"
                 android:gravity="left"
                 android:hint="Edad"
                 android:inputType="textAutoComplete"
                 android:textColor="#8BC34A"
+                android:textColorLink="@color/topBar"
                 android:textColorHighlight="#8BC34A"
                 android:textColorHint="#8BC34A" />
 
@@ -165,11 +191,12 @@ android:layout_height="460dp">
                 android:id="@+id/profesion_input"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="#fff"
+                android:backgroundTint="#8BC34A"
                 android:gravity="left"
-                android:hint="Profesión"
+                android:hint="Ocupación (estudiante, empleado, independiente, pensionado)"
                 android:inputType="textAutoComplete"
                 android:textColor="#8BC34A"
+                android:textColorLink="@color/topBar"
                 android:textColorHighlight="#8BC34A"
                 android:textColorHint="#8BC34A" />
 

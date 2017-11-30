@@ -65,7 +65,7 @@
             android:layout_height="wrap_content"
             android:backgroundTint="#fff"
             android:hint="Nombre de Usuario"
-            android:inputType="textAutoComplete"
+            android:inputType="text"
             android:gravity="left"
             android:textSize="15dp"
             android:textColor="#fff"
@@ -125,18 +125,17 @@
             android:textAllCaps="false"
             android:text="Conectar con Google" />
 
-        <Button
-            android:id="@+id/needaccount"
-            android:layout_width="wrap_content"
-            android:layout_height="20dp"
-            android:layout_below="@+id/conectarConGoogle"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="25dp"
-            android:background="?android:attr/selectableItemBackground"
-            android:fontFamily="@font/montserrat_black"
-            android:text="¿Necesitas una cuenta? Regístrate"
-            android:textAllCaps="false"
-            android:textColor="#fff" />
+    <Button
+        android:id="@+id/needaccount"
+        android:layout_below="@+id/conectarConGoogle"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:textAllCaps="false"
+        android:textColor="#fff"
+        android:background="?android:attr/selectableItemBackground"
+        android:text="¿Necesitas una cuenta? Regístrate" />
     />
 
     <Button

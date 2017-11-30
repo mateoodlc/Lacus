@@ -19,6 +19,7 @@ import android.os.Bundle;
 import android.os.Looper;
 import android.os.SystemClock;
 import android.support.annotation.NonNull;
+import android.support.design.widget.TextInputEditText;
 import android.support.graphics.drawable.AnimatedVectorDrawableCompat;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
@@ -32,6 +33,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -69,6 +71,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.spark.submitbutton.SubmitButton;
 
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
@@ -121,6 +124,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     RelativeLayout dashboard_activity;
 
     private FMapa.OnFragmentInteractionListener mListener;
+
+    private Dialog dialogoEncuesta;
+    private SubmitButton enviar;
+    private TextView cerrarDialogo;
+    EditText genero;
+    EditText edad;
+    EditText ocupacion;
 
     public static MapsActivity newInstance(String s) {
         MapsActivity fragment = new MapsActivity();
@@ -305,6 +315,37 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.content, new FMapa()).commit();
 
+
+        ///////////////////////////popup de encuesta
+        ////////
+        ////
+        dialogoEncuesta = new Dialog(this);
+
+        dialogoEncuesta.setContentView(R.layout.encuesta_popup);
+        dialogoEncuesta.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialogoEncuesta.show();
+        enviar = (SubmitButton) dialogoEncuesta.findViewById(R.id.enviar);
+        genero = (EditText) dialogoEncuesta.findViewById(R.id.genero_input);
+        edad = (EditText) dialogoEncuesta.findViewById(R.id.edad_input);
+        ocupacion = (EditText) dialogoEncuesta.findViewById(R.id.profesion_input);
+
+        cerrarDialogo = (TextView) dialogoEncuesta.findViewById(R.id.cerrarDialogo);
+        cerrarDialogo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogoEncuesta.dismiss();
+            }
+        });
+
+            enviar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    enviarEncuesta(genero.getText().toString(), edad.getText().toString(), ocupacion.getText().toString());
+                }
+            });
+            ///////////////////////////////////////
+        //////////////////////////////////////////
+        /////////////////////////////////////////
 
         //dashboard_activity = (RelativeLayout) findViewById(R.id.activity_dashboard_t);
         auth = FirebaseAuth.getInstance();
@@ -1095,6 +1136,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if (auth.getCurrentUser() == null) {
             startActivity(new Intent(MapsActivity.this, MainActivity.class));
             finish();
+        }
+    }
+
+    ////////// MÉTODO PARA ENVIAR ENCUESTA
+    private void enviarEncuesta(String generoM, String edadM, String profesionM) {
+        if (genero.getText().toString().isEmpty() || edad.getText().toString().isEmpty() || ocupacion.getText().toString().isEmpty()) {
+            Toast.makeText(MapsActivity.this, "Completa los campos para continuar", Toast.LENGTH_LONG).show();
+        } else {
+            cerrarDialogo.setVisibility(View.VISIBLE);
         }
     }
 
