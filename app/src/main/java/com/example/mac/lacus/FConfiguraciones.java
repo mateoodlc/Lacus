@@ -33,6 +33,7 @@ public class FConfiguraciones extends Fragment implements View.OnClickListener{
 
     Button perfil;
    // Dialog dialog;
+    Button cerrarsesion;
 
     private OnFragmentInteractionListener mListener;
 
@@ -68,6 +69,7 @@ public class FConfiguraciones extends Fragment implements View.OnClickListener{
 
 
 
+
         //dialog = new Dialog(this);
 
     }
@@ -99,7 +101,11 @@ public class FConfiguraciones extends Fragment implements View.OnClickListener{
 
         );
 
-        return inflater.inflate(R.layout.fragment_fconfiguraciones, container, false);
+        View view = inflater.inflate(R.layout.fragment_fconfiguraciones, container, false);
+
+        cerrarsesion = (Button) view.findViewById(R.id.cerrarsesion);
+
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -120,6 +126,10 @@ public class FConfiguraciones extends Fragment implements View.OnClickListener{
         }
     }
 
+    private void cerrarSesion(){
+        ((MapsActivity)getActivity()).logOut();
+    }
+
     @Override
     public void onDetach() {
         super.onDetach();
@@ -128,7 +138,11 @@ public class FConfiguraciones extends Fragment implements View.OnClickListener{
 
     @Override
     public void onClick(View view) {
-
+        switch (view.getId()){
+            case R.id.cerrarsesion:
+                cerrarSesion();
+                break;
+        }
     }
 
     /**

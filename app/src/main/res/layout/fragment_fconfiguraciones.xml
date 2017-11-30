@@ -6,23 +6,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.mac.lacus.FConfiguraciones">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginBottom="10dp"
-        app:navigationIcon="@drawable/ic_dialog_close_light"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        />
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
         android:paddingRight="70dp"
         android:paddingLeft="70dp"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="10dp"
         android:orientation="vertical"
         android:id="@+id/relativeLayout">
         <RelativeLayout
@@ -48,8 +38,8 @@
 
             <ImageView
                 android:id="@+id/categoriaImg"
-                android:layout_width="95dp"
-                android:layout_height="95dp"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
                 android:padding="10dp"
                 app:srcCompat="@drawable/ic_culture"
                 android:layout_marginTop="23dp"
@@ -76,11 +66,9 @@
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/nombre"
                 android:layout_marginTop="23dp"
-                android:onClick="MostrarPopup"
                 android:text="Perfil"
                 android:textAllCaps="false"
                 android:textColor="#8BC34A"
-                android:textSize="18dp"
                 android:textStyle="normal" />
 
 
@@ -91,11 +79,9 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/perfil"
-                android:onClick="MostrarPopup"
                 android:text="Boton"
                 android:textAllCaps="false"
                 android:textColor="#8BC34A"
-                android:textSize="18dp"
                 android:textStyle="normal" />
 
             <Button
@@ -108,35 +94,20 @@
                 android:text="Notificaciones"
                 android:textAllCaps="false"
                 android:textColor="#8BC34A"
-                android:textSize="18dp"
-                android:textStyle="normal" />
-
-            <Button
-                android:id="@+id/privacidad"
-                style="?android:attr/listSeparatorTextViewStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/notificaciones"
-                android:text="Privacidad"
-                android:textAllCaps="false"
-                android:textColor="#8BC34A"
-                android:textSize="18dp"
                 android:textStyle="normal" />
 
             <Button
                 android:id="@+id/cerrarsesion"
-                style="?android:attr/borderlessButtonStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="23dp"
                 android:onClick="onClick"
                 android:text="Cerrar sesión"
                 android:textAllCaps="false"
-                android:textSize="20dp"
                 android:textStyle="normal"
-                android:textColor="#8BC34A"
-                android:layout_below="@+id/privacidad"
+                android:textColor="#fff"
+                android:background="@drawable/popup_shape"
+                android:layout_below="@+id/notificaciones"
                 android:layout_alignParentStart="true" />
 
         </RelativeLayout>

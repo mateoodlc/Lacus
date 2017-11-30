@@ -107,6 +107,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private Button buttonComenzarRuta;
     private Button buttonMarcarDenuncia;
+    private FloatingActionButton fab;
 
     FirebaseAuth auth;
     RelativeLayout dashboard_activity;
@@ -250,12 +251,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     transaction.replace(R.id.content, new FMapa()).commit();
                     buttonComenzarRuta.setVisibility(View.VISIBLE); //To set visible
                     buttonMarcarDenuncia.setVisibility(View.VISIBLE); //To set visible
+                    fab.setVisibility(View.VISIBLE);
                     //BottomNavigationViewHelper.disableShiftMode(navigation);
                     return true;
                 case R.id.navigation_estadisticas:
                     transaction.replace(R.id.content, new FEstadisticas()).commit();
                     buttonComenzarRuta.setVisibility(View.INVISIBLE); //To set invisible
                     buttonMarcarDenuncia.setVisibility(View.INVISIBLE); //To set invisible
+                    fab.setVisibility(View.INVISIBLE);
 
                     //BottomNavigationViewHelper.disableShiftMode(navigation);
                     return true;
@@ -266,12 +269,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     //  finish();
                     buttonComenzarRuta.setVisibility(View.INVISIBLE); //To set invisible
                     buttonMarcarDenuncia.setVisibility(View.INVISIBLE); //To set invisible
+                    fab.setVisibility(View.INVISIBLE);
+
                     //BottomNavigationViewHelper.disableShiftMode(navigation);
                     return true;
                 case R.id.navigation_configuracion:
                     transaction.replace(R.id.content, new FConfiguraciones()).commit();
                     buttonComenzarRuta.setVisibility(View.INVISIBLE); //To set invisible
                     buttonMarcarDenuncia.setVisibility(View.INVISIBLE); //To set invisible
+                    fab.setVisibility(View.INVISIBLE);
+                    
                     // BottomNavigationViewHelper.disableShiftMode(navigation_configuracion);
                     return true;
             }
@@ -311,7 +318,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         auth = FirebaseAuth.getInstance();
 
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -1032,7 +1039,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     }*/
 
-    private void logOut() {
+    public void logOut() {
         auth.signOut();
         if (auth.getCurrentUser() == null) {
             startActivity(new Intent(MapsActivity.this, MainActivity.class));

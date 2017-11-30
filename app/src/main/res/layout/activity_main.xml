@@ -65,7 +65,7 @@
             android:layout_height="wrap_content"
             android:backgroundTint="#fff"
             android:hint="Nombre de Usuario"
-            android:inputType="text"
+            android:inputType="textAutoComplete"
             android:gravity="left"
             android:textSize="15dp"
             android:textColor="#fff"

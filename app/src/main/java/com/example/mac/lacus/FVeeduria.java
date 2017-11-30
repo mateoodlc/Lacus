@@ -13,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.github.florent37.bubbletab.BubbleTab;
+
 import tab.MyAdapter;
 
 
@@ -63,7 +65,7 @@ public class FVeeduria extends Fragment {
         mPager.setAdapter(buildAdapter());
        // mPager.setAdapter(new MyAdapter(getSupportFragmentManager(), this));
 
-        TabLayout mTabLayout = (TabLayout) result.findViewById(R.id.tab_layout);
+        BubbleTab mTabLayout = (BubbleTab) result.findViewById(R.id.tab_layout);
         mTabLayout.setupWithViewPager(mPager);
         return result;
     }
