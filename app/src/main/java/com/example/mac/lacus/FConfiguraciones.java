@@ -1,6 +1,5 @@
 package com.example.mac.lacus;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -9,8 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 
 /**
@@ -66,6 +66,8 @@ public class FConfiguraciones extends Fragment implements View.OnClickListener{
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
+
+
         //dialog = new Dialog(this);
 
     }
@@ -89,6 +91,14 @@ public class FConfiguraciones extends Fragment implements View.OnClickListener{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
+        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+                .setDefaultFontPath("fonts/Montserrat_Light.ttf")
+                .setFontAttrId(R.attr.fontPath)
+                .build()
+
+        );
+
         return inflater.inflate(R.layout.fragment_fconfiguraciones, container, false);
     }
 

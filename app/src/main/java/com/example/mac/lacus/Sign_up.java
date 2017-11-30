@@ -1,14 +1,15 @@
 package com.example.mac.lacus;
 
 import android.content.Intent;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
@@ -16,6 +17,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 public class Sign_up extends AppCompatActivity implements View.OnClickListener {
 
@@ -29,7 +32,16 @@ public class Sign_up extends AppCompatActivity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if(Build.VERSION.SDK_INT >= 19){
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        } else {
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        }
+
         setContentView(R.layout.activity_sign_up);
+
+
 
         signUp = (Button) findViewById(R.id.signUp_button);
         alreadyAccount = (Button) findViewById(R.id.alreadyaccount);
