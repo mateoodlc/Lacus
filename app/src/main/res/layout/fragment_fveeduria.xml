@@ -8,10 +8,7 @@
     tools:context="com.example.mac.lacus.FVeeduria">
 
     <!-- TODO: Update blank fragment layout -->
-    <include
-        layout="@layout/toolbar_veeduria"
-        android:id="@+id/app_toolbar"
-        ></include>
+
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -19,30 +16,32 @@
         android:background="#fff"
         >
 
-        <com.github.florent37.bubbletab.BubbleTab
+        <android.support.design.widget.TabLayout
             android:id="@+id/tab_layout"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:elevation="10dp"
             android:clipToPadding="false"
             android:background="@android:color/white"
-
-            app:bubbleTab_circleColor="@color/topBar"
-            app:bubbleTab_circleRatio="1.25"
-            app:bubbleTab_image0="@drawable/ic_001_arrow"
-            app:bubbleTab_image1="@drawable/ic_003_eye"
-            app:bubbleTab_image2="@drawable/dashboard"
-            app:bubbleTab_image3="@drawable/settings"
             app:tabGravity="fill"
             app:tabMode="scrollable"
             app:tabPadding="4dp"
             app:tabMaxWidth="450dp"
             app:tabBackground="@drawable/tab_colors"
-            app:tabTextColor="#fff"
-            app:tabIndicatorColor="#00ffffff"
+            app:tabTextColor="#8BC34A"
+            app:tabIndicatorHeight="0dp"
+            app:tabIndicatorColor="@null"
             app:tabSelectedTextColor="#fff"
             android:layout_below="@+id/app_toolbar"
             />
+            <!--
+            app:bubbleTab_circleColor="@color/topBar"
+            app:bubbleTab_circleRatio="1.25"
+            app:bubbleTab_image0="@drawable/ic_sur"
+            app:bubbleTab_image1="@drawable/ic_norte"
+            app:bubbleTab_image2="@drawable/ic_oriente"
+            app:bubbleTab_image3="@drawable/ic_oeste" -->
+
     </FrameLayout>
 
 

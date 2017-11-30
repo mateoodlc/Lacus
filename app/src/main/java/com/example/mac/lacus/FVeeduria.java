@@ -65,7 +65,7 @@ public class FVeeduria extends Fragment {
         mPager.setAdapter(buildAdapter());
        // mPager.setAdapter(new MyAdapter(getSupportFragmentManager(), this));
 
-        BubbleTab mTabLayout = (BubbleTab) result.findViewById(R.id.tab_layout);
+        TabLayout mTabLayout = (TabLayout) result.findViewById(R.id.tab_layout);
         mTabLayout.setupWithViewPager(mPager);
         return result;
     }

@@ -278,7 +278,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     buttonComenzarRuta.setVisibility(View.INVISIBLE); //To set invisible
                     buttonMarcarDenuncia.setVisibility(View.INVISIBLE); //To set invisible
                     fab.setVisibility(View.INVISIBLE);
-                    
+
                     // BottomNavigationViewHelper.disableShiftMode(navigation_configuracion);
                     return true;
             }

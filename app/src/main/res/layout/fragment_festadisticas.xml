@@ -12,19 +12,6 @@
         android:layout_height="match_parent"
         >
 
-        <TextView
-            android:id="@+id/titulo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="ESTADÍSTICAS"
-            android:textAlignment="center"
-            android:textStyle="normal"
-            android:fontFamily="sans-serif"
-            android:paddingTop="16dp"
-            android:textSize="20dp"
-            android:background="#fff"
-            android:layout_below="@id/toolbar"
-            />/>
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
