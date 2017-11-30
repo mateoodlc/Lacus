@@ -10,6 +10,7 @@ import android.graphics.drawable.AnimatedVectorDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
+import android.media.Image;
 import android.media.MediaPlayer;
 import android.media.session.MediaSession;
 import android.media.session.PlaybackState;
@@ -918,22 +919,43 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 Denuncia denuncia = denunciaSnapshot.getValue(Denuncia.class);
 
-                TextView categoria = (TextView)findViewById(R.id.categoria);
-                TextView problematica = (TextView)findViewById(R.id.problematica);
-                TextView numerodenuncias = (TextView)findViewById(R.id.numerodenuncias);
+                TextView cerrarTxt;
+
+                dialogoMarcadores.setContentView(R.layout.marcador_popup);
+
+                cerrarTxt = (TextView) dialogoMarcadores.findViewById(R.id.cerrarTxt);
+
+                ImageView imagen = (ImageView) dialogoMarcadores.findViewById(R.id.imagen_popup);
+                TextView categoria = (TextView) dialogoMarcadores.findViewById(R.id.categoria);
+                TextView problematica = (TextView) dialogoMarcadores.findViewById(R.id.problematica);
+                TextView numerodenuncias = (TextView) dialogoMarcadores.findViewById(R.id.numerodenuncias);
 
                 Log.d("holi", denuncia.getCategoria());
                 Log.d("holi", denuncia.getProblema());
                 Log.d("holi", String.valueOf(denuncia.getCantidad()));
 
+                if(denuncia.getCategoria().equals("Infraestructura")) {
+
+                    imagen.setImageResource(R.drawable.ic_infraestructura);
+
+                } else if(denuncia.getCategoria().equals("Señalización")) {
+
+                    imagen.setImageResource(R.drawable.ic_senales);
+
+                } else if(denuncia.getCategoria().equals("Cultura")) {
+
+                    imagen.setImageResource(R.drawable.ic_culture);
+
+                } else if(denuncia.getCategoria().equals("Seguridad")) {
+
+                    imagen.setImageResource(R.drawable.ic_seguridad);
+
+                }
+
                 categoria.setText(denuncia.getCategoria());
-                /*problematica.setText(denuncia.getProblema());
-                numerodenuncias.setText(denuncia.getCantidad());*/
+                problematica.setText(denuncia.getProblema());
+                numerodenuncias.setText(String.valueOf(denuncia.getCantidad()));
 
-                TextView cerrarTxt;
-
-                dialogoMarcadores.setContentView(R.layout.marcador_popup);
-                cerrarTxt = (TextView) dialogoMarcadores.findViewById(R.id.cerrarTxt);
                 cerrarTxt.setOnClickListener(new View.OnClickListener() {
 
                     @Override
