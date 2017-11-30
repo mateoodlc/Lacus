@@ -32,8 +32,6 @@ public class GraciasPorContribuir extends AppCompatActivity implements View.OnCl
     ImageView categoriaImg;
     TextView tipoCategoria;
 
-    ImageView marcadoranimado;
-
     /**
      * BASE DE DATOS.
      */
@@ -59,18 +57,6 @@ public class GraciasPorContribuir extends AppCompatActivity implements View.OnCl
         continuar = (Button) findViewById(R.id.continuar);
         categoriaImg = (ImageView) findViewById(R.id.categoriaImg);
         tipoCategoria = (TextView) findViewById(R.id.tipoCaso);
-
-
-        ///////////////////////////////////////////////////////////////
-        //set del vector animado
-        marcadoranimado = (ImageView) findViewById(R.id.marcadoranimado);
-        Drawable drawable = marcadoranimado.getDrawable();
-        if(drawable instanceof Animatable){
-            ((Animatable) drawable).start();
-        }
-
-        //se cierra la animación
-        ////////////////////////////////////////////////////////////////
 
         //Strings para recibir los putExtra
         Intent intent = getIntent();
