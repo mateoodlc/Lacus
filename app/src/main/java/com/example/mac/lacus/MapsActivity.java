@@ -6,15 +6,19 @@ import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.graphics.drawable.AnimatedVectorDrawable;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.media.MediaPlayer;
 import android.media.session.MediaSession;
 import android.media.session.PlaybackState;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
 import android.os.SystemClock;
 import android.support.annotation.NonNull;
+import android.support.graphics.drawable.AnimatedVectorDrawableCompat;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -25,7 +29,9 @@ import android.support.v4.media.session.PlaybackStateCompat;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -280,6 +286,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
          */
 
         super.onCreate(savedInstanceState);
+
+        if(Build.VERSION.SDK_INT >= 19){
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        } else {
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        }
+
         setContentView(R.layout.activity_maps);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -510,6 +523,25 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
          */
 
         sonidoMarcador = MediaPlayer.create(this, R.raw.tono3);
+
+        /**
+         * ANIMACIÓN MARCADOR.
+         */
+
+        ///////////////////////////////////////////////////////////////
+        //set del vector animado
+        ImageView marcaanimada = (ImageView) findViewById(R.id.marcadoranimado);
+        Drawable d = marcaanimada.getDrawable();
+        //marcadoranimado.setImageDrawable(drawable);
+        if(d instanceof AnimatedVectorDrawableCompat){
+            AnimatedVectorDrawableCompat avd = (AnimatedVectorDrawableCompat) d;
+            avd.start();
+        } else if (d instanceof AnimatedVectorDrawable) {
+            AnimatedVectorDrawable avd = (AnimatedVectorDrawable) d;
+            avd.start();
+        }
+        //se cierra la animación
+        ////////////////////////////////////////////////////////////////
 
     }
 
