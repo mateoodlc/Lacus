@@ -34,14 +34,17 @@
         android:layout_below="@id/titulo"
         android:id="@+id/mapa">
 
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center"
-            android:id="@+id/marcadoranimado"
-            app:srcCompat="@drawable/titilada"
-            />
+        <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:map="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/mapagestion"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:context="com.pdg2.lacus.lacusgps.Marcador"
+            tools:layout="@layout/layout_dummy_mapa"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="8dp" />
 
     </FrameLayout>
 

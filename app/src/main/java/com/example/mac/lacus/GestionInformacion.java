@@ -8,18 +8,48 @@ import android.support.graphics.drawable.AnimatedVectorDrawableCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
-public class GestionInformacion extends AppCompatActivity {
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
+
+public class GestionInformacion extends AppCompatActivity implements OnMapReadyCallback {
 
     Toolbar toolbar;
     ImageView marcador;
+
+    /**
+     * API MAPAS.
+     */
+
+    private GoogleMap mMap;
+
+    private Marker marcadorA;
+
+    //private CameraPosition posicionCamara;
+
+    private String marcadorActual;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gestion_informacion);
+        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.mapagestion);
+        mapFragment.getMapAsync(this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -28,31 +58,23 @@ public class GestionInformacion extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        ///////////////////////////////////////////////////////////////
-        //set del vector animado
-        ///////////////////////////////////////////////////////////////
-        //set del vector animado
-        ImageView marcaanimada = (ImageView) findViewById(R.id.marcadoranimado);
-        Drawable d = marcaanimada.getDrawable();
-        //marcadoranimado.setImageDrawable(drawable);
-        if(d instanceof AnimatedVectorDrawableCompat){
-            AnimatedVectorDrawableCompat avd = (AnimatedVectorDrawableCompat) d;
-            avd.start();
-        } else if (d instanceof AnimatedVectorDrawable) {
-            AnimatedVectorDrawable avd = (AnimatedVectorDrawable) d;
-            avd.start();
-        }
-        //se cierra la animación
-        ////////////////////////////////////////////////////////////////
-
-
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(GestionInformacion.this, FVeeduria.class);
+                Intent intent = new Intent(GestionInformacion.this, MapsActivity.class);
                 startActivity(intent);
                 finish();            }
         });
 
     }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+
+        mMap = googleMap;
+
+        Log.d("holi", "Se creó el mapa.");
+
+    }
+
 }
