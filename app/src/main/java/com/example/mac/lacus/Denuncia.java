@@ -55,4 +55,22 @@ public class Denuncia {
 
     }
 
+    public String getCategoria() {
+
+        return categoria;
+
+    }
+
+    public String getProblema() {
+
+        return problema;
+
+    }
+
+    public int getCantidad() {
+
+        return cantidad;
+
+    }
+
 }

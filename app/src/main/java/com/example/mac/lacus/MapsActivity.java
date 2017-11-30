@@ -286,13 +286,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
          */
 
         super.onCreate(savedInstanceState);
-
-        if(Build.VERSION.SDK_INT >= 19){
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        } else {
-            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        }
-
         setContentView(R.layout.activity_maps);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -523,25 +516,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
          */
 
         sonidoMarcador = MediaPlayer.create(this, R.raw.tono3);
-
-        /**
-         * ANIMACIÓN MARCADOR.
-         */
-
-        ///////////////////////////////////////////////////////////////
-        //set del vector animado
-        ImageView marcaanimada = (ImageView) findViewById(R.id.marcadoranimado);
-        Drawable d = marcaanimada.getDrawable();
-        //marcadoranimado.setImageDrawable(drawable);
-        if(d instanceof AnimatedVectorDrawableCompat){
-            AnimatedVectorDrawableCompat avd = (AnimatedVectorDrawableCompat) d;
-            avd.start();
-        } else if (d instanceof AnimatedVectorDrawable) {
-            AnimatedVectorDrawable avd = (AnimatedVectorDrawable) d;
-            avd.start();
-        }
-        //se cierra la animación
-        ////////////////////////////////////////////////////////////////
 
     }
 
@@ -920,7 +894,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             if(marker.equals(arregloMarcadores.get(i))) {
 
-                mostrarPopup();
+                String tagMar = arregloMarcadores.get(i).getTag().toString();
+                mostrarPopup(tagMar);
                 return true;
 
             }
@@ -931,22 +906,52 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     }
 
-    public void mostrarPopup() {
+    public void mostrarPopup(String tag) {
 
-        TextView cerrarTxt;
+        Log.d("holi", tag);
 
-        dialogoMarcadores.setContentView(R.layout.marcador_popup);
-        cerrarTxt = (TextView) dialogoMarcadores.findViewById(R.id.cerrarTxt);
-        cerrarTxt.setOnClickListener(new View.OnClickListener() {
+        final DatabaseReference temporalRef = mDatabase.getReference("denuncias").child(tag);
 
+        temporalRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onClick (View v){
-                dialogoMarcadores.dismiss();
+            public void onDataChange(DataSnapshot denunciaSnapshot) {
+
+                Denuncia denuncia = denunciaSnapshot.getValue(Denuncia.class);
+
+                TextView categoria = (TextView)findViewById(R.id.categoria);
+                TextView problematica = (TextView)findViewById(R.id.problematica);
+                TextView numerodenuncias = (TextView)findViewById(R.id.numerodenuncias);
+
+                Log.d("holi", denuncia.getCategoria());
+                Log.d("holi", denuncia.getProblema());
+                Log.d("holi", String.valueOf(denuncia.getCantidad()));
+
+                categoria.setText(denuncia.getCategoria());
+                /*problematica.setText(denuncia.getProblema());
+                numerodenuncias.setText(denuncia.getCantidad());*/
+
+                TextView cerrarTxt;
+
+                dialogoMarcadores.setContentView(R.layout.marcador_popup);
+                cerrarTxt = (TextView) dialogoMarcadores.findViewById(R.id.cerrarTxt);
+                cerrarTxt.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick (View v){
+                        dialogoMarcadores.dismiss();
+                    }
+
+                });
+                dialogoMarcadores.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialogoMarcadores.show();
+
             }
 
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
         });
-        dialogoMarcadores.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialogoMarcadores.show();
 
     }
 
