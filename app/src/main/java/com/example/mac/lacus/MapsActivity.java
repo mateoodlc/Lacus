@@ -8,8 +8,11 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
+import android.media.session.MediaSession;
+import android.media.session.PlaybackState;
 import android.os.Bundle;
 import android.os.Looper;
+import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
@@ -465,6 +468,36 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         obtenerDenuncias();
 
+        /**
+         * BOTÓN AURICULAR.
+         */
+
+        MediaSession mediaSession = new MediaSession(MapsActivity.this,
+                "TAG"); // Debugging tag, any string
+
+        mediaSession.setCallback(new MediaSession.Callback() {
+            @Override
+            public boolean onMediaButtonEvent(final Intent mediaButtonIntent) {
+                Log.i("holi", "GOT EVENT");
+                return super.onMediaButtonEvent(mediaButtonIntent);
+            }
+        });
+
+        mediaSession.setFlags(
+                MediaSession.FLAG_HANDLES_MEDIA_BUTTONS |
+                        MediaSession.FLAG_HANDLES_TRANSPORT_CONTROLS);
+
+        PlaybackState state = new PlaybackState.Builder()
+                .setActions(
+                        PlaybackState.ACTION_PLAY | PlaybackState.ACTION_PLAY_PAUSE |
+                                PlaybackState.ACTION_PLAY_FROM_MEDIA_ID | PlaybackState.ACTION_PAUSE |
+                                PlaybackState.ACTION_SKIP_TO_NEXT | PlaybackState.ACTION_SKIP_TO_PREVIOUS)
+                .setState(PlaybackState.STATE_PLAYING, 0, 0, SystemClock.elapsedRealtime())
+                .build();
+        mediaSession.setPlaybackState(state);
+
+        mediaSession.setActive(true);
+
     }
 
     // "Receiving Location Updates".
@@ -870,6 +903,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         dialogoMarcadores.show();
 
     }
+
+    // Método para marcar con el audífono.
 
     // Uno de los métodos inicializadores.
     private void buildLocationSettingsRequest() {
