@@ -1,0 +1,66 @@
+<animated-vector
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt">
+    <aapt:attr name="android:drawable">
+        <vector
+            android:name="vector"
+            android:width="10dp"
+            android:height="10dp"
+            android:viewportWidth="286"
+            android:viewportHeight="286">
+            <path
+                android:name="path_1"
+                android:pathData="M 143.615 15.376 C 72.79 15.376 15.376 72.79 15.376 143.615 C 15.376 214.44 72.79 271.854 143.615 271.854 C 214.44 271.854 271.854 214.44 271.854 143.615 C 271.854 72.79 214.44 15.376 143.615 15.376 Z"
+                android:fillColor="#cc5555"
+                android:strokeWidth="1"/>
+            <path
+                android:name="path_2"
+                android:pathData="M 143.615 38.287 C 85.443 38.287 38.287 85.443 38.287 143.615 C 38.287 201.787 85.443 248.943 143.615 248.943 C 201.787 248.943 248.943 201.787 248.943 143.615 C 248.943 85.443 201.787 38.287 143.615 38.287 Z"
+                android:fillColor="#000"
+                android:fillAlpha="0"
+                android:strokeWidth="1"/>
+        </vector>
+    </aapt:attr>
+    <target android:name="path_1">
+        <aapt:attr name="android:animation">
+            <set>
+                <objectAnimator
+                    android:propertyName="strokeColor"
+                    android:duration="5000"
+                    android:valueFrom="#cc5555"
+                    android:repeatCount="infinite"
+                    android:repeatMode="reverse"
+                    android:valueTo="#cc5555"
+                    android:valueType="colorType"
+                    android:interpolator="@android:interpolator/fast_out_slow_in"/>
+                <objectAnimator
+                    android:propertyName="strokeWidth"
+                    android:duration="2000"
+                    android:repeatCount="infinite"
+                    android:repeatMode="reverse"
+                    android:valueFrom="0"
+                    android:valueTo="15"
+                    android:valueType="floatType"
+                    android:interpolator="@android:interpolator/fast_out_slow_in"/>
+                <objectAnimator
+                    android:propertyName="strokeAlpha"
+                    android:duration="2000"
+                    android:valueFrom="0.8"
+                    android:repeatCount="infinite"
+                    android:repeatMode="reverse"
+                    android:valueTo="1"
+                    android:valueType="floatType"
+                    android:interpolator="@android:interpolator/fast_out_slow_in"/>
+                <objectAnimator
+                    android:propertyName="fillAlpha"
+                    android:duration="2000"
+                    android:repeatCount="infinite"
+                    android:repeatMode="reverse"
+                    android:valueFrom="0.6"
+                    android:valueTo="1"
+                    android:valueType="floatType"
+                    android:interpolator="@android:interpolator/fast_out_slow_in"/>
+            </set>
+        </aapt:attr>
+    </target>
+</animated-vector>

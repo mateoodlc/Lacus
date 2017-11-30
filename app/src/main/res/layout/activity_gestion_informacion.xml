@@ -11,6 +11,14 @@
         android:id="@+id/toolbar"
         ></include>
 
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/marcadoranimado"
+        android:src="@drawable/ic_marcadoricono"
+        />
+
     <TextView
         android:id="@+id/titulo"
         android:layout_width="match_parent"
@@ -43,7 +51,7 @@
         android:text="En ejecución"
         android:textColor="#fff"
         android:textAlignment="center"
-        android:background="#8BC34A"
+        android:background="@drawable/gradient_background"
         android:textStyle="bold"
         android:textSize="25dp" />
 

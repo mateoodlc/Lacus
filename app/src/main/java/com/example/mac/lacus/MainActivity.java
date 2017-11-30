@@ -2,9 +2,14 @@ package com.example.mac.lacus;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Animatable;
+import android.graphics.drawable.AnimatedVectorDrawable;
+import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
+import android.support.graphics.drawable.AnimatedVectorDrawableCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +18,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.Toast;
@@ -49,6 +55,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     Button googleLogin;
 
+    //imageview del vector animado
+    private ImageView marcadoranimado;
+
+    AnimatedVectorDrawable drawable;
+
     private static final int RC_SIGN_IN = 1;
     private String TAG;
 
@@ -61,10 +72,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         super.onCreate(savedInstanceState);
         //SET FULLSCREEN
+
+        if(Build.VERSION.SDK_INT >= 19){
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        } else {
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        }
+
         setContentView(R.layout.activity_main);
 
         activity_main = (ScrollView) findViewById(R.id.activity_main);
 
+
+        ///////////////////////////////////////////////////////////////
+        //set del vector animado
+        ImageView marcaanimada = (ImageView) findViewById(R.id.marcadoranimado);
+        Drawable d = marcaanimada.getDrawable();
+        //marcadoranimado.setImageDrawable(drawable);
+        if(d instanceof AnimatedVectorDrawableCompat){
+            AnimatedVectorDrawableCompat avd = (AnimatedVectorDrawableCompat) d;
+            avd.start();
+        } else if (d instanceof AnimatedVectorDrawable) {
+            AnimatedVectorDrawable avd = (AnimatedVectorDrawable) d;
+            avd.start();
+        }
+        //se cierra la animación
+        ////////////////////////////////////////////////////////////////
 
         //View
         authL = new FirebaseAuth.AuthStateListener(){
@@ -196,7 +229,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         if (v.getId() == R.id.forgotpassword) {
             /*startActivity(new Intent(this, Marcador.class));*/
-            startActivity(new Intent(this, MapsActivity.class));
+            startActivity(new Intent(this, ForgotPassword.class));
             finish();
         } else if (v.getId() == R.id.needaccount) {
             startActivity(new Intent(this, Sign_up.class));

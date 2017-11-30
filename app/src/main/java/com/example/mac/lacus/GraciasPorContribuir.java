@@ -1,6 +1,8 @@
 package com.example.mac.lacus;
 
 import android.content.Intent;
+import android.graphics.drawable.Animatable;
+import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -30,6 +32,8 @@ public class GraciasPorContribuir extends AppCompatActivity implements View.OnCl
     ImageView categoriaImg;
     TextView tipoCategoria;
 
+    ImageView marcadoranimado;
+
     /**
      * BASE DE DATOS.
      */
@@ -56,6 +60,17 @@ public class GraciasPorContribuir extends AppCompatActivity implements View.OnCl
         categoriaImg = (ImageView) findViewById(R.id.categoriaImg);
         tipoCategoria = (TextView) findViewById(R.id.tipoCaso);
 
+
+        ///////////////////////////////////////////////////////////////
+        //set del vector animado
+        marcadoranimado = (ImageView) findViewById(R.id.marcadoranimado);
+        Drawable drawable = marcadoranimado.getDrawable();
+        if(drawable instanceof Animatable){
+            ((Animatable) drawable).start();
+        }
+
+        //se cierra la animación
+        ////////////////////////////////////////////////////////////////
 
         //Strings para recibir los putExtra
         Intent intent = getIntent();

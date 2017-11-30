@@ -4,7 +4,7 @@
     android:background="#00ff0000"
     android:layout_gravity="center"
     android:elevation="3dp"
-    android:layout_height="wrap_content">
+    android:layout_height="360dp">
 
     <TextView
         android:layout_width="30dp"
@@ -12,14 +12,46 @@
         android:textColor="#fff"
         android:text="X"
         android:elevation="2dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="0dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="5dp"
         android:textStyle="bold"
         android:id="@+id/cerrarTxt"
         android:layout_alignParentEnd="true"
         android:layout_gravity="end"
         android:gravity="center"
         android:background="@drawable/gradient_background"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="250dp"
+        android:background="@drawable/popup_shape"
+        android:layout_weight="1"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:elevation="3dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="bottom"
+        android:layout_height="100dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:id="@+id/numerodenuncias"
+            android:text="23"
+            android:textColor="#fff"
+            />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Denuncias"
+            android:textColor="#fff"
+            android:textSize="18sp" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="300dp"
@@ -29,7 +61,7 @@
         android:gravity="center"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
-        android:background="#fff">
+        android:background="#00ffffff">
 
 
 
@@ -37,9 +69,12 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="300dp"
         android:orientation="vertical"
+        android:padding="10dp"
+        android:id="@+id/descripcionMarcador"
         android:layout_gravity="center"
+        android:background="@drawable/popup_background"
         >
 
         <ImageView
@@ -68,6 +103,7 @@
             android:layout_height="wrap_content"
             android:textStyle="normal"
             android:textColor="#c555"
+            android:id="@+id/problematica"
             android:layout_below="@id/categoria"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="5dp"
@@ -78,34 +114,10 @@
         android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/descripcionMarcador"
         android:orientation="horizontal">
         
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="0dp"
-            android:background="@drawable/gradient_background"
-            android:layout_weight="1"
-            android:layout_marginTop="30dp"
-            android:gravity="center"
-            android:layout_height="100dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:text="23"
-                android:textColor="#fff"
-                />
-
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Denuncias"
-                android:textColor="#fff"
-                android:textSize="18sp" />
-
-        </LinearLayout>
         
     </LinearLayout>
 
