@@ -12,15 +12,15 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="10dp"
         android:background="#fff"
         >
+    </FrameLayout>
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tab_layout"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:elevation="10dp"
             android:clipToPadding="false"
             android:background="@android:color/white"
             app:tabGravity="fill"
@@ -42,8 +42,12 @@
             app:bubbleTab_image2="@drawable/ic_oriente"
             app:bubbleTab_image3="@drawable/ic_oeste" -->
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="#fff"
+        >
     </FrameLayout>
-
 
     <android.support.v4.view.ViewPager
         android:id="@+id/view_pager"
