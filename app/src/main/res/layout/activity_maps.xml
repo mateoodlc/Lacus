@@ -22,15 +22,7 @@
             tools:layout="@layout/layout_dummy_mapa"
             tools:layout_editor_absoluteX="8dp"
             tools:layout_editor_absoluteY="8dp" />
-
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="100dp"
-            android:id="@+id/marcadoranimado"
-            app:srcCompat="@drawable/titilada"
-            />
+        
 
         <Button
             android:id="@+id/button_comenzar_ruta"
