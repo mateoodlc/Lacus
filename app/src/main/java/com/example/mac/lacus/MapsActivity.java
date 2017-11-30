@@ -820,9 +820,100 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                     LatLng posicionDenunciaActualMapa = new LatLng(Double.parseDouble(parte1), Double.parseDouble(parte2));
 
-                    Marker marcadorFinal = mMap.addMarker(new MarkerOptions()
-                            .position(posicionDenunciaActualMapa));
-                                /*.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_denuncia_marcada)));*/
+                    Marker marcadorFinal;
+
+                    if(denuncia.getCategoria().equals("Señalizacion")) {
+
+                        if(denuncia.getCantidad() >= 1 && denuncia.getCantidad() <= 50){
+
+                            marcadorFinal = mMap.addMarker(new MarkerOptions()
+                                    .position(posicionDenunciaActualMapa)
+                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.m_senalizacion1)));
+
+                        } else if(denuncia.getCantidad() >= 51 && denuncia.getCantidad() <= 100){
+
+                            marcadorFinal = mMap.addMarker(new MarkerOptions()
+                                    .position(posicionDenunciaActualMapa)
+                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_denuncia_marcada)));
+
+                        } else {
+
+                            marcadorFinal = mMap.addMarker(new MarkerOptions()
+                                    .position(posicionDenunciaActualMapa)
+                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_denuncia_marcada)));
+
+                        }
+
+                    } else if(denuncia.getCategoria().equals("Infraestructura")) {
+
+                        if(denuncia.getCantidad() >= 1 && denuncia.getCantidad() <= 50){
+
+                            marcadorFinal = mMap.addMarker(new MarkerOptions()
+                                    .position(posicionDenunciaActualMapa)
+                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.m_infraestructura1)));
+
+                        } else if(denuncia.getCantidad() >= 51 && denuncia.getCantidad() <= 100){
+
+                            marcadorFinal = mMap.addMarker(new MarkerOptions()
+                                    .position(posicionDenunciaActualMapa)
+                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_denuncia_marcada)));
+
+                        } else {
+
+                            marcadorFinal = mMap.addMarker(new MarkerOptions()
+                                    .position(posicionDenunciaActualMapa)
+                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_denuncia_marcada)));
+
+                        }
+
+                    } else if(denuncia.getCategoria().equals("Cultura")) {
+
+                        if(denuncia.getCantidad() >= 1 && denuncia.getCantidad() <= 50){
+
+                            marcadorFinal = mMap.addMarker(new MarkerOptions()
+                                    .position(posicionDenunciaActualMapa)
+                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.m_cultura1)));
+
+                        } else if(denuncia.getCantidad() >= 51 && denuncia.getCantidad() <= 100){
+
+                            marcadorFinal = mMap.addMarker(new MarkerOptions()
+                                    .position(posicionDenunciaActualMapa)
+                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_denuncia_marcada)));
+
+                        } else {
+
+                            marcadorFinal = mMap.addMarker(new MarkerOptions()
+                                    .position(posicionDenunciaActualMapa)
+                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_denuncia_marcada)));
+
+                        }
+
+                    } else {
+
+                        if(denuncia.getCantidad() >= 1 && denuncia.getCantidad() <= 50){
+
+                            marcadorFinal = mMap.addMarker(new MarkerOptions()
+                                    .position(posicionDenunciaActualMapa)
+                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.m_seguridad1)));
+
+                        } else if(denuncia.getCantidad() >= 51 && denuncia.getCantidad() <= 100){
+
+                            marcadorFinal = mMap.addMarker(new MarkerOptions()
+                                    .position(posicionDenunciaActualMapa)
+                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_denuncia_marcada)));
+
+                        } else {
+
+                            marcadorFinal = mMap.addMarker(new MarkerOptions()
+                                    .position(posicionDenunciaActualMapa)
+                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_denuncia_marcada)));
+
+                        }
+
+                    }
+
+                    /*Marker marcadorFinal = mMap.addMarker(new MarkerOptions()
+                            .position(posicionDenunciaActualMapa));*/
 
                     marcadorFinal.setTag(denuncia.getId());
 
@@ -832,7 +923,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 Log.d("holi", "Salío del for");
 
-                if(denunciasMapa.size() > 0) {
+                /*if(denunciasMapa.size() > 0) {
 
                     for(int i = 0; i < denunciasMapa.size(); i++) {
 
@@ -848,11 +939,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         mMap.addMarker(new MarkerOptions()
                                 .position(marcadorDenunciaActualMapa)
                                 .title(denunciaActualMapa.getId()));
-                                /*.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_denuncia_marcada)));*/
 
                     }
 
-                }
+                }*/
 
                 /*marcadorActual = denuncias.get(0);
 
