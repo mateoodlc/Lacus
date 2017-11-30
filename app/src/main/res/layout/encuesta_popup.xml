@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="340dp"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+android:background="#00ff0000"
+android:layout_gravity="center"
+android:elevation="3dp"
+android:layout_height="460dp">
+
+
+<RelativeLayout
+    android:layout_width="120dp"
+    android:layout_height="120dp"
+    android:layout_gravity="center"
+    android:id="@+id/imagebackground"
+    android:layout_centerHorizontal="true"
+    android:layout_marginTop="5dp"
+    android:elevation="2dp">
+
+
+</RelativeLayout>
+
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="250dp"
+    android:layout_weight="1"
+    android:layout_marginTop="350dp"
+    android:gravity="center"
+    android:elevation="3dp"
+    android:layout_centerHorizontal="true"
+    android:layout_height="70dp">
+
+    <Button
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Enviar"
+        android:background="@drawable/popup_shape"
+        android:textColor="#fff"
+        android:textSize="18sp" />
+
+</LinearLayout>
+
+<LinearLayout
+    android:layout_width="300dp"
+    android:layout_gravity="center"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_marginLeft="20dp"
+    android:layout_marginTop="10dp"
+    android:background="#00ffffff">
+
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="340dp"
+        android:orientation="vertical"
+        android:padding="1dp"
+        android:layout_marginTop="40dp"
+        android:id="@+id/descripcionMarcador"
+        android:layout_gravity="center"
+        android:background="@drawable/popup_background"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="Haz tu primer aporte"
+            android:textStyle="bold"
+            android:layout_marginTop="35dp"
+            android:textSize="20sp"
+            android:layout_gravity="center"
+            android:id="@+id/titulo"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="Responde a esta encuesta"
+            android:layout_marginTop="5dp"
+            android:layout_gravity="center"
+            android:id="@+id/respondertxt"
+            />
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:focusable="false"
+            android:focusableInTouchMode="true"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imagebackground"
+            android:layout_marginTop="10dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:id="@+id/emailField"
+
+            android:theme="@style/TextLabel">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#fff"
+                android:hint="Género"
+                android:inputType="text"
+                android:gravity="left"
+                android:textSize="15dp"
+                android:textColor="#8BC34A"
+                android:id="@+id/genero_input"
+                android:textColorHighlight="#8BC34A"
+                android:textColorHint="#8BC34A"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/edad"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="false"
+            android:focusableInTouchMode="true"
+            android:layout_below="@+id/genero_input"
+            android:layout_marginTop="8dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:theme="@style/TextLabel">
+
+
+            <EditText
+                android:textSize="15dp"
+                android:id="@+id/edad_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#fff"
+                android:gravity="left"
+                android:hint="Edad"
+                android:inputType="textAutoComplete"
+                android:textColor="#8BC34A"
+                android:textColorHighlight="#8BC34A"
+                android:textColorHint="#8BC34A" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/profesion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="false"
+            android:focusableInTouchMode="true"
+            android:layout_below="@+id/genero_input"
+            android:layout_marginTop="8dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:theme="@style/TextLabel">
+
+
+            <EditText
+                android:textSize="15dp"
+                android:id="@+id/profesion_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#fff"
+                android:gravity="left"
+                android:hint="Profesión"
+                android:inputType="textAutoComplete"
+                android:textColor="#8BC34A"
+                android:textColorHighlight="#8BC34A"
+                android:textColorHint="#8BC34A" />
+
+        </android.support.design.widget.TextInputLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/descripcionMarcador"
+        android:orientation="horizontal">
+
+
+
+    </LinearLayout>
+
+</LinearLayout>
+
+</RelativeLayout>

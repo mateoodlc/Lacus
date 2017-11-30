@@ -12,26 +12,45 @@
         android:textColor="#fff"
         android:text="X"
         android:elevation="2dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginRight="35dp"
+        android:layout_marginTop="65dp"
         android:textStyle="bold"
         android:id="@+id/cerrarTxt"
         android:layout_alignParentEnd="true"
         android:layout_gravity="end"
         android:gravity="center"
-        android:background="@drawable/gradient_background"/>
+        android:background="@drawable/popup_shape"/>
+
+    <LinearLayout
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_centerHorizontal="true"
+        android:elevation="2dp"
+        android:id="@+id/iconocategoria"
+        android:background="@drawable/iconotarjetabackground"
+        android:gravity="center">
+
+    <ImageView
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:layout_gravity="center"
+        android:layout_centerHorizontal="true"
+
+        android:background="@drawable/ic_infraestructura"/>
+
+    </LinearLayout>
+
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="250dp"
         android:background="@drawable/popup_shape"
         android:layout_weight="1"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="230dp"
         android:gravity="center"
+        android:layout_below="@id/imagebackground"
         android:elevation="3dp"
-        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_gravity="bottom"
         android:layout_height="100dp">
 
         <TextView
@@ -67,59 +86,56 @@
 
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:orientation="vertical"
-        android:padding="10dp"
-        android:id="@+id/descripcionMarcador"
-        android:layout_gravity="center"
-        android:background="@drawable/popup_background"
-        >
-
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@drawable/ic_infraestructura"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:orientation="vertical"
+            android:padding="1dp"
+            android:layout_marginTop="40dp"
+            android:id="@+id/descripcionMarcador"
             android:layout_gravity="center"
-            android:id="@+id/imagen"
-            android:layout_marginTop="45dp"/>
+            android:background="@drawable/popup_background"
+            >
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textColor="#c555"
-            android:layout_marginTop="25dp"
-            android:layout_below="@id/imagen"
-            android:text="Infraestructura"
-            android:id="@+id/categoria"
-            android:layout_gravity="center_horizontal"
-            android:textAlignment="center"
-            />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textStyle="normal"
-            android:textColor="#c555"
-            android:id="@+id/problematica"
-            android:layout_below="@id/categoria"
-            android:layout_gravity="center_horizontal"
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textColor="#c555"
+                android:layout_marginTop="95dp"
+                android:layout_below="@id/iconocategoria"
+                android:text="Infraestructura"
+                android:id="@+id/categoria"
+                android:textSize="20sp"
+                android:layout_gravity="center_horizontal"
+                android:textAlignment="center"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="normal"
+                android:textColor="#c555"
+                android:textSize="15sp"
+                android:id="@+id/problematica"
+                android:layout_below="@id/categoria"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="5dp"
+                android:text="Calle en mal estado"/>
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_marginTop="5dp"
-            android:text="Calle en mal estado"/>
-    </LinearLayout>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/descripcionMarcador"
+            android:orientation="horizontal">
 
-    <LinearLayout
-        android:layout_marginTop="5dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/descripcionMarcador"
-        android:orientation="horizontal">
-        
 
-        
-    </LinearLayout>
+
+        </LinearLayout>
 
     </LinearLayout>
 

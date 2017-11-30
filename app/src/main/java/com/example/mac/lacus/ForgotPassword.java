@@ -24,6 +24,7 @@ public class ForgotPassword extends AppCompatActivity {
         setContentView(R.layout.activity_forgot_password);
 
 
+
         ///////////////////////////////////////////////////////////////
         //set del vector animado
         /*if(drawable instanceof Animatable){
