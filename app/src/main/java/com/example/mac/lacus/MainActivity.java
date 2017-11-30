@@ -2,24 +2,20 @@ package com.example.mac.lacus;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Animatable;
+import android.graphics.Typeface;
 import android.graphics.drawable.AnimatedVectorDrawable;
 import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.os.Build;
 import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.support.graphics.drawable.AnimatedVectorDrawableCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
@@ -29,11 +25,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -42,8 +36,6 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
-
-import static com.example.mac.lacus.R.layout.activity_main;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -79,9 +71,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         }
 
+
         setContentView(R.layout.activity_main);
 
         activity_main = (ScrollView) findViewById(R.id.activity_main);
+
+        if(Build.VERSION.SDK_INT >=26) {
+            Typeface typeface = getResources().getFont(R.font.montserrat_black);
+            login.setTypeface(typeface);
+        }
 
 
         ///////////////////////////////////////////////////////////////
@@ -153,12 +151,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
            startActivity(new Intent(MainActivity.this, MapsActivity.class));
         }
 
-        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-                .setDefaultFontPath("fonts/Montserrat-Light.ttf")
-                .setFontAttrId(R.attr.fontPath)
-                .build()
 
-        );
     }
 
     @Override
@@ -230,10 +223,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (v.getId() == R.id.forgotpassword) {
             /*startActivity(new Intent(this, Marcador.class));*/
             startActivity(new Intent(this, ForgotPassword.class));
-            finish();
         } else if (v.getId() == R.id.needaccount) {
             startActivity(new Intent(this, Sign_up.class));
-            finish();
         } else if (v.getId() == R.id.ingresar) {
             loginIser(email.getText().toString(), password.getText().toString());
         }
