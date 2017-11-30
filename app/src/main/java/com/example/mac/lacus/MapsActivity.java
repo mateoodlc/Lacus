@@ -19,6 +19,8 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.media.session.MediaSessionCompat;
+import android.support.v4.media.session.PlaybackStateCompat;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -228,6 +230,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     // Pop up para la información de cada marcador.
     private Dialog dialogoMarcadores;
+
+    //
+    private MediaSessionCompat mSession;
 
     // "Receiving Location Updates" Tracks the status of the location updates request. Value changes
     // when the user presses the Start Updates and Stop Updates buttons.
@@ -472,31 +477,41 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
          * BOTÓN AURICULAR.
          */
 
-        MediaSession mediaSession = new MediaSession(MapsActivity.this,
-                "TAG"); // Debugging tag, any string
+        MediaSessionCompat.Callback myMediaSessionCallback = new MediaSessionCompat.Callback() {
+            /*@Override
+            public boolean onMediaButtonEvent(Intent mediaButtonIntent) {
+                Log.d("BOTÓN", "callback onMediaButtonEvent() Compat");
+                //MediaButtonIntentReceiver.handleIntent(mediaButtonIntent.getAction(), (KeyEvent) mediaButtonIntent.getParcelableExtra(Intent.EXTRA_KEY_EVENT));
+                return true;
+            }*/
 
-        mediaSession.setCallback(new MediaSession.Callback() {
             @Override
-            public boolean onMediaButtonEvent(final Intent mediaButtonIntent) {
-                Log.i("holi", "GOT EVENT");
-                return super.onMediaButtonEvent(mediaButtonIntent);
+            public void onPlay() {
+                // Handle the play button
+                Log.d("BOTÓN", "callback onMediaButtonEvent() Compat");
+
+                if (rutaActivada) {
+
+                    guardarDenuncia();
+
+                }
+
             }
-        });
 
-        mediaSession.setFlags(
-                MediaSession.FLAG_HANDLES_MEDIA_BUTTONS |
-                        MediaSession.FLAG_HANDLES_TRANSPORT_CONTROLS);
+        };
 
-        PlaybackState state = new PlaybackState.Builder()
-                .setActions(
-                        PlaybackState.ACTION_PLAY | PlaybackState.ACTION_PLAY_PAUSE |
-                                PlaybackState.ACTION_PLAY_FROM_MEDIA_ID | PlaybackState.ACTION_PAUSE |
-                                PlaybackState.ACTION_SKIP_TO_NEXT | PlaybackState.ACTION_SKIP_TO_PREVIOUS)
-                .setState(PlaybackState.STATE_PLAYING, 0, 0, SystemClock.elapsedRealtime())
+        mSession = new MediaSessionCompat(getApplicationContext(), "holi");
+        mSession.setFlags(MediaSessionCompat.FLAG_HANDLES_MEDIA_BUTTONS | MediaSessionCompat.FLAG_HANDLES_TRANSPORT_CONTROLS);
+        mSession.setActive(true);
+        mSession.setCallback(myMediaSessionCallback);
+        PlaybackStateCompat state = new PlaybackStateCompat.Builder()
+                .setActions(PlaybackState.ACTION_PLAY_PAUSE | PlaybackState.ACTION_PLAY | PlaybackState.ACTION_PAUSE |
+                        PlaybackState.ACTION_SKIP_TO_NEXT | PlaybackState.ACTION_SKIP_TO_PREVIOUS |
+                        PlaybackState.ACTION_FAST_FORWARD | PlaybackState.ACTION_REWIND
+                )
+                .setState(PlaybackStateCompat.STATE_PAUSED, 0, 1f)
                 .build();
-        mediaSession.setPlaybackState(state);
-
-        mediaSession.setActive(true);
+        mSession.setPlaybackState(state);
 
     }
 
