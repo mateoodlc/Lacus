@@ -460,7 +460,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     buttonComenzarRuta.setTextColor(Color.parseColor("#000000"));
                     buttonComenzarRuta.setBackgroundResource(R.drawable.button_bg_comenzar_ruta);
                     buttonComenzarRuta.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_prender_gps, 0, 0, 0);
-
                     // Si hay al menos una denuncia marcada, se inicia el proceso de clasificación de denuncias.
                     if(denunciasMarcadas.size() != 0) {
                         startActivity(new Intent(MapsActivity.this, Marcador.class));
@@ -472,7 +471,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     }
 
                 } else {
-
+                    buttonMarcarDenuncia.setVisibility(View.VISIBLE);
                     rutaActivada = true;
                     //denunciasMarcadas = new ArrayList<Location>();
                     denunciasMarcadas = new ArrayList<String>();

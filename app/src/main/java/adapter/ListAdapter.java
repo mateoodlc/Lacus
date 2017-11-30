@@ -80,7 +80,6 @@ public class ListAdapter extends RecyclerView.Adapter {
         public void onClick(View view){
             context.startActivity(new Intent(context, GestionInformacion.class));
             //context.finish();
-            Toast.makeText(context, "holi, funcioné", Toast.LENGTH_SHORT).show();
         }
 
 

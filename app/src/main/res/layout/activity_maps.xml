@@ -34,11 +34,11 @@
             android:drawableLeft="@drawable/ic_prender_gps"
             android:drawablePadding="10dp"
             android:textAlignment="center"
-            android:paddingRight="13dp"
+            android:padding="5dp"
             android:text="Comienza tu ruta"
             android:layout_marginTop="300dp"
             android:layout_marginLeft="90dp"
-            android:paddingLeft="10dp"
+            android:gravity="center"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -48,13 +48,16 @@
 
         <Button
             android:id="@+id/button_marcar_denuncia"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:visibility="visible"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:visibility="invisible"
+            android:padding="15dp"
+            android:background="@drawable/popup_shape"
             android:layout_marginLeft="150dp"
             android:layout_marginTop="150dp"
-            android:text="Marcar" />
+            android:elevation="10dp"
+            android:drawableStart="@drawable/ic_maps_and_flags"
+            android:src="@drawable/ic_maps_and_flags" />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab"

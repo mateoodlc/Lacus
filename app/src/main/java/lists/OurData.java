@@ -82,8 +82,8 @@ public class OurData {
 
 
     public static String[] title = new String[]{
-            "Pasoancho con 80",
-            "Calle 16 # 83",
+            "Av 4 Norte # 8",
+            "Carrera 1 # 62",
             "Avenida Cañasgordas # 122",
             "Calle 5 # 92",
             "Avenida 6 # 42"
