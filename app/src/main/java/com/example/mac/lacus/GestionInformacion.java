@@ -2,7 +2,9 @@ package com.example.mac.lacus;
 
 import android.content.Intent;
 import android.graphics.drawable.Animatable;
+import android.graphics.drawable.AnimatedVectorDrawable;
 import android.graphics.drawable.Drawable;
+import android.support.graphics.drawable.AnimatedVectorDrawableCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -28,11 +30,20 @@ public class GestionInformacion extends AppCompatActivity {
 
         ///////////////////////////////////////////////////////////////
         //set del vector animado
-        marcador = (ImageView) findViewById(R.id.marcadoranimado);
-        Drawable drawable = marcador.getDrawable();
-        if(drawable instanceof Animatable){
-            ((Animatable) drawable).start();
+        ///////////////////////////////////////////////////////////////
+        //set del vector animado
+        ImageView marcaanimada = (ImageView) findViewById(R.id.marcadoranimado);
+        Drawable d = marcaanimada.getDrawable();
+        //marcadoranimado.setImageDrawable(drawable);
+        if(d instanceof AnimatedVectorDrawableCompat){
+            AnimatedVectorDrawableCompat avd = (AnimatedVectorDrawableCompat) d;
+            avd.start();
+        } else if (d instanceof AnimatedVectorDrawable) {
+            AnimatedVectorDrawable avd = (AnimatedVectorDrawable) d;
+            avd.start();
         }
+        //se cierra la animación
+        ////////////////////////////////////////////////////////////////
 
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {

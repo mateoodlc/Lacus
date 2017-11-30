@@ -12,17 +12,12 @@
         ></include>
 
 
-    <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:id="@+id/marcadoranimado"
-        android:src="@drawable/ic_marcadoricono"
-        />
+
 
     <TextView
         android:id="@+id/titulo"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_below="@+id/toolbar"
         android:layout_centerHorizontal="true"
         android:fontFamily="sans-serif"
@@ -37,7 +32,18 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_below="@id/titulo"
-        android:id="@+id/mapa"></FrameLayout>
+        android:id="@+id/mapa">
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:id="@+id/marcadoranimado"
+            app:srcCompat="@drawable/titilada"
+            />
+
+    </FrameLayout>
 
     <TextView
         android:id="@+id/estado"
@@ -49,16 +55,18 @@
         android:fontFamily="sans-serif"
         android:gravity="center"
         android:text="En ejecución"
+        android:elevation="2dp"
         android:textColor="#fff"
         android:textAlignment="center"
-        android:background="@drawable/gradient_background"
-        android:textStyle="bold"
+        android:background="@color/topBar"
+        android:textStyle="normal"
         android:textSize="25dp" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/estado"
+        android:background="#fff"
         android:paddingTop="10dp">
         <TextView
             android:id="@+id/descripcion"

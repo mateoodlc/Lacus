@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.github.florent37.bubbletab.BubbleTab;
 
 import tab.MyAdapter;
 
@@ -59,6 +58,8 @@ public class FVeeduria extends Fragment {
         View result = inflater.inflate(R.layout.fragment_fveeduria, container, false);
 
         ViewPager mPager = (ViewPager) result.findViewById(R.id.view_pager);
+
+
 
         Toolbar mToolbar = (Toolbar) result.findViewById(R.id.app_toolbar);
 
