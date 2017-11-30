@@ -75,6 +75,15 @@ public class GestionInformacion extends AppCompatActivity implements OnMapReadyC
 
         Log.d("holi", "Se creó el mapa.");
 
+        LatLng marcador = new LatLng(3.4810738753592116, -76.49860471487045);
+
+        mMap.addMarker(new MarkerOptions()
+                .position(marcador)
+                .title("Marcador")
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_denuncia_marcada)));
+
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(marcador, 17));
+
     }
 
 }
