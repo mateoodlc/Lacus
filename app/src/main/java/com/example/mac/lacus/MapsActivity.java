@@ -599,7 +599,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         try{
             boolean isSuccess = googleMap.setMapStyle(
-                    MapStyleOptions.loadRawResourceStyle(this, R.raw.uber_style_map)
+                    MapStyleOptions.loadRawResourceStyle(this, R.raw.gray)
             );
 
             if(!isSuccess)

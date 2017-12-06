@@ -86,7 +86,10 @@ public class OurData {
             "Av 4 Norte # 8",
             "Carrera 3N # 67",
             "Calle 5 # 7",
-            "Avenida 6 # 42"
+            "Avenida 6 # 42",
+            "Calle 4 # 3",
+            "Avenida del río # 44"
+
     };
 
     public static String[] contentT = new String[]{
@@ -94,8 +97,9 @@ public class OurData {
             "Pintando señalización",
             "Mantenimiento de asfalto",
             "Cubriendo huecos",
-            "Guardas de tránsito regulando"
-
+            "Guardas de tránsito regulando",
+            "Cubriendo huecos",
+            "Pintando señalización"
     };
 
     public static String[] estado = new String[]{
@@ -103,7 +107,10 @@ public class OurData {
             "En planeación",
             "Finalizada",
             "En ejecución",
-            "En ejecución"
+            "En ejecución",
+            "En ejecución",
+            "En planeación"
+
     };
 
 
@@ -112,7 +119,9 @@ public class OurData {
             R.drawable.ic_senales,
             R.drawable.ic_infraestructura,
             R.drawable.ic_infraestructura,
-            R.drawable.ic_seguridad
+            R.drawable.ic_seguridad,
+            R.drawable.ic_infraestructura,
+            R.drawable.ic_senales
     };
 
 }

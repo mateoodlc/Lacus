@@ -15,6 +15,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.southernbox.parallaxrecyclerview.ParallaxRecyclerView;
 
 import java.util.ArrayList;
 
@@ -25,7 +26,7 @@ import adapter.ListAdapter;
  */
 
 public class NorteFragment extends Fragment {
-    RecyclerView recyclerView;
+    ParallaxRecyclerView recyclerView;
     View v;
 //    private List<Order> dataset = new ArrayList<>();
 
@@ -33,7 +34,7 @@ public class NorteFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.norte_fragment, container, false);
-        recyclerView = (RecyclerView) view.findViewById(R.id.my_recycler_view);
+        recyclerView = (ParallaxRecyclerView) view.findViewById(R.id.my_recycler_view);
 
         ListAdapter listAdapter = new ListAdapter(getContext());
         recyclerView.setAdapter(listAdapter);
