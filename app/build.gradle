@@ -54,6 +54,8 @@ dependencies {
     compile 'com.android.support:support-vector-drawable:26.1.0'
     compile 'com.android.support:animated-vector-drawable:26.1.0'
     compile 'me.spark:submitbutton:1.0.1'
+    compile 'com.github.hadiidbouk:ChartProgressBar-Android:1.0.3'
+    compile 'com.yinglan.shadowimageview:shadowimageview:1.0.4'
     testCompile 'junit:junit:4.12'
 }
 

@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.yinglan.shadowimageview.ShadowImageView;
+
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 
@@ -35,7 +37,7 @@ public class FConfiguraciones extends Fragment implements View.OnClickListener{
     Button perfil;
    // Dialog dialog;
     Button cerrarsesion;
-    ImageView perfilImg;
+    ShadowImageView perfilImg;
 
     private OnFragmentInteractionListener mListener;
 
@@ -107,7 +109,7 @@ public class FConfiguraciones extends Fragment implements View.OnClickListener{
         View view = inflater.inflate(R.layout.fragment_fconfiguraciones, container, false);
 
         cerrarsesion = (Button) view.findViewById(R.id.cerrarsesion);
-        perfilImg = (ImageView) view.findViewById(R.id.perfilImg);
+        perfilImg = (ShadowImageView) view.findViewById(R.id.perfilImg);
 
         perfilImg.setImageResource(R.drawable.ic_culture);
         return view;

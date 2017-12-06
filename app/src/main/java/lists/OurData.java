@@ -82,19 +82,19 @@ public class OurData {
 
 
     public static String[] title = new String[]{
+            "Carrera 1N # 62",
             "Av 4 Norte # 8",
-            "Carrera 1 # 62",
-            "Avenida Cañasgordas # 122",
-            "Calle 5 # 92",
+            "Carrera 3N # 67",
+            "Calle 5 # 7",
             "Avenida 6 # 42"
     };
 
     public static String[] contentT = new String[]{
             "Mantenimiento de asfalto",
+            "Pintando señalización",
             "Mantenimiento de asfalto",
-            "Mantenimiento de asfalto",
-            "Mantenimiento de asfalto",
-            "Mantenimiento de asfalto"
+            "Cubriendo huecos",
+            "Guardas de tránsito regulando"
 
     };
 
@@ -108,10 +108,10 @@ public class OurData {
 
 
     public static int[] iconPath = new int[]{
-            R.drawable.ic_culture,
+            R.drawable.ic_infraestructura,
             R.drawable.ic_senales,
             R.drawable.ic_infraestructura,
-            R.drawable.ic_seguridad,
+            R.drawable.ic_infraestructura,
             R.drawable.ic_seguridad
     };
 

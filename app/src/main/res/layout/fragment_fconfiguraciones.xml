@@ -25,15 +25,17 @@
 
             <!--  -->
 
-            <ImageView
+            <com.yinglan.shadowimageview.ShadowImageView
                 android:id="@+id/perfilImg"
                 android:layout_width="130dp"
                 android:layout_height="130dp"
-                android:padding="10dp"
-                app:srcCompat="@drawable/ic_culture"
+                app:shadowSrc="@drawable/ic_culture"
+                app:shadowRound="20dp"
+                app:shadowColor="@color/colorAccent"
                 android:layout_marginTop="53dp"
                 android:layout_below="@+id/titulo"
-                android:layout_centerHorizontal="true" />
+                android:layout_centerHorizontal="true"
+/>
 
 
             <TextView

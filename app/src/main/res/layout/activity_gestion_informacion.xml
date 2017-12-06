@@ -23,10 +23,10 @@
         android:fontFamily="sans-serif"
         android:textColor="#212121"
         android:background="#fff"
-        android:text="Pasoancho con 62"
+        android:text="Carrera 1N # 62"
         android:textAlignment="center"
         android:textStyle="bold"
-        android:textSize="24dp" />
+        android:textSize="20dp" />
     
     <FrameLayout
         android:layout_width="match_parent"
@@ -63,7 +63,7 @@
         android:textAlignment="center"
         android:background="@color/topBar"
         android:textStyle="normal"
-        android:textSize="25dp" />
+        android:textSize="20dp" />
 
     <RelativeLayout
         android:layout_width="match_parent"
