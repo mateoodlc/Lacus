@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         ///////////////////////////////////////////////////////////////
         //set del vector animado
-        ImageView marcaanimada = (ImageView) findViewById(R.id.marcadoranimado);
+        /*ImageView marcaanimada = (ImageView) findViewById(R.id.marcadoranimado);
         Drawable d = marcaanimada.getDrawable();
         //marcadoranimado.setImageDrawable(drawable);
         if(d instanceof AnimatedVectorDrawableCompat){
@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } else if (d instanceof AnimatedVectorDrawable) {
             AnimatedVectorDrawable avd = (AnimatedVectorDrawable) d;
             avd.start();
-        }
+        }*/
         //se cierra la animación
         ////////////////////////////////////////////////////////////////
         //dialogoMarcadores.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
