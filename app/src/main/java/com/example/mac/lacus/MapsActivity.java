@@ -40,6 +40,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.arsy.maps_library.MapRipple;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.ResolvableApiException;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -133,6 +134,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     EditText genero;
     EditText edad;
     EditText ocupacion;
+
 
     public static MapsActivity newInstance(String s) {
         MapsActivity fragment = new MapsActivity();
@@ -599,7 +601,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         try{
             boolean isSuccess = googleMap.setMapStyle(
-                    MapStyleOptions.loadRawResourceStyle(this, R.raw.gray)
+                    MapStyleOptions.loadRawResourceStyle(this, R.raw.uber_style_map)
             );
 
             if(!isSuccess)
@@ -609,6 +611,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
 
         mMap = googleMap;
+
 
         otorgarClicMapa();
 
@@ -628,6 +631,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
 
     }
+
 
     // "Changing Location Settings" Método para pedir la ubicación más precisa.
     private void createLocationRequest() {
