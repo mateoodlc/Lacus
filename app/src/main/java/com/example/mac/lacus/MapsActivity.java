@@ -725,6 +725,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                             if (rutaActivada) {
                                 // Si la ruta está activada, centrar la cámara.
+
+                                posicionCamara = new CameraPosition.Builder()
+                                        .target(actualUbicacion)
+                                        .zoom(17)
+                                        .build();
+
                                 actualizarCamaraUsuario();
 
                             }

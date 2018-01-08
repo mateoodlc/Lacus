@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +26,15 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.formatter.PercentFormatter;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -41,12 +51,17 @@ import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
  */
 public class FEstadisticas extends Fragment {
 
+    /**
+     * BASE DE DATOS.
+     */
+
+    private FirebaseDatabase mDatabase;
+
     PieChart pieChart;
     BarChart barChart;
     PieChart pieChartEdades;
     PieChart pieChartprofesiones;
     PieChart pieChartGenero;
-
 
     //flotantes de categorias
     float senalizacion;
@@ -91,6 +106,10 @@ public class FEstadisticas extends Fragment {
                 .build()
 
         );
+
+        // Base de datos.
+        mDatabase = FirebaseDatabase.getInstance();
+
     }
 
     public FEstadisticas() {
@@ -101,136 +120,178 @@ public class FEstadisticas extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_festadisticas, container, false);
+        final View view = inflater.inflate(R.layout.fragment_festadisticas, container, false);
 
-        //Creo torta de gráficos para categorías
+        /**
+         * GRÁFICOS - CATEGORÍA MÁS PRESENTADA.
+         */
 
-        totalCategorias = (TextView) view.findViewById(R.id.total);
+        final DatabaseReference temporalRef = mDatabase.getReference("estadisticas").child("catmaspresentada");
 
-        pieChart = (PieChart) view.findViewById(R.id.categoria_grafica);
+        temporalRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
 
-        pieChart.setUsePercentValues(true);
-        pieChart.getDescription().setEnabled(false);
-        pieChart.setExtraOffsets(5, 5, 5, 5);
+                senalizacion = dataSnapshot.child("senalizacion").getValue(float.class);
+                cultura = dataSnapshot.child("cultura").getValue(float.class);
+                infraestructura = dataSnapshot.child("infraestructura").getValue(float.class);
+                seguridad = dataSnapshot.child("seguridad").getValue(float.class);
 
-        pieChart.setDragDecelerationFrictionCoef(0.95f);
+                Log.d("CAT", Float.toString(senalizacion));
+                Log.d("CAT", Float.toString(cultura));
+                Log.d("CAT", Float.toString(infraestructura));
+                Log.d("CAT", Float.toString(seguridad));
 
-        pieChart.setDrawHoleEnabled(true);
-        pieChart.setHoleRadius(20f);
-        pieChart.setHoleColor(Color.WHITE);
-        pieChart.setTransparentCircleRadius(31f);
+                //Creo torta de gráficos para categorías
 
+                totalCategorias = (TextView) view.findViewById(R.id.total);
 
-        //cambiar estas variables desde la base de datos
-        senalizacion = 10;
-        cultura = 20;
-        infraestructura = 30;
-        seguridad = 50;
+                pieChart = (PieChart) view.findViewById(R.id.categoria_grafica);
 
-        float total = senalizacion + cultura + infraestructura + seguridad;
+                pieChart.setUsePercentValues(true);
+                pieChart.getDescription().setEnabled(false);
+                pieChart.setExtraOffsets(5, 5, 5, 5);
 
-        final ArrayList<PieEntry> yValues = new ArrayList<>();
+                pieChart.setDragDecelerationFrictionCoef(0.95f);
 
-        yValues.add(new PieEntry((senalizacion / total) * 100, "Señalización"));
-        yValues.add(new PieEntry((cultura/ total) * 100, "Cultura"));
-        yValues.add(new PieEntry((seguridad/ total) * 100, "Seguridad"));
-        yValues.add(new PieEntry((infraestructura/ total) * 100, "Infraestructura"));
+                pieChart.setDrawHoleEnabled(true);
+                pieChart.setHoleRadius(20f);
+                pieChart.setHoleColor(Color.WHITE);
+                pieChart.setTransparentCircleRadius(31f);
 
-    /*    Description description = new Description();
-        description.setText("Porcentaje de reportes dividido por categorías");
-        description.setTextSize(12);
-        pieChart.setDescription(description);
-*/
+                //cambiar estas variables desde la base de datos
+                /*senalizacion = 10;
+                cultura = 20;
+                infraestructura = 30;
+                seguridad = 50;*/
 
-        pieChart.animateY(2000, Easing.EasingOption.EaseInOutCubic);
+                float total = senalizacion + cultura + infraestructura + seguridad;
 
-        PieDataSet dataSet = new PieDataSet(yValues, "Categorías");
-        dataSet.setSliceSpace(1f);
-        dataSet.setSelectionShift(15f);
-        dataSet.setColors(Color.rgb(139, 195, 74));
-        dataSet.setValueFormatter(new PercentFormatter());
+                final ArrayList<PieEntry> yValues = new ArrayList<>();
 
+                yValues.add(new PieEntry((senalizacion / total) * 100, "Señalización"));
+                yValues.add(new PieEntry((cultura/ total) * 100, "Cultura"));
+                yValues.add(new PieEntry((seguridad/ total) * 100, "Seguridad"));
+                yValues.add(new PieEntry((infraestructura/ total) * 100, "Infraestructura"));
 
-        PieData data = new PieData((dataSet));
-        data.setValueTextSize(10f);
-        data.setValueTextColor(Color.YELLOW);
+                /*    Description description = new Description();
+                    description.setText("Porcentaje de reportes dividido por categorías");
+                    description.setTextSize(12);
+                    pieChart.setDescription(description);
+                */
 
-        pieChart.setData(data);
+                pieChart.animateY(2000, Easing.EasingOption.EaseInOutCubic);
 
-        //Creo barras de gráficos para problemáticas más presentadas por categorías
-        barChart = (BarChart) view.findViewById(R.id.problematica_grafica);
-        //Seteo opciones
-        barChart.setDrawBarShadow(false);
-        barChart.setDrawValueAboveBar(true);
-        barChart.setMaxVisibleValueCount(235);
-        barChart.setFitBars(true);
-        barChart.setPinchZoom(true);
-        barChart.setDrawGridBackground(true);
-
-
-        ///////////////////////////////////////////////////////////////////////////
-
-
-        //reemplazar estos valores con los de la base de datos
-        problematica1 = 28;
-        problematica2 = 14;
-        problematica3 = 37;
-        problematica4 = 12;
+                PieDataSet dataSet = new PieDataSet(yValues, "Categorías");
+                dataSet.setSliceSpace(1f);
+                dataSet.setSelectionShift(15f);
+                dataSet.setColors(Color.rgb(139, 195, 74));
+                dataSet.setValueFormatter(new PercentFormatter());
 
 
-        //Creo arraylist de barras de gráficos para problemáticas más presentadas por categorías
-        ArrayList<BarEntry> barEntries = new ArrayList<>();
-        barEntries.add(new BarEntry(1, problematica1));
-        barEntries.add(new BarEntry(2, problematica2));
-        barEntries.add(new BarEntry(3, problematica3));
-        barEntries.add(new BarEntry(4, problematica4));
+                PieData data = new PieData((dataSet));
+                data.setValueTextSize(10f);
+                data.setValueTextColor(Color.YELLOW);
 
-        BarDataSet barDataSet = new BarDataSet(barEntries, "Problemáticas");
-        barDataSet.setColors(Color.rgb(139, 195, 74));
-        barDataSet.setHighLightColor(Color.rgb(164, 215, 94));
+                pieChart.setData(data);
 
-        BarData barData = new BarData(barDataSet);
+            }
 
-        float groupSpace = 0.1f;
-        float barSpace = 0.02f;
-        float barWidth = 0.91f;
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
 
-        barChart.setData(barData);
+            }
 
-        barData.setBarWidth(0.9f);
-      //  barChart.groupBars(1, groupSpace, barSpace);
+        });
 
-        String [] problematicas = new String[] {"", "Vías de alto riesgo", "Peatones poco cívicos", "Huecos", "Locación hostil"};
-        XAxis xAxis = barChart.getXAxis();
-       // System.out.println("PROBLEMATICAS"+problematicas.length);
-        xAxis.setValueFormatter(new MyXAsisValueFormatter(problematicas));
-        xAxis.setPosition(XAxis.XAxisPosition.BOTH_SIDED);
-        xAxis.setGranularity(1);
-        //xAxis.setGranularityEnabled(true);
-        //xAxis.setCenterAxisLabels(true);
-        xAxis.setAxisMinimum(0);
-        //xAxis.setAxisMaximum(4);
-        xAxis.setTextSize(7f); // set the text size
-        barChart.getAxisRight().setEnabled(false);
-        barChart.getDescription().setEnabled(false);
-        //barChart.animateY(8000);
-        barChart.animateY(10001, Easing.EasingOption.EaseInOutBack);
-        barChart.setAutoScaleMinMaxEnabled(true);
+        /**
+         * GRÁFICOS - PROBLEMÁTICA MÁS PRESENTADA DE CADA CATEGORÍA.
+         */
 
+        final DatabaseReference temporalRef2 = mDatabase.getReference("estadisticas").child("catmaspresentada");
 
-       /* Description descriptionProblemas = new Description();
-        descriptionProblemas.setText("Problemas con mayor denuncias de cada categoría");
-        descriptionProblemas.setTextSize(12);
-        descriptionProblemas.setPosition(1000, 100);
-        barChart.setDescription(descriptionProblemas);
-**/
+        temporalRef2.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
 
-        // xAxis.setAxisMaximum(barChart.getYMax());
-        //termino de crear barra de datos
+                //reemplazar estos valores con los de la base de datos
+                problematica1 = 28;
+                problematica2 = 14;
+                problematica3 = 37;
+                problematica4 = 12;
 
+                Log.d("CAT", Float.toString(senalizacion));
+                Log.d("CAT", Float.toString(cultura));
+                Log.d("CAT", Float.toString(infraestructura));
+                Log.d("CAT", Float.toString(seguridad));
 
-        ///////////////////////////////////////////////////////////////////////////
+                //Creo barras de gráficos para problemáticas más presentadas por categorías
+                barChart = (BarChart) view.findViewById(R.id.problematica_grafica);
+                //Seteo opciones
+                barChart.setDrawBarShadow(false);
+                barChart.setDrawValueAboveBar(true);
+                barChart.setMaxVisibleValueCount(235);
+                barChart.setFitBars(true);
+                barChart.setPinchZoom(true);
+                barChart.setDrawGridBackground(true);
 
+                //Creo arraylist de barras de gráficos para problemáticas más presentadas por categorías
+                ArrayList<BarEntry> barEntries = new ArrayList<>();
+                barEntries.add(new BarEntry(1, problematica1));
+                barEntries.add(new BarEntry(2, problematica2));
+                barEntries.add(new BarEntry(3, problematica3));
+                barEntries.add(new BarEntry(4, problematica4));
+
+                BarDataSet barDataSet = new BarDataSet(barEntries, "Problemáticas");
+                barDataSet.setColors(Color.rgb(139, 195, 74));
+                barDataSet.setHighLightColor(Color.rgb(164, 215, 94));
+
+                BarData barData = new BarData(barDataSet);
+
+                float groupSpace = 0.1f;
+                float barSpace = 0.02f;
+                float barWidth = 0.91f;
+
+                barChart.setData(barData);
+
+                barData.setBarWidth(0.9f);
+                // barChart.groupBars(1, groupSpace, barSpace);
+
+                String [] problematicas = new String[] {"", "Vías de alto riesgo", "Peatones poco cívicos", "Huecos", "Locación hostil"};
+                XAxis xAxis = barChart.getXAxis();
+                // System.out.println("PROBLEMATICAS"+problematicas.length);
+                xAxis.setValueFormatter(new MyXAsisValueFormatter(problematicas));
+                xAxis.setPosition(XAxis.XAxisPosition.BOTH_SIDED);
+                xAxis.setGranularity(1);
+                //xAxis.setGranularityEnabled(true);
+                //xAxis.setCenterAxisLabels(true);
+                xAxis.setAxisMinimum(0);
+                //xAxis.setAxisMaximum(4);
+                xAxis.setTextSize(7f); // set the text size
+                barChart.getAxisRight().setEnabled(false);
+                barChart.getDescription().setEnabled(false);
+                //barChart.animateY(8000);
+                barChart.animateY(10001, Easing.EasingOption.EaseInOutBack);
+                barChart.setAutoScaleMinMaxEnabled(true);
+
+                /* Description descriptionProblemas = new Description();
+                descriptionProblemas.setText("Problemas con mayor denuncias de cada categoría");
+                descriptionProblemas.setTextSize(12);
+                descriptionProblemas.setPosition(1000, 100);
+                barChart.setDescription(descriptionProblemas);
+                */
+
+                // xAxis.setAxisMaximum(barChart.getYMax());
+                //termino de crear barra de datos
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+
+        });
 
         //reemplazar estos datos con los de la base de datos
         edad1 = 20;
@@ -383,9 +444,6 @@ public class FEstadisticas extends Fragment {
 
 
     }
-
-
-
 
     //creo formato de valores para las barras de gráficos para problemáticas más presentadas por categorías
     public class MyXAsisValueFormatter implements IAxisValueFormatter{
