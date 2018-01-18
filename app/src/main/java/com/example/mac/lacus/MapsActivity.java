@@ -257,14 +257,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     transaction.replace(R.id.content, new FMapa()).commit();
                     buttonComenzarRuta.setVisibility(View.VISIBLE); //To set visible
                     buttonMarcarDenuncia.setVisibility(View.VISIBLE); //To set visible
-                    fab.setVisibility(View.VISIBLE);
+                    //fab.setVisibility(View.VISIBLE);
                     //BottomNavigationViewHelper.disableShiftMode(navigation);
                     return true;
                 case R.id.navigation_estadisticas:
                     transaction.replace(R.id.content, new FEstadisticas()).commit();
                     buttonComenzarRuta.setVisibility(View.INVISIBLE); //To set invisible
                     buttonMarcarDenuncia.setVisibility(View.INVISIBLE); //To set invisible
-                    fab.setVisibility(View.INVISIBLE);
+                    //fab.setVisibility(View.INVISIBLE);
 
                     //BottomNavigationViewHelper.disableShiftMode(navigation);
                     return true;
@@ -275,7 +275,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     //  finish();
                     buttonComenzarRuta.setVisibility(View.INVISIBLE); //To set invisible
                     buttonMarcarDenuncia.setVisibility(View.INVISIBLE); //To set invisible
-                    fab.setVisibility(View.INVISIBLE);
+                    //fab.setVisibility(View.INVISIBLE);
 
                     //BottomNavigationViewHelper.disableShiftMode(navigation);
                     return true;
@@ -283,7 +283,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     transaction.replace(R.id.content, new FConfiguraciones()).commit();
                     buttonComenzarRuta.setVisibility(View.INVISIBLE); //To set invisible
                     buttonMarcarDenuncia.setVisibility(View.INVISIBLE); //To set invisible
-                    fab.setVisibility(View.INVISIBLE);
+                    //fab.setVisibility(View.INVISIBLE);
 
                     // BottomNavigationViewHelper.disableShiftMode(navigation_configuracion);
                     return true;
@@ -356,14 +356,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         auth = FirebaseAuth.getInstance();
 
 
-        fab = (FloatingActionButton) findViewById(R.id.fab);
+        /*fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(MapsActivity.this, "Has cerrado sesión", Toast.LENGTH_LONG).show();
                 logOut();
             }
-        });
+        });*/
         if (auth.getCurrentUser() != null) {
             Toast.makeText(MapsActivity.this, "Bienvenido, " + auth.getCurrentUser().getEmail(), Toast.LENGTH_LONG).show();
         }
@@ -454,6 +454,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 // Cambiar el booleano rutaActivada.
                 if (rutaActivada) {
 
+                    buttonMarcarDenuncia.setVisibility(View.INVISIBLE);
                     rutaActivada = false;
 
                     rutaPolyline = mMap.addPolyline(new PolylineOptions().addAll(rutaUsuario));
@@ -898,13 +899,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                             marcadorFinal = mMap.addMarker(new MarkerOptions()
                                     .position(posicionDenunciaActualMapa)
-                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_denuncia_marcada)));
+                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.m_senalizacion2)));
 
                         } else {
 
                             marcadorFinal = mMap.addMarker(new MarkerOptions()
                                     .position(posicionDenunciaActualMapa)
-                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_denuncia_marcada)));
+                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.m_senalizacion3)));
 
                         }
 
@@ -920,13 +921,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                             marcadorFinal = mMap.addMarker(new MarkerOptions()
                                     .position(posicionDenunciaActualMapa)
-                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_denuncia_marcada)));
+                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.m_infraestructura2)));
 
                         } else {
 
                             marcadorFinal = mMap.addMarker(new MarkerOptions()
                                     .position(posicionDenunciaActualMapa)
-                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_denuncia_marcada)));
+                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.m_infraestructura3)));
 
                         }
 
@@ -942,13 +943,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                             marcadorFinal = mMap.addMarker(new MarkerOptions()
                                     .position(posicionDenunciaActualMapa)
-                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_denuncia_marcada)));
+                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.m_cultura2)));
 
                         } else {
 
                             marcadorFinal = mMap.addMarker(new MarkerOptions()
                                     .position(posicionDenunciaActualMapa)
-                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_denuncia_marcada)));
+                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.m_cultura3)));
 
                         }
 
@@ -964,13 +965,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                             marcadorFinal = mMap.addMarker(new MarkerOptions()
                                     .position(posicionDenunciaActualMapa)
-                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_denuncia_marcada)));
+                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.m_seguridad2)));
 
                         } else {
 
                             marcadorFinal = mMap.addMarker(new MarkerOptions()
                                     .position(posicionDenunciaActualMapa)
-                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_denuncia_marcada)));
+                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.m_seguridad3)));
 
                         }
 

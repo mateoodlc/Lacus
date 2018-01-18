@@ -128,53 +128,37 @@ public class FEstadisticas extends Fragment {
          * GRÁFICOS - CATEGORÍA MÁS PRESENTADA.
          */
 
-        final DatabaseReference temporalRef = mDatabase.getReference("estadisticas").child("catmaspresentada");
+        //Creo torta de gráficos para categorías
 
-        temporalRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+        totalCategorias = (TextView) view.findViewById(R.id.total);
 
-                senalizacion = dataSnapshot.child("senalizacion").getValue(float.class);
-                cultura = dataSnapshot.child("cultura").getValue(float.class);
-                infraestructura = dataSnapshot.child("infraestructura").getValue(float.class);
-                seguridad = dataSnapshot.child("seguridad").getValue(float.class);
+        pieChart = (PieChart) view.findViewById(R.id.categoria_grafica);
 
-                Log.d("CAT", Float.toString(senalizacion));
-                Log.d("CAT", Float.toString(cultura));
-                Log.d("CAT", Float.toString(infraestructura));
-                Log.d("CAT", Float.toString(seguridad));
+        pieChart.setUsePercentValues(true);
+        pieChart.getDescription().setEnabled(false);
+        pieChart.setExtraOffsets(5, 5, 5, 5);
 
-                //Creo torta de gráficos para categorías
+        pieChart.setDragDecelerationFrictionCoef(0.95f);
 
-                totalCategorias = (TextView) view.findViewById(R.id.total);
+        pieChart.setDrawHoleEnabled(true);
+        pieChart.setHoleRadius(20f);
+        pieChart.setHoleColor(Color.WHITE);
+        pieChart.setTransparentCircleRadius(31f);
 
-                pieChart = (PieChart) view.findViewById(R.id.categoria_grafica);
-
-                pieChart.setUsePercentValues(true);
-                pieChart.getDescription().setEnabled(false);
-                pieChart.setExtraOffsets(5, 5, 5, 5);
-
-                pieChart.setDragDecelerationFrictionCoef(0.95f);
-
-                pieChart.setDrawHoleEnabled(true);
-                pieChart.setHoleRadius(20f);
-                pieChart.setHoleColor(Color.WHITE);
-                pieChart.setTransparentCircleRadius(31f);
-
-                //cambiar estas variables desde la base de datos
-                /*senalizacion = 10;
+        //cambiar estas variables desde la base de datos
+                senalizacion = 10;
                 cultura = 20;
                 infraestructura = 30;
-                seguridad = 50;*/
+                seguridad = 50;
 
-                float total = senalizacion + cultura + infraestructura + seguridad;
+        float total = senalizacion + cultura + infraestructura + seguridad;
 
-                final ArrayList<PieEntry> yValues = new ArrayList<>();
+        final ArrayList<PieEntry> yValues = new ArrayList<>();
 
-                yValues.add(new PieEntry((senalizacion / total) * 100, "Señalización"));
-                yValues.add(new PieEntry((cultura/ total) * 100, "Cultura"));
-                yValues.add(new PieEntry((seguridad/ total) * 100, "Seguridad"));
-                yValues.add(new PieEntry((infraestructura/ total) * 100, "Infraestructura"));
+        yValues.add(new PieEntry((senalizacion / total) * 100, "Señalización"));
+        yValues.add(new PieEntry((cultura/ total) * 100, "Cultura"));
+        yValues.add(new PieEntry((seguridad/ total) * 100, "Seguridad"));
+        yValues.add(new PieEntry((infraestructura/ total) * 100, "Infraestructura"));
 
                 /*    Description description = new Description();
                     description.setText("Porcentaje de reportes dividido por categorías");
@@ -182,48 +166,27 @@ public class FEstadisticas extends Fragment {
                     pieChart.setDescription(description);
                 */
 
-                pieChart.animateY(2000, Easing.EasingOption.EaseInOutCubic);
+        pieChart.animateY(2000, Easing.EasingOption.EaseInOutCubic);
 
-                PieDataSet dataSet = new PieDataSet(yValues, "Categorías");
-                dataSet.setSliceSpace(1f);
-                dataSet.setSelectionShift(15f);
-                dataSet.setColors(Color.rgb(139, 195, 74));
-                dataSet.setValueFormatter(new PercentFormatter());
+        PieDataSet dataSet = new PieDataSet(yValues, "Categorías");
+        dataSet.setSliceSpace(1f);
+        dataSet.setSelectionShift(15f);
+        dataSet.setColors(Color.rgb(139, 195, 74));
+        dataSet.setValueFormatter(new PercentFormatter());
 
 
-                PieData data = new PieData((dataSet));
-                data.setValueTextSize(10f);
-                data.setValueTextColor(Color.YELLOW);
+        PieData data = new PieData((dataSet));
+        data.setValueTextSize(10f);
+        data.setValueTextColor(Color.YELLOW);
 
-                pieChart.setData(data);
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-
-        });
+        pieChart.setData(data);
 
         /**
          * GRÁFICOS - PROBLEMÁTICA MÁS PRESENTADA DE CADA CATEGORÍA.
          */
 
-        final DatabaseReference temporalRef2 = mDatabase.getReference("estadisticas").child("catmaspresentada");
-
-        temporalRef2.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                for(DataSnapshot mSnapshot: dataSnapshot.getChildren()) {
-
-
-
-                }
-
-                //reemplazar estos valores con los de la base de datos
-                /*problematica1 = 28;
+        //reemplazar estos valores con los de la base de datos
+                problematica1 = 28;
                 problematica2 = 14;
                 problematica3 = 37;
                 problematica4 = 12;
@@ -231,56 +194,56 @@ public class FEstadisticas extends Fragment {
                 Log.d("CAT", Float.toString(senalizacion));
                 Log.d("CAT", Float.toString(cultura));
                 Log.d("CAT", Float.toString(infraestructura));
-                Log.d("CAT", Float.toString(seguridad));*/
+                Log.d("CAT", Float.toString(seguridad));
 
-                //Creo barras de gráficos para problemáticas más presentadas por categorías
-                barChart = (BarChart) view.findViewById(R.id.problematica_grafica);
-                //Seteo opciones
-                barChart.setDrawBarShadow(false);
-                barChart.setDrawValueAboveBar(true);
-                barChart.setMaxVisibleValueCount(235);
-                barChart.setFitBars(true);
-                barChart.setPinchZoom(true);
-                barChart.setDrawGridBackground(true);
+        //Creo barras de gráficos para problemáticas más presentadas por categorías
+        barChart = (BarChart) view.findViewById(R.id.problematica_grafica);
+        //Seteo opciones
+        barChart.setDrawBarShadow(false);
+        barChart.setDrawValueAboveBar(true);
+        barChart.setMaxVisibleValueCount(235);
+        barChart.setFitBars(true);
+        barChart.setPinchZoom(true);
+        barChart.setDrawGridBackground(true);
 
-                //Creo arraylist de barras de gráficos para problemáticas más presentadas por categorías
-                ArrayList<BarEntry> barEntries = new ArrayList<>();
-                barEntries.add(new BarEntry(1, problematica1));
-                barEntries.add(new BarEntry(2, problematica2));
-                barEntries.add(new BarEntry(3, problematica3));
-                barEntries.add(new BarEntry(4, problematica4));
+        //Creo arraylist de barras de gráficos para problemáticas más presentadas por categorías
+        ArrayList<BarEntry> barEntries = new ArrayList<>();
+        barEntries.add(new BarEntry(1, problematica1));
+        barEntries.add(new BarEntry(2, problematica2));
+        barEntries.add(new BarEntry(3, problematica3));
+        barEntries.add(new BarEntry(4, problematica4));
 
-                BarDataSet barDataSet = new BarDataSet(barEntries, "Problemáticas");
-                barDataSet.setColors(Color.rgb(139, 195, 74));
-                barDataSet.setHighLightColor(Color.rgb(164, 215, 94));
+        BarDataSet barDataSet = new BarDataSet(barEntries, "Problemáticas");
+        barDataSet.setColors(Color.rgb(139, 195, 74));
+        barDataSet.setHighLightColor(Color.rgb(164, 215, 94));
 
-                BarData barData = new BarData(barDataSet);
+        BarData barData = new BarData(barDataSet);
 
-                float groupSpace = 0.1f;
-                float barSpace = 0.02f;
-                float barWidth = 0.91f;
+        float groupSpace = 0.1f;
+        float barSpace = 0.02f;
+        float barWidth = 0.91f;
 
-                barChart.setData(barData);
+        barChart.setData(barData);
 
-                barData.setBarWidth(0.9f);
-                // barChart.groupBars(1, groupSpace, barSpace);
+        barData.setBarWidth(0.9f);
+        // barChart.groupBars(1, groupSpace, barSpace);
 
-                String [] problematicas = new String[] {"", "Vías de alto riesgo", "Peatones poco cívicos", "Huecos", "Locación hostil"};
-                XAxis xAxis = barChart.getXAxis();
-                // System.out.println("PROBLEMATICAS"+problematicas.length);
-                xAxis.setValueFormatter(new MyXAsisValueFormatter(problematicas));
-                xAxis.setPosition(XAxis.XAxisPosition.BOTH_SIDED);
-                xAxis.setGranularity(1);
-                //xAxis.setGranularityEnabled(true);
-                //xAxis.setCenterAxisLabels(true);
-                xAxis.setAxisMinimum(0);
-                //xAxis.setAxisMaximum(4);
-                xAxis.setTextSize(7f); // set the text size
-                barChart.getAxisRight().setEnabled(false);
-                barChart.getDescription().setEnabled(false);
-                //barChart.animateY(8000);
-                barChart.animateY(10001, Easing.EasingOption.EaseInOutBack);
-                barChart.setAutoScaleMinMaxEnabled(true);
+        String [] problematicas = new String[] {"", "Vías de alto riesgo", "Peatones poco cívicos", "Huecos", "Locación hostil"};
+        XAxis xAxis = barChart.getXAxis();
+        // System.out.println("PROBLEMATICAS"+problematicas.length);
+        xAxis.setValueFormatter(new MyXAsisValueFormatter(problematicas));
+        xAxis.setPosition(XAxis.XAxisPosition.BOTH_SIDED);
+        xAxis.setGranularity(1);
+        //xAxis.setGranularityEnabled(true);
+        //xAxis.setCenterAxisLabels(true);
+        xAxis.setAxisMinimum(0);
+        //xAxis.setAxisMaximum(4);
+        xAxis.setTextSize(7f); // set the text size
+        barChart.getAxisRight().setEnabled(false);
+        barChart.getDescription().setEnabled(false);
+        //barChart.animateY(8000);
+        barChart.animateY(10001, Easing.EasingOption.EaseInOutBack);
+        barChart.setAutoScaleMinMaxEnabled(true);
 
                 /* Description descriptionProblemas = new Description();
                 descriptionProblemas.setText("Problemas con mayor denuncias de cada categoría");
@@ -289,17 +252,8 @@ public class FEstadisticas extends Fragment {
                 barChart.setDescription(descriptionProblemas);
                 */
 
-                // xAxis.setAxisMaximum(barChart.getYMax());
-                //termino de crear barra de datos
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-
-        });
+        // xAxis.setAxisMaximum(barChart.getYMax());
+        //termino de crear barra de datos
 
         //reemplazar estos datos con los de la base de datos
         edad1 = 20;

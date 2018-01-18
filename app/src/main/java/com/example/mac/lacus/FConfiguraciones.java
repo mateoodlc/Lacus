@@ -128,7 +128,7 @@ public class FConfiguraciones extends Fragment implements View.OnClickListener{
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
         } else {
-            Toast.makeText(context, "Configuraciones", Toast.LENGTH_SHORT).show();
+            /*Toast.makeText(context, "Configuraciones", Toast.LENGTH_SHORT).show();*/
 
         }
     }
