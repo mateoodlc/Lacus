@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -45,6 +46,15 @@ public class GraciasPorContribuir extends AppCompatActivity implements View.OnCl
     ArrayList<String> denunciasKey;
 
     private boolean otroMarcador;
+
+    // ArrayList que almacena todas las denuncias hechas en el mapa.
+    private ArrayList<Denuncia> denunciasMapa;
+
+    // Boolean para saber si hay que modificar un marcador en específico.
+    private boolean modificar;
+
+    // String que guarda temporalmente el id del marcador a modificar.
+    private String idModificar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,9 +151,18 @@ public class GraciasPorContribuir extends AppCompatActivity implements View.OnCl
 
         denunciasKey = new ArrayList<String>();
 
+        // Inicialización del ArrayList de las rutas totales del mapa.
+        denunciasMapa = new ArrayList<Denuncia>();
+
+        modificar = false;
+
+        idModificar = "";
+
         /**
-         * SE PIDE LA INFORMACIÓN DE LA BASE DE DATOS.
+         * SE PIDE LA INFORMACIÓN DE LA BASE DE DATOS Y SE CREA LA DENUNCIA.
          */
+
+        obtenerDenuncias();
 
         final DatabaseReference temporalRef = database.getReference("temporalDenun").child("usuario 1");
 
@@ -156,12 +175,62 @@ public class GraciasPorContribuir extends AppCompatActivity implements View.OnCl
                 String categoria = dataSnapshot.child("categoria").getValue().toString();
                 String problema = dataSnapshot.child("problema").getValue().toString();
 
+                /**
+                 * CONDICIÓN PARA CREAR UNA O MODIFICAR UNA EXISTENTE.
+                 */
+
+                for(int i = 0; i < denunciasMapa.size(); i++) {
+
+                    // Obtener las coordenadas de las denuncias guardadas.
+                    String[] partes = denunciasMapa.get(i).getGeopos().split(",");
+
+                    float parte1 = Float.parseFloat(partes[0]);
+                    float parte2 = Float.parseFloat(partes[1]);
+
+                    // Obtener las coordenadas de la denuncia actual a guardarse.
+                    String[] partes2 = geopos.split(",");
+
+                    float parte3 = Float.parseFloat(partes2[0]);
+                    float parte4 = Float.parseFloat(partes2[1]);
+
+                    // Si se encuentra en la misma posición.
+                    if((parte3 > parte1 - 0.0001 && parte3 < parte1 + 0.0001)
+                            && (parte4 > parte2 - 0.0001 && parte4 < parte2 + 0.0001)) {
+
+                        // Si tiene el mismo problema, se modifica la existente.
+                        if(denunciasMapa.get(i).getProblema().equals(problema)){
+
+                            modificar = true;
+
+                            idModificar = denunciasMapa.get(i).getId();
+
+                            Log.d("GRACIAS", "ENCONTRÓ UN MARCADOR.");
+
+                            modificarMarcador();
+
+                            break;
+
+                        }
+
+                    } else if(i == (denunciasMapa.size() - 1) ){
+
+                        // Crear una denuncia nueva.
+                        DatabaseReference denunciaReference = database.getReference();
+
+                        Denuncia denuncia = new Denuncia(geopos, categoria, problema, 1);
+
+                        denunciaReference.child("denuncias").push().setValue(denuncia);
+
+                    }
+
+                }
+
                 // Crear una denuncia nueva.
-                DatabaseReference denunciaReference = database.getReference();
+                /*DatabaseReference denunciaReference = database.getReference();
 
                 Denuncia denuncia = new Denuncia(geopos, categoria, problema, 1);
 
-                denunciaReference.child("denuncias").push().setValue(denuncia);
+                denunciaReference.child("denuncias").push().setValue(denuncia);*/
 
                 //denunciaReference.child("denuncias").push().child("geopos").setValue(geopos);
                 //denunciaReference.child("denuncias").push().child("categoria").setValue(categoria);
@@ -226,6 +295,90 @@ public class GraciasPorContribuir extends AppCompatActivity implements View.OnCl
 
             }
         });
+
+    }
+
+    public void obtenerDenuncias() {
+
+        /**
+         * SE PIDE LA INFORMACIÓN DE LA BASE DE DATOS.
+         */
+
+        final DatabaseReference temporalRef = database.getReference("denuncias");
+
+        temporalRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                Log.d("holi", "Número de denuncias totales: " + dataSnapshot.getChildrenCount());
+
+                for(DataSnapshot denunciasSnapshot: dataSnapshot.getChildren()) {
+
+                    Denuncia denuncia = denunciasSnapshot.getValue(Denuncia.class);
+                    denuncia.setId(denunciasSnapshot.getKey());
+                    // Se agrega al arreglo de DENUNCIAS.
+                    denunciasMapa.add(denuncia);
+
+                    Log.d("holi", denuncia.getId());
+
+                }
+
+                Log.d("holi", "Salío del for");
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+    public void modificarMarcador() {
+
+        /**
+         * MODIFICAR UN MARCADOR.
+         */
+
+        Log.d("GRACIAS", Boolean.toString(modificar));
+
+        if(modificar == true) {
+
+            Log.d("GRACIAS", "ENTRÓ AL MODIFICADOR.");
+
+            final DatabaseReference temporalRef3 = database.getReference("denuncias").child(idModificar);
+
+            temporalRef3.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                    Log.d("GRACIAS", "MODIFICÓ EL MARCADOR.");
+
+                    Denuncia denuncia = dataSnapshot.getValue(Denuncia.class);
+
+                    float cantidadNueva = denuncia.getCantidad() + 1;
+
+                    // Crear una denuncia nueva.
+                    //DatabaseReference denunciaReference = database.getReference("denuncias").child(idModificar);
+
+                    temporalRef3.child("cantidad").setValue(cantidadNueva);
+
+                    modificar = false;
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
+        } else {
+
+            Log.d("GRACIAS", "NO SE MODIFICÓ EL MARCADOR.");
+
+        }
 
     }
 

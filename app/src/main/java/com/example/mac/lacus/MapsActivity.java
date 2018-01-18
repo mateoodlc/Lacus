@@ -320,10 +320,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         transaction.replace(R.id.content, new FMapa()).commit();
 
 
+
         ///////////////////////////popup de encuesta
         ////////
         ////
-        dialogoEncuesta = new Dialog(this);
+        /*dialogoEncuesta = new Dialog(this);
 
         dialogoEncuesta.setContentView(R.layout.encuesta_popup);
         dialogoEncuesta.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -346,7 +347,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 public void onClick(View view) {
                     enviarEncuesta(genero.getText().toString(), edad.getText().toString(), ocupacion.getText().toString());
                 }
-            });
+            });*/
             ///////////////////////////////////////
         //////////////////////////////////////////
         /////////////////////////////////////////
@@ -484,7 +485,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     actualizarCamaraUsuario();
 
                     // Animación de vuelta a la parte de abajo.
-                    v.animate().translationY(400).setDuration(500).start();
+                    v.animate().translationY(300).setDuration(500).start();
                     // Cambiar las propiedades.
                     buttonComenzarRuta.setText("Parar la ruta");
                     buttonComenzarRuta.setTextColor(Color.parseColor("#ffffff"));
@@ -885,7 +886,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                     Marker marcadorFinal;
 
-                    if(denuncia.getCategoria().equals("Señalizacion")) {
+                    if(denuncia.getCategoria().equals("Señalización")) {
 
                         if(denuncia.getCantidad() >= 1 && denuncia.getCantidad() <= 50){
 

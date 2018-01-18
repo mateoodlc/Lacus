@@ -56,7 +56,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/estado"
+            android:id="@+id/estado_gestion"
             android:text="Estado:"
             android:textStyle="bold"
             android:textSize="15sp"
@@ -74,7 +74,7 @@
             android:layout_weight="1"
             android:layout_marginLeft="5dp"
             android:layout_below="@id/itemText"
-            android:layout_toRightOf="@id/estado"/>
+            android:layout_toRightOf="@id/estado_gestion"/>
 
     </RelativeLayout>
 

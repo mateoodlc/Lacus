@@ -57,6 +57,8 @@ public class FEstadisticas extends Fragment {
 
     private FirebaseDatabase mDatabase;
 
+    //private ArrayList<float> grafico1;
+
     PieChart pieChart;
     BarChart barChart;
     PieChart pieChartEdades;
@@ -214,8 +216,14 @@ public class FEstadisticas extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
+                for(DataSnapshot mSnapshot: dataSnapshot.getChildren()) {
+
+
+
+                }
+
                 //reemplazar estos valores con los de la base de datos
-                problematica1 = 28;
+                /*problematica1 = 28;
                 problematica2 = 14;
                 problematica3 = 37;
                 problematica4 = 12;
@@ -223,7 +231,7 @@ public class FEstadisticas extends Fragment {
                 Log.d("CAT", Float.toString(senalizacion));
                 Log.d("CAT", Float.toString(cultura));
                 Log.d("CAT", Float.toString(infraestructura));
-                Log.d("CAT", Float.toString(seguridad));
+                Log.d("CAT", Float.toString(seguridad));*/
 
                 //Creo barras de gráficos para problemáticas más presentadas por categorías
                 barChart = (BarChart) view.findViewById(R.id.problematica_grafica);

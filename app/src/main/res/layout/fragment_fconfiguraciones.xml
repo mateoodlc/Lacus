@@ -33,7 +33,7 @@
                 app:shadowRound="20dp"
                 app:shadowColor="@color/colorAccent"
                 android:layout_marginTop="53dp"
-                android:layout_below="@+id/titulo"
+                android:layout_below="@+id/titulo_gestion"
                 android:layout_centerHorizontal="true"
 />
 

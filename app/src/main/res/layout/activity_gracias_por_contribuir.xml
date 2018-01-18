@@ -33,7 +33,7 @@
             android:layout_alignParentStart="true">
 
             <TextView
-                android:id="@+id/titulo"
+                android:id="@+id/titulo_gestion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/problema"
@@ -51,7 +51,7 @@
                 android:id="@+id/layout"
                 android:layout_margin="10dp"
                 android:background="#ffffff"
-                android:layout_below="@+id/titulo"
+                android:layout_below="@+id/titulo_gestion"
                 android:elevation="4dp">
 
                 <TextView
@@ -80,7 +80,7 @@
                 android:padding="10dp"
                 app:srcCompat="@drawable/ic_culture"
                 android:layout_marginTop="67dp"
-                android:layout_below="@+id/titulo"
+                android:layout_below="@+id/titulo_gestion"
                 android:layout_centerHorizontal="true" />
 
 

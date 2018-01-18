@@ -14,7 +14,7 @@
         ></include>
 
     <TextView
-        android:id="@+id/titulo"
+        android:id="@+id/titulo_gestion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="MARCADOR"

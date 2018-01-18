@@ -13,7 +13,7 @@
         ></include>
 
     <TextView
-        android:id="@+id/titulo"
+        android:id="@+id/titulo_gestion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="MARCADOR"
@@ -35,7 +35,7 @@
         android:orientation="vertical"
         android:background="#fff"
         android:id="@+id/relativeLayout"
-        android:layout_below="@+id/titulo">
+        android:layout_below="@+id/titulo_gestion">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
