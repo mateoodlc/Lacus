@@ -69,6 +69,7 @@ public class OesteFragment extends Fragment{
                 for(DataSnapshot veeduriaSnapshot: dataSnapshot.getChildren()) {
 
                     CasoVeeduria caso = veeduriaSnapshot.getValue(CasoVeeduria.class);
+                    caso.setId(veeduriaSnapshot.getKey());
 
                     if(caso.getZona().equals("oeste")) {
 

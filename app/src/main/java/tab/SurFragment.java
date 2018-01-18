@@ -64,11 +64,12 @@ public class SurFragment extends Fragment{
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                Log.d("NORTE", "Número de casos: " + dataSnapshot.getChildrenCount());
+                Log.d("SUR", "Número de casos: " + dataSnapshot.getChildrenCount());
 
                 for(DataSnapshot veeduriaSnapshot: dataSnapshot.getChildren()) {
 
                     CasoVeeduria caso = veeduriaSnapshot.getValue(CasoVeeduria.class);
+                    caso.setId(veeduriaSnapshot.getKey());
 
                     if(caso.getZona().equals("sur")) {
 
@@ -79,6 +80,8 @@ public class SurFragment extends Fragment{
                     //casosVeeduria.add(caso);
 
                 }
+
+                Log.d("SUR", Integer.toString(casosVeeduria.size()));
 
                 // Inicialización del adaptador.
                 mOnClickListener = new MyOnClickListener(getContext(), recyclerView, casosVeeduria);

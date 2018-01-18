@@ -86,6 +86,8 @@ public class GestionInformacion extends AppCompatActivity implements OnMapReadyC
 
         idCaso = getIntent().getStringExtra("ID_CASO");
 
+        Log.d("GESTIONINFORMACION", idCaso);
+
         tituloGestion = (TextView) findViewById(R.id.titulo_gestion);
         estadoGestion = (TextView) findViewById(R.id.estado_gestion);
         descripcionGestion = (TextView) findViewById(R.id.descripcion_gestion);
